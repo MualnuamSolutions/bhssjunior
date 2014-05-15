@@ -13,5 +13,6 @@
 
 Route::get('/', function()
 {
+	dd(App::environment());
 	return View::make('hello');
 });
