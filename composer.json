@@ -8,7 +8,6 @@
       "cartalyst/sentry": "dev-master",
       "barryvdh/laravel-debugbar": "1.6.1",
       "intervention/image": "dev-master",
-      "intervention/imagecache": "dev-master",
       "laravelbook/ardent": "dev-master"
    },
    "autoload": {
