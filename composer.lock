@@ -3,104 +3,8 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4e5dc954a78fff2c36b82a2b19cb7ec6",
+    "hash": "e3162ea6a7b5e82ef2d4aa72da0958d8",
     "packages": [
-        {
-            "name": "anahkiasen/former",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Anahkiasen/former.git",
-                "reference": "fce6790e10bbd0acf3f5a5224d56477ecd44ba7b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/former/zipball/fce6790e10bbd0acf3f5a5224d56477ecd44ba7b",
-                "reference": "fce6790e10bbd0acf3f5a5224d56477ecd44ba7b",
-                "shasum": ""
-            },
-            "require": {
-                "anahkiasen/html-object": "1.*",
-                "illuminate/config": "~4",
-                "illuminate/container": "~4",
-                "illuminate/http": "~4",
-                "illuminate/routing": "~4",
-                "illuminate/session": "~4",
-                "illuminate/translation": "~4"
-            },
-            "require-dev": {
-                "illuminate/database": "~4",
-                "mockery/mockery": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Former": "src",
-                    "Laravel": "src"
-                },
-                "classmap": [
-                    "tests"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Maxime Fabre",
-                    "email": "ehtnam6@gmail.com"
-                }
-            ],
-            "description": "A powerful form builder",
-            "homepage": "http://anahkiasen.github.com/former/",
-            "keywords": [
-                "bootstrap",
-                "form",
-                "foundation",
-                "laravel"
-            ],
-            "time": "2014-02-09 00:37:24"
-        },
-        {
-            "name": "anahkiasen/html-object",
-            "version": "1.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Anahkiasen/html-object.git",
-                "reference": "776aff25a4db27964d95b2332e2f379b0aac9ff0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Anahkiasen/html-object/zipball/776aff25a4db27964d95b2332e2f379b0aac9ff0",
-                "reference": "776aff25a4db27964d95b2332e2f379b0aac9ff0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "HtmlObject": "src"
-                },
-                "classmap": [
-                    "tests"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anahkiasen",
-                    "email": "ehtnam6@gmail.com"
-                }
-            ],
-            "description": "A set of classes to create and manipulate HTML objects abstractions",
-            "time": "2014-01-27 22:41:20"
-        },
         {
             "name": "barryvdh/laravel-debugbar",
             "version": "v1.6.1",
@@ -147,6 +51,106 @@
                 "webprofiler"
             ],
             "time": "2014-05-01 08:48:50"
+        },
+        {
+            "name": "cartalyst/sentry",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cartalyst/sentry.git",
+                "reference": "169fdeda1bc799cfa71da3b9d7364ea721650d88"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cartalyst/sentry/zipball/169fdeda1bc799cfa71da3b9d7364ea721650d88",
+                "reference": "169fdeda1bc799cfa71da3b9d7364ea721650d88",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "illuminate/cookie": ">=4.0.9,<4.2",
+                "illuminate/database": ">=4.0.9,<4.2",
+                "illuminate/http": ">=4.0.9,<4.2",
+                "illuminate/session": ">=4.0.9,<4.2",
+                "ircmaxell/password-compat": "1.0.*",
+                "mockery/mockery": "0.7.2"
+            },
+            "suggest": {
+                "happydemon/txt": "Required Text helpers when using the Kohana implementation",
+                "illuminate/database": "Default sentry user, group and throttling implementations.",
+                "ircmaxell/password-compat": "Default hashing uses PHP 5.5 password_* functions, with forward-compatible support."
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "frameworks": [
+                    "Laravel 3",
+                    "Laravel 4",
+                    "CodeIgniter 3",
+                    "FuelPHP 1",
+                    "Kohana"
+                ],
+                "versions": {
+                    "1": "1.1/master",
+                    "2": "master"
+                },
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/Cartalyst/Sentry/Groups/Exceptions.php",
+                    "src/Cartalyst/Sentry/Throttling/Exceptions.php",
+                    "src/Cartalyst/Sentry/Users/Exceptions.php",
+                    "src/migrations"
+                ],
+                "psr-0": {
+                    "Cartalyst\\Sentry": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Corlett",
+                    "email": "ben.corlett@cartalyst.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Cartalyst LLC",
+                    "email": "help@cartalyst.com"
+                },
+                {
+                    "name": "Bruno Gaspar",
+                    "email": "bruno.gaspar@cartalyst.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Dan Syme",
+                    "email": "dan.syme@cartalyst.com",
+                    "role": "Creator & Designer"
+                },
+                {
+                    "name": "Daniel Petrie",
+                    "email": "dan.petrie@cartalyst.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP 5.3+ Fully-featured Authentication & Authorization System",
+            "keywords": [
+                "auth",
+                "codeigniter",
+                "fuelphp",
+                "kohana",
+                "laravel",
+                "security"
+            ],
+            "time": "2014-05-09 12:20:22"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -279,6 +283,108 @@
                 "zf2"
             ],
             "time": "2013-12-04 14:19:30"
+        },
+        {
+            "name": "intervention/image",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/image.git",
+                "reference": "606228bc7614105125d0e65b4187d5e436facf76"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/606228bc7614105125d0e65b4187d5e436facf76",
+                "reference": "606228bc7614105125d0e65b4187d5e436facf76",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "illuminate/support": "4.*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.*"
+            },
+            "suggest": {
+                "intervention/imagecache": "Caching extension for the Intervention Image library"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Intervention\\Image": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Vogel",
+                    "email": "oliver@olivervogel.net",
+                    "homepage": "http://olivervogel.net/"
+                }
+            ],
+            "description": "Image handling and manipulation library with support for Laravel 4 integration",
+            "homepage": "http://image.intervention.io/",
+            "keywords": [
+                "gd",
+                "image",
+                "laravel",
+                "thumbnail",
+                "watermark"
+            ],
+            "time": "2014-04-29 14:50:43"
+        },
+        {
+            "name": "intervention/imagecache",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/imagecache.git",
+                "reference": "a5b052010de1d8c8732a5f17d60936c4e38e18fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/imagecache/zipball/a5b052010de1d8c8732a5f17d60936c4e38e18fc",
+                "reference": "a5b052010de1d8c8732a5f17d60936c4e38e18fc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/cache": "4.*",
+                "illuminate/filesystem": "4.*",
+                "illuminate/support": "4.*",
+                "intervention/image": ">=1.3",
+                "jeremeamia/superclosure": "1.*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Intervention\\Image": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Vogel",
+                    "email": "oliver@olivervogel.net",
+                    "homepage": "http://olivervogel.net/"
+                }
+            ],
+            "description": "Caching extension for the Intervention Image Class",
+            "homepage": "http://intervention.olivervogel.net/image/advanced/caching",
+            "keywords": [
+                "cache",
+                "gd",
+                "image",
+                "laravel"
+            ],
+            "time": "2014-04-06 14:48:23"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -484,6 +590,65 @@
             "time": "2014-04-17 17:16:42"
         },
         {
+            "name": "laravelbook/ardent",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravelbook/ardent.git",
+                "reference": "0a0238b8040abc1c71401ce27a8edf2619fa5bed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravelbook/ardent/zipball/0a0238b8040abc1c71401ce27a8edf2619fa5bed",
+                "reference": "0a0238b8040abc1c71401ce27a8edf2619fa5bed",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~4.1",
+                "illuminate/support": "~4.1",
+                "illuminate/validation": "~4.1",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "LaravelBook\\Ardent": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Max Ehsan",
+                    "email": "contact@laravelbook.com",
+                    "homepage": "http://laravelbook.com/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Igor Santos",
+                    "email": "igorsantos07@gmail.com",
+                    "homepage": "http://www.igorsantos.com.br",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Self-validating smart models for Laravel 4's Eloquent O/RM",
+            "homepage": "http://laravelbook.com/",
+            "keywords": [
+                "Active Record",
+                "activerecord",
+                "database",
+                "eloquent",
+                "framework",
+                "laravel",
+                "orm",
+                "sql",
+                "validation"
+            ],
+            "time": "2014-02-25 20:39:04"
+        },
+        {
             "name": "maximebf/debugbar",
             "version": "1.9.14",
             "source": {
@@ -603,16 +768,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "21c4cb4301969c7d85aee8a62eefdfa881413af0"
+                "reference": "b94de7192b01d0e80794eae984dcc773220ab0dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/21c4cb4301969c7d85aee8a62eefdfa881413af0",
-                "reference": "21c4cb4301969c7d85aee8a62eefdfa881413af0",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/b94de7192b01d0e80794eae984dcc773220ab0dc",
+                "reference": "b94de7192b01d0e80794eae984dcc773220ab0dc",
                 "shasum": ""
             },
             "require": {
@@ -645,7 +810,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2014-01-07 05:10:44"
+            "time": "2014-05-13 02:29:30"
         },
         {
             "name": "nikic/php-parser",
@@ -923,64 +1088,17 @@
             "time": "2012-12-21 11:40:51"
         },
         {
-            "name": "sebklaus/profiler",
-            "version": "v1.7.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sebklaus/profiler.git",
-                "reference": "118d0ad5174c50e1cb0e417cfa8fa3cc17545ecd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sebklaus/profiler/zipball/118d0ad5174c50e1cb0e417cfa8fa3cc17545ecd",
-                "reference": "118d0ad5174c50e1cb0e417cfa8fa3cc17545ecd",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~4",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Sebklaus\\Profiler": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Klaus",
-                    "email": "sebastian@klaus.com.au",
-                    "homepage": "http://sebastian.klaus.com.au",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A profiler for Laravel 4. A continuation of the retired juy/profiler.",
-            "homepage": "http://github.com/sebklaus/profiler",
-            "keywords": [
-                "anbu",
-                "debug bar",
-                "juy",
-                "laravel",
-                "profiler"
-            ],
-            "time": "2014-01-27 13:22:06"
-        },
-        {
             "name": "stack/builder",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stackphp/builder.git",
-                "reference": "49ab90450d7f959943f3659a4bcb5965530117c2"
+                "reference": "b4af43e7b7f3f7fac919ff475b29f7c5dc7b23b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stackphp/builder/zipball/49ab90450d7f959943f3659a4bcb5965530117c2",
-                "reference": "49ab90450d7f959943f3659a4bcb5965530117c2",
+                "url": "https://api.github.com/repos/stackphp/builder/zipball/b4af43e7b7f3f7fac919ff475b29f7c5dc7b23b7",
+                "reference": "b4af43e7b7f3f7fac919ff475b29f7c5dc7b23b7",
                 "shasum": ""
             },
             "require": {
@@ -1017,7 +1135,7 @@
             "keywords": [
                 "stack"
             ],
-            "time": "2013-10-25 14:04:45"
+            "time": "2014-01-28 19:42:24"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1891,7 +2009,10 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "anahkiasen/former": 20
+        "cartalyst/sentry": 20,
+        "intervention/image": 20,
+        "intervention/imagecache": 20,
+        "laravelbook/ardent": 20
     },
     "platform": [
 

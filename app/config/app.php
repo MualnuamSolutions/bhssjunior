@@ -120,9 +120,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		'Sebklaus\Profiler\Providers\ProfilerServiceProvider',
-		'Former\FormerServiceProvider',
-
+		'Barryvdh\Debugbar\ServiceProvider',
+      'Cartalyst\Sentry\SentryServiceProvider',
 	),
 
 	/*
@@ -189,7 +188,8 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 
-		'Former'          => 'Former\Facades\Former',
+		'Debugbar'        => 'Barryvdh\Debugbar\Facade',
+      'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 
 	),
 

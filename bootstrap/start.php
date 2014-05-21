@@ -25,8 +25,7 @@ $app = new Illuminate\Foundation\Application;
 */
 
 $env = $app->detectEnvironment(array(
-	'local' => array('khawl-lian'),
-	'production' => array('bhssjunior.mizobaptist.org' )
+	'local' => array('Khawl-Lian.local', 'khawl-lian')
 ));
 
 /*
