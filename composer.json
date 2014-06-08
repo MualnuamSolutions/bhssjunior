@@ -7,7 +7,6 @@
       "laravel/framework": "4.1.*",
       "cartalyst/sentry": "dev-master",
       "barryvdh/laravel-debugbar": "1.6.1",
-      "intervention/image": "dev-master",
       "laravelbook/ardent": "dev-master",
       "edvinaskrucas/notification": "2.*"
    },
