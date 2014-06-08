@@ -11,7 +11,7 @@ class InstallCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'command:install';
+	protected $name = 'install';
 
 	/**
 	 * The console command description.
@@ -38,15 +38,19 @@ class InstallCommand extends Command {
 	public function fire()
 	{
       $this->info("Initiating installation.");
+      if ( !Schema::hasTable('migrations') ) {
+         Artisan::call('migrate:install');
+         $this->info("=> Migrations installed");
+      }
 
       if($this->option('reset')) {
          Artisan::call('migrate:reset');
          $this->info("=> Reset installation successfully.");
       }
 
-		Artisan::call('migrate', [
-        '--package' => 'cartalyst/sentry'
-        ]);
+      Artisan::call('migrate', [
+      '--package' => 'cartalyst/sentry'
+      ]);
       $this->info("=> Migration table created successfully.");
 
       Artisan::call('migrate');

@@ -1,0 +1,35 @@
+{
+  "name": "jquery.fileapi",
+  "main": "jquery.fileapi.js",
+  "version": "0.4.0",
+  "homepage": "http://rubaxa.github.io/jquery.fileapi/",
+  "authors": [
+    "RubaXa <ibnRubaXa@gmail.com>"
+  ],
+  "description": "jQuery plugin for FileAPI (multiupload, image upload, crop, resize and etc.)",
+  "keywords": [
+    "FileAPI",
+    "multiupload",
+    "upload",
+    "file",
+    "html5",
+    "chunked",
+    "jquery"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.4.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.4.0",
+    "commit": "ec8852ae823d4944a876f33742b07fba23419ddd"
+  },
+  "_source": "git://github.com/RubaXa/jquery.fileapi.git",
+  "_target": "~0.4.0",
+  "_originalSource": "jquery.fileapi"
+}

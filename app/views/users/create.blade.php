@@ -1,16 +1,9 @@
 @extends('layout')
 
-@section('alert')
-   @include('partials.alert')
-@stop
-
-@section('title')
-   <h4><i class="fi-page-add"></i> Create User</h4>
-@stop
-
 @section('content')
-   {{ Form::open(['url' => route('user.store'), 'method' => 'post']) }}
+   {{ Form::open(['url' => route('users.store'), 'method' => 'post']) }}
    <fieldset>
+   <h4><i class="fi-page-add"></i> Create User</h4>
       <div class="row">
          <div class="large-6 columns">
             {{ Form::label('name', 'Full Name', ['class' => $errors->has('name')?'error':'']) }}

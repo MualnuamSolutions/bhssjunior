@@ -26,6 +26,8 @@ return array(
 	|
 	*/
 
-	'pagination' => 'pagination::slider-3',
+	'pagination' => 'partials/pagination',
+
+   'pagination_limit' => 15,
 
 );

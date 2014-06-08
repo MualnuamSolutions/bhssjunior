@@ -1,41 +1,41 @@
 <?php
 
-class UserController extends \BaseController {
+class UsersController extends \BaseController {
 
    public function __construct()
    {
       // $this->beforeFilter('sentry');
    }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
+   /**
+    * Display a listing of the resource.
+    *
+    * @return Response
+    */
+   public function index()
+   {
+      $users = User::orderBy('email', 'asc')->paginate();
+      $index = $users->getPerPage() * ($users->getCurrentPage()-1) + 1;
+      return View::make('users.index', compact('users', 'index'));
+   }
 
+   /**
+    * Show the form for creating a new resource.
+    *
+    * @return Response
+    */
+   public function create()
+   {
+      return View::make('users.create');
+   }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('user.create');
-	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
+   /**
+    * Store a newly created resource in storage.
+    *
+    * @return Response
+    */
+   public function store()
+   {
       $validator = Validator::make(Input::all(), User::$rules);
 
       if ($validator->passes()) {
@@ -58,65 +58,60 @@ class UserController extends \BaseController {
          // We assign every user to public group by default.
          $user->addGroup($public_group);
 
-         return Redirect::route('user.create')
+         return Redirect::route('users.create')
             ->with('success', "User created successfully.");
 
       } else {
-         return Redirect::route('user.create')
+         return Redirect::route('users.create')
             ->with('info', "Please correct the following errors.")
             ->withErrors($validator)
             ->withInput(Input::all());
       }
-	}
+   }
 
+   /**
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+   public function show($id)
+   {
+      //
+   }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+   /**
+    * Show the form for editing the specified resource.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+   public function edit($id)
+   {
+      //
+   }
 
+   /**
+    * Update the specified resource in storage.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+   public function update($id)
+   {
+      //
+   }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
+   /**
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+   public function destroy($id)
+   {
+      //
+   }
 
    /**
     * Show login form
@@ -125,7 +120,7 @@ class UserController extends \BaseController {
     */
    public function login()
    {
-      return View::make('user.login');
+      return View::make('users.login');
    }
 
    /**
@@ -192,7 +187,7 @@ class UserController extends \BaseController {
          }
 
       } else {
-         return Redirect::route('user.login')->withErrors($validator);
+         return Redirect::route('login')->withErrors($validator);
       }
    }
 
@@ -209,13 +204,13 @@ class UserController extends \BaseController {
          $error = "You account has been banned due to security policy. Please contact administrator";
       }
 
-      return Redirect::route('user.login')->with('error', $error);
+      return Redirect::route('login')->with('error', $error);
    }
 
   public function logout()
   {
     Sentry::logout();
-    return Redirect::route('user.login');
+    return Redirect::route('login');
   }
 
 }

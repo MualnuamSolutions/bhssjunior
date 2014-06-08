@@ -122,6 +122,7 @@ return array(
 
 		'Barryvdh\Debugbar\ServiceProvider',
       'Cartalyst\Sentry\SentryServiceProvider',
+      'Krucas\Notification\NotificationServiceProvider',
 	),
 
 	/*
@@ -190,7 +191,7 @@ return array(
 
 		'Debugbar'        => 'Barryvdh\Debugbar\Facade',
       'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-
+      'Notification'    => 'Krucas\Notification\Facades\Notification',
 	),
 
 );

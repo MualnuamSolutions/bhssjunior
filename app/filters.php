@@ -88,7 +88,7 @@ Route::filter('sentry', function($route, $request) {
       if( !array_key_exists($route->getName(), $public_permissions)
          || (array_key_exists($route->getName(), $public_permissions)
             && $public_permissions[$route->getName()] != 1) )
-         return Redirect::guest(route('user.login'));
+         return Redirect::guest(route('login'));
    }
    else {
       $user = Sentry::getUser();

@@ -1,0 +1,27 @@
+{
+  "name": "the-modal",
+  "version": "0.1.2",
+  "homepage": "https://github.com/samdark/the-modal/",
+  "authors": [
+    "Alexander Makarov <sam@rmcreative.ru>"
+  ],
+  "description": "Proper modal boxes",
+  "main": "jquery.the-modal.js",
+  "keywords": [
+    "jquery",
+    "modal"
+  ],
+  "license": "BSD",
+  "dependencies": {
+    "jquery": "*"
+  },
+  "_release": "0.1.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.2",
+    "commit": "c5521505787e9321601c76b8a7e8eff4fc142874"
+  },
+  "_source": "git://github.com/samdark/the-modal.git",
+  "_target": "~0.1.2",
+  "_originalSource": "the-modal"
+}
