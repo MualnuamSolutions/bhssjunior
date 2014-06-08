@@ -9,7 +9,7 @@ class UserTableSeeder extends Seeder {
          'name' => 'Alan Pachuau',
          'password'  => 'pass',
          'activated' => 1,
-         'permissions' => ['superuser' => 1]
+         'permissions' => array('superuser' => 1)
       ));
    }
 
