@@ -48,9 +48,9 @@ class InstallCommand extends Command {
          $this->info("=> Reset installation successfully.");
       }
 
-      Artisan::call('migrate', [
+      Artisan::call('migrate', array(
       '--package' => 'cartalyst/sentry'
-      ]);
+      ));
       $this->info("=> Migration table created successfully.");
 
       Artisan::call('migrate');

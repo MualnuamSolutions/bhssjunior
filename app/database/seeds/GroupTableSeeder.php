@@ -8,22 +8,22 @@ class GroupTableSeeder extends Seeder
       $admin = Sentry::createGroup(
          array(
          'name'        => 'Admin',
-         'permissions' => []
+         'permissions' => array()
       ));
 
       $staff = Sentry::createGroup(
          array(
          'name'        => 'Staff',
-         'permissions' => []
+         'permissions' => array()
       ));
 
       $staff = Sentry::createGroup(
          array(
          'name'        => 'Public',
-         'permissions' => [
+         'permissions' => array(
             'user.login' => 1,
             'user.doLogin' => 1
-         ]
+         )
       ));
    }
 }
