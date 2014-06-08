@@ -11,17 +11,17 @@
 |
 */
 
-Route::get('/', ['before' => 'sentry', 'uses' => 'HomeController@index', 'as' => 'home']);
-Route::get('logout', ['uses' => 'UsersController@logout', 'as' => 'logout']);
-Route::get('login', ['uses' => 'UsersController@login', 'as' => 'login']);
-Route::post('login', ['uses' => 'UsersController@doLogin', 'as' => 'doLogin']);
+Route::get('/', array('before' => 'sentry', 'uses' => 'HomeController@index', 'as' => 'home'));
+Route::get('logout', array('uses' => 'UsersController@logout', 'as' => 'logout'));
+Route::get('login', array('uses' => 'UsersController@login', 'as' => 'login'));
+Route::post('login', array('uses' => 'UsersController@doLogin', 'as' => 'doLogin'));
 Route::resource('user', 'UserController');
-Route::get('/refresh', ['uses' => 'HomeController@refresh', 'as' => 'refresh']);
+Route::get('/refresh', array('uses' => 'HomeController@refresh', 'as' => 'refresh'));
 Route::resource('classrooms', 'ClassRoomsController');
 Route::resource('exams', 'ExamsController');
 Route::resource('results', 'ResultsController');
 Route::resource('tests', 'TestsController');
-Route::post('/students/upload-photo', ['as' => 'students.uploadPhoto', 'uses' => 'StudentsController@uploadPhoto']);
+Route::post('/students/upload-photo', array('as' => 'students.uploadPhoto', 'uses' => 'StudentsController@uploadPhoto'));
 Route::resource('students', 'StudentsController');
 Route::resource('subjects', 'SubjectsController');
 Route::resource('academicsessions', 'AcademicSessionsController');
