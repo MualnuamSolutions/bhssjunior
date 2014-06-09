@@ -15,7 +15,7 @@ Route::get('/', array('before' => 'sentry', 'uses' => 'HomeController@index', 'a
 Route::get('logout', array('uses' => 'UsersController@logout', 'as' => 'logout'));
 Route::get('login', array('uses' => 'UsersController@login', 'as' => 'login'));
 Route::post('login', array('uses' => 'UsersController@doLogin', 'as' => 'doLogin'));
-Route::resource('user', 'UserController');
+Route::resource('users', 'UsersController');
 Route::get('/refresh', array('uses' => 'HomeController@refresh', 'as' => 'refresh'));
 Route::get('classrooms/{id}/add-students', array('as' => 'classrooms.addstudents', 'uses' => 'ClassRoomsController@addStudents'));
 Route::post('classrooms/{id}/add-students', array('as' => 'classrooms.storestudents', 'uses' => 'ClassRoomsController@storeStudents'));

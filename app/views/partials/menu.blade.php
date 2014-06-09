@@ -31,7 +31,7 @@
          </ul>
       </li>
       <li class="divider"></li>
-      <li><a href="{{ route('user.index') }}"><i class="fi-torsos-all"></i></a></li>
+      <li><a href="{{ route('users.index') }}"><i class="fi-torsos-all"></i></a></li>
       <li class="divider"></li>
       <li><a href="#"><i class="fi-wrench"></i></a></li>
       <li class="alert"><a href="{{ route('logout') }}" title="Log Out"><i class="fi-power"></i></a></li>
