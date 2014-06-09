@@ -52,19 +52,16 @@ class ClassRoomsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$classroom = ClassRoom::with(array('subjects', 'students' => function($query){
-         // $query->whereAcademicSessionId(1);
+      $recentAcademicSession = AcademicSession::getRecentSession();
+
+      $classroom = ClassRoom::with(array('subjects', 'students' => function($query) use ($recentAcademicSession){
+         $query->whereAcademicSessionId($recentAcademicSession->id);
          $query->orderBy('roll_no', 'asc');
-         // return $query;
       }))->find($id);
 
       $students = $classroom->students;
 
-      if ( !empty($students) ) {
-         $academicSession = AcademicSession::find($students->first()->pivot->academic_session_id);
-      }
-
-      return View::make('classrooms.show', compact('classroom', 'students', 'academicSession'));
+      return View::make('classrooms.show', compact('classroom', 'students', 'recentAcademicSession'));
 	}
 
 
@@ -115,7 +112,16 @@ class ClassRoomsController extends \BaseController {
 
    public function students($id)
    {
-      dd($id);
+      $academicSession = AcademicSession::getRecentSession();
+
+      $classroom = ClassRoom::with(array('subjects', 'students' => function($query) use ($academicSession){
+         $query->whereAcademicSessionId($academicSession->id);
+         $query->orderBy('roll_no', 'asc');
+      }))->find($id);
+
+      $students = $classroom->students;
+
+      return View::make('classrooms.students', compact('classroom', 'students', 'academicSession'));
    }
 
    public function addStudents($id)

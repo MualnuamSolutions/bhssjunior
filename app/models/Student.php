@@ -30,6 +30,8 @@ class Student extends Ardent
       'id'
    ];
 
+   public static $genders = ['Male' => 'Male', 'Female' => 'Female'];
+
    public function getAge()
    {
       return date('Y') - date('Y', strtotime($this->dob));

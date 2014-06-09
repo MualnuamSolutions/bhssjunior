@@ -4,33 +4,26 @@
    <ul class="breadcrumbs">
       <li><a href="{{ route('home') }}">Home</a></li>
       <li><a href="{{ route('classrooms.index') }}">Class Rooms</a></li>
-      <li class="current">{{ $classroom->name }}</li>
+      <li><a href="{{ route('classrooms.show', $classroom->id) }}">{{ $classroom->name }}</a></li>
+      <li class="current">{{ $classroom->name }} Students</li>
    </ul>
 
    <div class="panel">
-      <h5><i class="fi-thumbnails"></i> {{ $classroom->name }}</h5>
+      <h5><i class="fi-thumbnails"></i> {{ $classroom->name }} Students</h5>
       <hr>
 
       <div class="row">
-         <div class="medium-4 columns">
+         <div class="small-12 columns">
             <fieldset>
-               <legend>Subjects</legend>
-               <ul class="side-nav">
-                  <li>1. Link 1</li>
-                  <li>2. Link 2</li>
-                  <li>3. Link 3</li>
-                  <li>4. Link 4</li>
-               </ul>
-            </fieldset>
-         </div>
-         <div class="medium-8 columns">
-            <fieldset>
-               <legend>Students ({{ $recentAcademicSession->session }})</legend>
+               <legend>Students ({{ $academicSession->start . " - " . $academicSession->end }})</legend>
                <table class="small-12">
                   <thead>
                      <tr>
                         <th class="small-3">Roll No</th>
                         <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Father</th>
                         <th></th>
                      </tr>
                   </thead>
@@ -51,6 +44,9 @@
                               {{ $student->father ? : $student->mother }}
                            </span>
                         </td>
+                        <td>{{ $student->age }}</td>
+                        <td>{{ $student->gender }}</td>
+                        <td>{{ $student->father }}</td>
                         <td class="text-right">
                            @include('partials.actions', ['actions' => ['edit'], 'route' => 'students', 'item' => $student])
                         </td>
@@ -62,7 +58,7 @@
                <hr>
                <div class="row">
                   <div class="small-12 columns text-right">
-                     <a class="button tiny info" href="{{ route('classrooms.students', $classroom->id) }}">Manage Students</a>
+                     <a class="button tiny info" href="{{ route('classrooms.addstudents', $classroom->id) }}">Add Students</a>
                   </div>
                </div>
             </fieldset>

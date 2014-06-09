@@ -22,10 +22,23 @@ class AcademicSession extends Ardent
       'id'
    ];
 
+   public function getIdAttribute($value)
+   {
+      return isset($this->id) ? $value : 0;
+   }
+
+   public function getSessionAttribute()
+   {
+      return $this->start . " - " . $this->end;
+   }
+
    public static function getSessionsForDropdown()
    {
-      return AcademicSession::orderBy('start', 'desc')
-         ->select('id', DB::raw('CONCAT(CONCAT(start, " - "), end) as session'))
-         ->lists('session', 'id');
+      return static::orderBy('start', 'desc')->get()->lists('session', 'id');
+   }
+
+   public static function getRecentSession()
+   {
+      return static::orderBy('start', 'desc')->first();
    }
 }

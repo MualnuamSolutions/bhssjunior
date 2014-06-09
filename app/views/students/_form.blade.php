@@ -23,6 +23,16 @@
             </div>
          </div>
 
+         <div class="row">
+            <div class="medium-12 columns">
+               {{ Form::label('gender', 'Gender', ['class' => ($errors->has('gender')?'error':'')]) }}
+               {{ Form::select('gender', Student::$genders, null, ['class' => $errors->has('gender')?'error':'']) }}
+               @if($errors->has('gender'))
+               <small class="error">{{ $errors->first('gender') }}</small>
+               @endif
+            </div>
+         </div>
+
          {{ Form::label('dob', 'Date of Birth', ['class' => ($errors->has('dob')?'error':'')]) }}
 
          <div class="row">
