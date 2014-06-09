@@ -52,8 +52,19 @@ class ClassRoomsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$classroom = ClassRoom::with('subjects')->find($id);
-      return View::make('classrooms.show', compact('classroom'));
+		$classroom = ClassRoom::with(array('subjects', 'students' => function($query){
+         // $query->whereAcademicSessionId(1);
+         $query->orderBy('roll_no', 'asc');
+         // return $query;
+      }))->find($id);
+
+      $students = $classroom->students;
+
+      if ( !empty($students) ) {
+         $academicSession = AcademicSession::find($students->first()->pivot->academic_session_id);
+      }
+
+      return View::make('classrooms.show', compact('classroom', 'students', 'academicSession'));
 	}
 
 
@@ -102,5 +113,18 @@ class ClassRoomsController extends \BaseController {
 		//
 	}
 
+   public function students($id)
+   {
+      dd($id);
+   }
 
+   public function addStudents($id)
+   {
+      dd($id);
+   }
+
+   public function storeStudents($id)
+   {
+      dd($id);
+   }
 }

@@ -3,7 +3,7 @@ jQuery(function ($) {
    var $photoCropWindow = $(photoCropWindow).appendTo('body');
 
    $('#photo-uploader').fileapi({
-      url: '{{ route('student.uploadPhoto') }}',
+      url: 'students/upload-photo',
       accept: 'image/*',
       imageSize: { minWidth: 200, minHeight: 200 },
       elements: {
@@ -58,7 +58,7 @@ jQuery(function ($) {
     });
 
    $('#webcam').fileapi({
-      url: '{{ route('student.uploadPhoto') }}',
+      url: 'students/upload-photo',
       accept: 'image/*',
       autoUpload: true,
       elements: {

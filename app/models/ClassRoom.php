@@ -22,7 +22,7 @@ class ClassRoom extends Ardent
 
    public static $relationsData = [
       'subjects'  => [self::BELONGS_TO_MANY, 'Subject'],
-      'students'  => [self::BELONGS_TO_MANY, 'Student']
+      'students'  => [self::BELONGS_TO_MANY, 'Student', 'pivotKeys' => ['roll_no', 'academic_session_id']]
    ];
 
    public function afterSave()

@@ -4,7 +4,7 @@
          <legend>Personal Detail</legend>
 
          <div class="row">
-            <div class="medium-12">
+            <div class="medium-12 columns">
                {{ Form::label('name', 'Name', ['class' => ($errors->has('name')?'error':'')]) }}
                {{ Form::text('name', null, ['class' => $errors->has('name')?'error':'']) }}
                @if($errors->has('name'))

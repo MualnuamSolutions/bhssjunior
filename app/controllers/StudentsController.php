@@ -62,8 +62,9 @@ class StudentsController extends \BaseController {
 	public function edit($id)
 	{
       $student = Student::find($id);
-      $classrooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
-      return View::make('students.edit', compact('student'));
+      $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
+      $academicSessions = AcademicSession::getSessionsForDropdown();
+      return View::make('students.edit', compact('student', 'academicSessions', 'classRooms'));
 	}
 
 
