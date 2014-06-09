@@ -3,13 +3,13 @@
 <head>
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>Student Result Management</title>
-   <link rel="stylesheet" type="text/css" href="{{ asset('assets/bower_components/foundation/css/normalize.css') }}">
-   <link rel="stylesheet" type="text/css" href="{{ asset('assets/bower_components/foundation/css/foundation.min.css') }}">
-   <link rel="stylesheet" type="text/css" href="{{ asset('assets/foundation-icons/foundation-icons.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ asset('foundation-5.2.2/css/normalize.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ asset('foundation-5.2.2/css/foundation.min.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ asset('foundation-icons/foundation-icons.css') }}">
    <link rel="stylesheet" type="text/css" href="{{ asset('zurb-responsive-tables/responsive-tables.css') }}" media="screen" />
    <link rel="stylesheet" type="text/css" href="{{ asset('chosen_v1.1.0/chosen.min.css') }}" media="screen" />
-   <link rel="stylesheet" type="text/css" href="{{ asset('assets/stylesheets/app.css') }}">
-   <link rel="stylesheet" type="text/css" href="{{ asset('assets/stylesheets/custom.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
    <link rel="stylesheet" type="text/css" href="{{ asset('foundation-datepicker/foundation-datepicker.css') }}" />
    <link rel="stylesheet" type="text/css" href="{{ asset('jquery.fileapi/statics/main-custom.css') }}" />
    @yield('styles')
@@ -56,13 +56,13 @@
    </div>
 </div>
 
-<script type="text/javascript" src="{{ asset('assets/bower_components/modernizr/modernizr.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/bower_components/jquery/dist/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/bower_components/foundation/js/foundation.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('modernizr/modernizr.js') }}"></script>
+<script type="text/javascript" src="{{ asset('jquery/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('foundation-5.2.2/js/foundation.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('zurb-responsive-tables/responsive-tables.js') }}"></script>
 <script type="text/javascript" src="{{ asset('chosen_v1.1.0/chosen.jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('foundation-datepicker/foundation-datepicker.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 @yield('scripts')
 </body>
 </html>

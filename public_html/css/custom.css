@@ -1,0 +1,10 @@
+.chosen-container-multi .chosen-choices {
+   border-color: #cccccc;
+}
+.chosen-container-multi .chosen-choices li.search-field input[type=text] {
+   height: 32px;
+   color: inherit;
+}
+.inline {
+   display: inline;
+}
