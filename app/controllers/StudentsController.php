@@ -76,7 +76,12 @@ class StudentsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+      $student = Student::find($id);
+
+      if($student->save()) {
+         Notification::success('Student updated');
+         return Redirect::route('students.index');
+      }
 	}
 
 

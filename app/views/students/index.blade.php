@@ -21,7 +21,7 @@
             <tr>
                <td>{{ $students->getFrom() + $key }}</td>
                <td>{{ $student->name }}</td>
-               <td>{{ $student->getAge() }}</td>
+               <td>{{ $student->age }}</td>
                <td>{{ $student->father }}</td>
                <td>{{ $student->contact }}</td>
                <td class="text-right">

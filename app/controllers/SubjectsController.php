@@ -72,7 +72,12 @@ class SubjectsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+      $subject = Subject::find($id);
+
+      if($subject->save()) {
+         Notification::success('Subject updated');
+         return Redirect::route('subjects.index');
+      }
 	}
 
 

@@ -12,6 +12,7 @@ class Student extends Ardent
       'name' => 'required',
       'age' => 'required',
       'dob' => 'required',
+      'gender' => 'required',
       'father' => 'required',
       'mother' => 'required',
       'contact' => 'required',
@@ -20,6 +21,7 @@ class Student extends Ardent
    protected $fillable = [
       'name',
       'age',
+      'gender',
       'dob',
       'father',
       'mother',
@@ -32,8 +34,4 @@ class Student extends Ardent
 
    public static $genders = ['Male' => 'Male', 'Female' => 'Female'];
 
-   public function getAge()
-   {
-      return date('Y') - date('Y', strtotime($this->dob));
-   }
 }
