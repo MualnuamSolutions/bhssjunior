@@ -39,6 +39,11 @@ class ClassRoom extends Ardent
          ->orderBy('name', 'asc');
    }
 
+   public static function getSubjectsJson()
+   {
+      return self::with('subjects')->orderBy('id', 'asc')->get()->toJson();
+   }
+
    public function getNameAttribute($value)
    {
       return $value ? $value : null;

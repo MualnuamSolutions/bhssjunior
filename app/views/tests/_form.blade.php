@@ -1,5 +1,5 @@
 <div class="row">
-   <div class="medium-8 columns">
+   <div class="medium-4 columns">
       {{ Form::label('name', 'Test Name', ['class' => ($errors->has('name') ? 'error' : '')]) }}
 
       {{ Form::text('name', null, ['class' => $errors->has('name') ? 'error' : '']) }}
@@ -8,9 +8,6 @@
       <small class="error">{{ $errors->first('name') }}</small>
       @endif
    </div>
-</div>
-
-<div class="row">
    <div class="medium-3 columns">
       {{ Form::label('assessment_id', 'Assessment', ['class' => ($errors->has('assessment_id') ? 'error' : '')]) }}
 
@@ -21,15 +18,6 @@
       @endif
    </div>
    <div class="medium-3 columns">
-      {{ Form::label('class_room_id', 'Class', ['class' => ($errors->has('class_room_id') ? 'error' : '')]) }}
-
-      {{ Form::select('class_room_id', $classes, null, ['class' => $errors->has('class_room_id') ? 'error' : '']) }}
-
-      @if($errors->has('class_room_id'))
-      <small class="error">{{ $errors->first('class_room_id') }}</small>
-      @endif
-   </div>
-   <div class="medium-4 columns">
       {{ Form::label('subject_id', 'Subject', ['class' => ($errors->has('subject_id') ? 'error' : '')]) }}
 
       {{ Form::select('subject_id', $subjects, null, ['class' => $errors->has('subject_id') ? 'error' : '']) }}

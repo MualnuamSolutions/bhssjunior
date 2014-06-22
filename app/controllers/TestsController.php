@@ -26,11 +26,10 @@ class TestsController extends \BaseController {
 	 */
 	public function create()
 	{
-      $classes = ClassRoom::getDropDownList();
       $assessments = Assessment::getDropDownList();
       $subjects = Subject::getDropDownList();
 
-		return View::make('tests.create', compact('assessments', 'classes', 'subjects'));
+		return View::make('tests.create', compact('assessments', 'subjects'));
 	}
 
 
@@ -74,11 +73,10 @@ class TestsController extends \BaseController {
 	public function edit($id)
 	{
       $test = Test::findOrFail($id);
-      $classes = ClassRoom::getDropDownList();
       $assessments = Assessment::getDropDownList();
       $subjects = Subject::getDropDownList();
 
-      return View::make('tests.edit', compact('assessments', 'classes', 'subjects', 'test'));
+      return View::make('tests.edit', compact('assessments', 'subjects', 'test'));
 	}
 
 

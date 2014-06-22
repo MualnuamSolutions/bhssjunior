@@ -12,7 +12,6 @@
             <tr>
                <th>#</th>
                <th>Name</th>
-               <th>Class</th>
                <th>Subject</th>
                <th>Assessment</th>
                <th>Weightage</th>
@@ -24,7 +23,6 @@
             <tr>
                <td>{{ $tests->getFrom() + $key }}</td>
                <td>{{ $test->name }}</td>
-               <td>{{ $test->classRoom->name }}</td>
                <td>{{ $test->subject->name }}</td>
                <td>{{ $test->assessment->name }}</td>
                <td>{{ $test->displayWeightage }}</td>
