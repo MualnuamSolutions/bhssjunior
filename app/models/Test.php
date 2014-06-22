@@ -16,6 +16,7 @@ class Test extends Ardent
 
    protected $fillable = [
       'assessment_id',
+      'class_room_id',
       'subject_id',
       'name',
       'weightage',
