@@ -1,12 +1,8 @@
 @extends('layout')
 
 @section('content')
-   <ul class="breadcrumbs">
-      <li><a href="{{ route('home') }}">Home</a></li>
-      <li><a href="{{ route('classrooms.index') }}">Class Rooms</a></li>
-      <li><a href="{{ route('classrooms.show', $classroom->id) }}">{{ $classroom->name }}</a></li>
-      <li class="current">{{ $classroom->name }} Students</li>
-   </ul>
+
+   @include('partials.crumbs', ['current' => 'Students', 'crumbs' => ['Class Rooms' => route('classrooms.index'), $classroom->name => route('classrooms.show', $classroom->id)]])
 
    <div class="panel">
       <h5><i class="fi-thumbnails"></i> {{ $classroom->name }} Students</h5>
@@ -58,7 +54,7 @@
                <hr>
                <div class="row">
                   <div class="small-12 columns text-right">
-                     <a class="button tiny info" href="{{ route('classrooms.addstudents', $classroom->id) }}">Add Students</a>
+                     <a class="button small info" href="{{ route('classrooms.addstudents', $classroom->id) }}">Add Students</a>
                   </div>
                </div>
             </fieldset>

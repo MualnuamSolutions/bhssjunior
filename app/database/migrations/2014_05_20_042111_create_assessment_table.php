@@ -15,7 +15,8 @@ class CreateAssessmentTable extends Migration {
 		Schema::create('assessments', function(Blueprint $table){
          $table->increments('id');
          $table->string('name');
-         $table->string('type');
+         $table->integer('term'); // Term 1 and Term 2
+         $table->float('weightage');
          $table->timestamps();
       });
 	}

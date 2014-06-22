@@ -16,6 +16,7 @@ class CreateStudentPhotosTable extends Migration {
          $table->increments('id');
          $table->integer('student_id')->unsigned()->index();
          $table->string('path');
+         $table->boolean('default')->default(false);
          $table->timestamps();
       });
 	}

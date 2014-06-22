@@ -18,9 +18,13 @@
       <li class="has-dropdown">
          <a href="{{ route('home') }}">Examination</a>
          <ul class="dropdown">
-            <li><a href="#">Assessments</a></li>
-            <li><a href="#">Results</a></li>
-            <li><a href="#">Test</a></li>
+            <li><a href="#">Test Mark Entry</a></li>
+            <li><label>Assessment Scheme</label></li>
+            <li><a href="{{ route('assessments.index') }}">View Schemes</a></li>
+            <li><a href="{{ route('assessments.create') }}">Create Scheme</a></li>
+            <li><label>Tests</label></li>
+            <li><a href="{{ route('tests.index') }}">View Tests</a></li>
+            <li><a href="{{ route('tests.create') }}">Create Test</a></li>
          </ul>
       </li>
       <li class="divider"></li>

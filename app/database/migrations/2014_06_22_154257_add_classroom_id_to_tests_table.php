@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRollNoToClassRoomStudentTable extends Migration {
+class AddClassroomIdToTestsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,8 +12,8 @@ class AddRollNoToClassRoomStudentTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('class_room_student', function(Blueprint $table){
-         $table->string('roll_no');
+		Schema::table('tests', function(Blueprint $table){
+         $table->integer('class_room_id')->after('assessment_id');
       });
 	}
 
@@ -24,8 +24,8 @@ class AddRollNoToClassRoomStudentTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('class_room_student', function(Blueprint $table){
-         $table->dropColumn('roll_no');
+      Schema::table('tests', function(Blueprint $table){
+         $table->dropColumn('class_room_id');
       });
 	}
 

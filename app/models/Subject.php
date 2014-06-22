@@ -19,4 +19,10 @@ class Subject extends Ardent
    protected $guarded = [
       'id'
    ];
+
+   public static function getDropDownList()
+   {
+      return self::orderBy('name', 'asc')->get()->lists('name', 'id');
+   }
+
 }

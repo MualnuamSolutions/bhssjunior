@@ -1,6 +1,8 @@
 @extends('layout')
 
 @section('content')
+   @include( 'partials.crumbs', ['current' => 'Students'] )
+
    <div class="panel">
       <h5><i class="fi-list"></i> Students</h5>
       <hr>
@@ -10,9 +12,10 @@
             <tr>
                <th>#</th>
                <th>Name</th>
-               <th>Age</th>
-               <th>Father</th>
-               <th>Contact</th>
+               <th class="hide-for-small-only">Class</th>
+               <th class="hide-for-small-only">Roll No</th>
+               <th class="hide-for-small-only">Father</th>
+               <th class="hide-for-small-only">Contact</th>
                <th></th>
             </tr>
          </thead>
@@ -20,10 +23,16 @@
             @foreach($students as $key => $student)
             <tr>
                <td>{{ $students->getFrom() + $key }}</td>
-               <td>{{ $student->name }}</td>
-               <td>{{ $student->age }}</td>
-               <td>{{ $student->father }}</td>
-               <td>{{ $student->contact }}</td>
+               <td>
+                  {{ $student->name }}
+                  <div><small class="show-for-small-only">{{ $student->father }}</small></div>
+                  <div><small class="show-for-small-only">{{ $student->dob }}</small></div>
+                  <div><small class="show-for-small-only">{{ $student->contact1 }}</small></div>
+               </td>
+               <td class="hide-for-small-only">{{ $student->class }}</td>
+               <td class="hide-for-small-only">{{ $student->rollNo }}</td>
+               <td class="hide-for-small-only">{{ $student->father }}</td>
+               <td class="hide-for-small-only">{{ $student->contact1 }}</td>
                <td class="text-right">
                   @include('partials.actions', ['actions'=> ['view', 'edit', 'delete'], 'route' => 'students', 'item' => $student])
                </td>

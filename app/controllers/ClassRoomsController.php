@@ -2,6 +2,11 @@
 
 class ClassRoomsController extends \BaseController {
 
+   public function __construct()
+   {
+      $this->beforeFilter('sentry');
+   }
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,7 +14,7 @@ class ClassRoomsController extends \BaseController {
 	 */
 	public function index()
 	{
-      $classrooms = ClassRoom::orderBy('name', 'desc')->paginate(Config::get('view.pagination_limit'));
+      $classrooms = ClassRoom::orderBy('id', 'asc')->paginate(Config::get('view.pagination_limit'));
 		return View::make('classrooms.index', compact('classrooms'));
 	}
 
@@ -31,6 +36,7 @@ class ClassRoomsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+
 	public function store()
 	{
       $classroom = new ClassRoom;
@@ -126,7 +132,11 @@ class ClassRoomsController extends \BaseController {
 
    public function addStudents($id)
    {
-      dd($id);
+      $classroom = ClassRoom::find($id);
+      $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
+      $academicSessions = AcademicSession::getSessionsForDropdown();
+
+      return View::make('classrooms.addstudents', compact('classroom', 'classRooms', 'academicSessions'));
    }
 
    public function storeStudents($id)

@@ -13,6 +13,6 @@
 <div class="row">
    <div class="small-12 columns text-right">
       <hr>
-      {{ Form::button('Submit', ['class' => 'small', 'type' => 'submit']) }}
+      {{ Form::button('Submit', ['class' => 'button large success', 'type' => 'submit']) }}
    </div>
 </div>

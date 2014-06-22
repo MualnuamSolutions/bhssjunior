@@ -2,6 +2,11 @@
 
 class TestsController extends \BaseController {
 
+   public function __construct()
+   {
+      $this->beforeFilter('sentry');
+   }
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,7 +14,8 @@ class TestsController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+      $tests = Test::orderBy('name', 'desc')->paginate(Config::get('view.pagination_limit'));
+      return View::make('tests.index', compact('tests'));
 	}
 
 
@@ -20,7 +26,11 @@ class TestsController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+      $classes = ClassRoom::getDropDownList();
+      $assessments = Assessment::getDropDownList();
+      $subjects = Subject::getDropDownList();
+
+		return View::make('tests.create', compact('assessments', 'classes', 'subjects'));
 	}
 
 
@@ -31,7 +41,15 @@ class TestsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+      $test = new Test;
+
+      if($test->save()) {
+         Notification::success('New test created');
+         return Redirect::route('tests.index');
+      }
+      else {
+         return Redirect::route('tests.create')->withErrors($test->errors());
+      }
 	}
 
 
@@ -67,7 +85,15 @@ class TestsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+      $test = Test::findOrFail($id);
+
+      if($test->save()) {
+         Notification::success('Test updated');
+         return Redirect::route('tests.index');
+      }
+      else {
+         return Redirect::route('tests.edit', $test->id)->withErrors($test->errors());
+      }
 	}
 
 

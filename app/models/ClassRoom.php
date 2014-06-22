@@ -21,7 +21,6 @@ class ClassRoom extends Ardent
    ];
 
    public static $relationsData = [
-      'subjects'  => [self::BELONGS_TO_MANY, 'Subject'],
       'students'  => [self::BELONGS_TO_MANY, 'Student', 'pivotKeys' => ['roll_no', 'academic_session_id']]
    ];
 
@@ -32,5 +31,21 @@ class ClassRoom extends Ardent
          return $this->subjects()->sync($subjects);
       else
          return true;
+   }
+
+   public function subjects()
+   {
+      return $this->belongsToMany('Subject')
+         ->orderBy('name', 'asc');
+   }
+
+   public function getNameAttribute($value)
+   {
+      return $value ? $value : null;
+   }
+
+   public static function getDropDownList()
+   {
+      return self::orderBy('id', 'asc')->get()->lists('name', 'id');
    }
 }

@@ -1,11 +1,8 @@
-jQuery(function ($) {
-   var photoCropWindow = $('#photo-crop-window').html();
-   var $photoCropWindow = $(photoCropWindow).appendTo('body');
-
-   $('#photo-uploader').fileapi({
-      url: 'students/upload-photo',
+$(function(){
+   $('#userpic').fileapi({
+      url: '/students/upload-photo',
       accept: 'image/*',
-      imageSize: { minWidth: 200, minHeight: 200 },
+      imageSize: { minWidth: 30, minHeight: 30 },
       elements: {
          active: { show: '.js-upload', hide: '.js-browse' },
          preview: {
@@ -18,24 +15,24 @@ jQuery(function ($) {
       onSelect: function (evt, ui){
             var file = ui.files[0];
             if (file) {
-                $photoCropWindow.modal({
+                $("#userpic-popup").modal({
                     closeOnEsc: true,
                     closeOnOverlayClick: false,
                     onOpen: function (overlay){
 
                         $(overlay).on('click', '.js-upload', function (){
                             $.modal().close();
-                            $('#photo-uploader').fileapi('upload');
+                            $('#userpic').fileapi('upload');
                         });
 
                         $('.js-img', overlay).cropper({
                             file: file,
                             bgColor: '#fff',
                             maxSize: [$(window).width()-100, $(window).height()-100],
-                            minSize: [200, 200],
+                            minSize: [50, 50],
                             selection: '90%',
                             onSelect: function (coords){
-                                $('#photo-uploader').fileapi('crop', file, coords);
+                                $('#userpic').fileapi('crop', file, coords);
                             }
                         });
                     }
@@ -57,8 +54,9 @@ jQuery(function ($) {
         }
     });
 
+
    $('#webcam').fileapi({
-      url: 'students/upload-photo',
+      url: '/students/upload-photo',
       accept: 'image/*',
       autoUpload: true,
       elements: {
@@ -71,9 +69,8 @@ jQuery(function ($) {
          progress: '.js-progress'
       }
    });
-
    $('.js-webcam', '#webcam').click(function (evt){
-      var modal = $photoCropWindow.modal({
+      var modal = $('#webcam-popup').modal({
          closeOnOverlayClick: false,
          onOpen: function (overlay){
             $('.js-img', overlay).webcam({
@@ -99,4 +96,6 @@ jQuery(function ($) {
       modal.open();
       evt.preventDefault();
    });
+
+
 });

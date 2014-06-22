@@ -37,7 +37,7 @@
       <hr>
       <div class="row">
          <div class="small-12 columns text-right">
-            <a href="{{ route('users.create') }}" class="button tiny">Create New User</a>
+            <a href="{{ route('users.create') }}" class="button small">Create New User</a>
          </div>
       </div>
    </div>

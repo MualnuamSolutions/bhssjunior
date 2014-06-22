@@ -2,6 +2,11 @@
 
 class StudentsController extends \BaseController {
 
+   public function __construct()
+   {
+      $this->beforeFilter('sentry');
+   }
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,7 +14,9 @@ class StudentsController extends \BaseController {
 	 */
 	public function index()
 	{
-      $students = Student::orderBy('name', 'asc')->paginate(Config::get('view.pagination_limit'));
+      $students = Student::with('classRoom', 'photos')
+         ->orderBy('name', 'asc')
+         ->paginate(Config::get('view.pagination_limit'));
 		return View::make('students.index', compact('students'));
 	}
 
@@ -34,9 +41,14 @@ class StudentsController extends \BaseController {
 	 */
 	public function store()
 	{
-		if((new Student)->save()) {
+      $student = new Student;
+
+		if($student->save()) {
          Notification::success('New student created');
          return Redirect::route('students.index');
+      }
+      else {
+         return Redirect::route('students.create')->withErrors($student->errors());
       }
 	}
 
@@ -102,11 +114,15 @@ class StudentsController extends \BaseController {
 
       if (Input::hasFile('photoFile')) {
          $photo = Input::file('photoFile');
-         $tempDir = Config::get('assets.temp');
-         $tempPhoto = $photo->move($tempDir, $photo->getClientOriginalName());
+         $hash = md5($photo->getClientOriginalName());
+         $extension = $photo->getClientOriginalExtension();
+         $fileName = $hash . '.' . $extension;
+         $path = chunk_split($hash, 2, '/');
+         $uploadDir = public_path('uploads/students/') . $path;
+         $tempPhoto = $photo->move($uploadDir, $fileName);
          $result = [
-         'status' => 'OK',
-         'photoPath' => $tempPhoto->getRealPath(),
+            'status' => 'OK',
+            'photoPath' => $path . $fileName,
          ];
       }
 

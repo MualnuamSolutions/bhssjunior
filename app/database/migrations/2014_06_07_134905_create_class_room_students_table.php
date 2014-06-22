@@ -16,6 +16,7 @@ class CreateClassRoomStudentsTable extends Migration {
          $table->integer('class_room_id')->unsigned()->index();
          $table->integer('student_id')->unsigned()->index();
          $table->integer('academic_session_id');
+         $table->integer('roll_no')->nullable();
       });
 	}
 

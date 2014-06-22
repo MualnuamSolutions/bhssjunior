@@ -1,6 +1,9 @@
 @extends('layout')
 
 @section('content')
+
+   @include('partials.crumbs', ['current' => 'Class Rooms'])
+
    <div class="panel">
       <h5><i class="fi-list"></i> Class Rooms</h5>
       <hr>
@@ -9,9 +12,10 @@
          <thead>
             <tr>
                <th>#</th>
-               <th>Name</th>
-               <th>Subjects</th>
-               <th></th>
+               <th class="small-2 medium-5">Class</th>
+               <th class="small-1 medium-2">Subjects</th>
+               <th class="small-1 medium-2">Enrollment</th>
+               <th class="small-5 medium-3"></th>
             </tr>
          </thead>
          <tbody>
@@ -19,7 +23,8 @@
             <tr>
                <td>{{ $classrooms->getFrom() + $key }}</td>
                <td>{{ $classroom->name }}</td>
-               <td>{{ implode(', ', $classroom->subjects->lists('name')) }}</td>
+               <td>{{ sizeof($classroom->subjects->lists('name')) }}</td>
+               <td>{{ $classroom->students->count() }}</td>
                <td class="text-right">
                   @include('partials.actions', ['actions'=> ['view', 'edit', 'delete'], 'route' => 'classrooms', 'item' => $classroom])
                </td>

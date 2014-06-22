@@ -14,7 +14,10 @@ class CreateTestsTable extends Migration {
    {
       Schema::create('tests', function(Blueprint $table){
          $table->increments('id');
+         $table->integer('assessment_id');
+         $table->integer('subject_id');
          $table->string('name');
+         $table->float('weightage');
          $table->timestamps();
       });
    }

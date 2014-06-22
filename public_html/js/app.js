@@ -3,5 +3,7 @@
 $(document).foundation();
 $(function(){
    $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
-   $('.fdatepicker').fdatepicker();
+   $('.fdatepicker').fdatepicker({
+      format: 'yyyy-mm-dd'
+   });
 });

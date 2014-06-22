@@ -34,11 +34,16 @@ class AcademicSession extends Ardent
 
    public static function getSessionsForDropdown()
    {
-      return static::orderBy('start', 'desc')->get()->lists('session', 'id');
+      return self::getSessions()->lists('session', 'id');
    }
 
    public static function getRecentSession()
    {
-      return static::orderBy('start', 'desc')->first();
+      return self::orderBy('start', 'desc')->first();
+   }
+
+   public static function getSessions()
+   {
+      return self::orderBy('start', 'asc')->get();
    }
 }

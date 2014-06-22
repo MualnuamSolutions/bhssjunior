@@ -4,7 +4,7 @@ class UsersController extends \BaseController {
 
    public function __construct()
    {
-      // $this->beforeFilter('sentry');
+      $this->beforeFilter('sentry', ['except' => ['login', 'doLogin']]);
    }
 
    /**
