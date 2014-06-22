@@ -12,12 +12,14 @@ class Assessment extends Ardent
 
    public static $rules = [
       'name' => 'required',
-      'term' => 'required'
+      'term' => 'required',
+      'weightage' => 'required',
    ];
 
    protected $fillable = [
       'name',
-      'term'
+      'term',
+      'weightage'
    ];
 
    protected $guarded = [

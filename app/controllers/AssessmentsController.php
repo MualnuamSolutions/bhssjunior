@@ -36,7 +36,15 @@ class AssessmentsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+      $assessment = new Assessment;
+
+      if($assessment->save()) {
+         Notification::success('New assessment scheme created');
+         return Redirect::route('assessments.index');
+      }
+      else {
+         return Redirect::route('assessments.create')->withErrors($assessment->errors());
+      }
 	}
 
 
@@ -73,7 +81,15 @@ class AssessmentsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+      $assessment = Assessment::findOrFail($id);
+
+      if($assessment->save()) {
+         Notification::success('Assessment scheme updated');
+         return Redirect::route('assessments.index');
+      }
+      else {
+         return Redirect::route('assessments.edit', $id)->withErrors($assessment->errors());
+      }
 	}
 
 
