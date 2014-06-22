@@ -19,7 +19,7 @@
             <tr>
                <td>{{ $academicsessions->getFrom() + $key }}</td>
                <td>{{ $academicsession->start }}</td>
-               <td>{{ $academicsession->session }}</td>
+               <td>{{ $academicsession->end }}</td>
                <td class="text-right">
                   @include('partials.actions', ['actions'=> ['edit', 'delete'], 'route' => 'academicsessions', 'item' => $academicsession])
                </td>
