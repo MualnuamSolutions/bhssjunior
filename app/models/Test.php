@@ -9,16 +9,17 @@ class Test extends Ardent
    public $forceEntityHydrationFromInput = true;
 
    public static $rules = [
+      'assessment_id' => 'required',
       'subject_id' => 'required',
       'name' => 'required',
-      'weightage' => 'required',
+      'totalmarks' => 'required',
    ];
 
    protected $fillable = [
       'assessment_id',
       'subject_id',
       'name',
-      'weightage',
+      'totalmarks',
    ];
 
    protected $guarded = [

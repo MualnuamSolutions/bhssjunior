@@ -27,17 +27,12 @@
       @endif
    </div>
    <div class="medium-2 columns">
-      {{ Form::label('weightage', 'Weightage', ['class' => ($errors->has('weightage')?'error':'')]) }}
+      {{ Form::label('totalmarks', 'Total Marks', ['class' => ($errors->has('totalmarks')?'error':'')]) }}
 
-      <div class="row collapse">
-         <div class="small-10 medium-7 columns">{{ Form::text('weightage', null, ['class' => $errors->has('weightage')?'error':'']) }}</div>
-         <div class="small-2 medium-5 columns">
-            <span class="postfix"> / 100</span>
-         </div>
-      </div>
+      {{ Form::text('totalmarks', 10, ['class' => $errors->has('totalmarks')?'error':'']) }}
 
-      @if($errors->has('weightage'))
-      <small class="error">{{ $errors->first('weightage') }}</small>
+      @if($errors->has('totalmarks'))
+      <small class="error">{{ $errors->first('totalmarks') }}</small>
       @endif
    </div>
 </div>
