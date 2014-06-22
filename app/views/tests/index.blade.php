@@ -24,9 +24,9 @@
             <tr>
                <td>{{ $tests->getFrom() + $key }}</td>
                <td>{{ $test->name }}</td>
-               <td>{{ $test->class_room_id }}</td>
-               <td>{{ $test->subject_id }}</td>
-               <td>{{ $test->assessment_id }}</td>
+               <td>{{ $test->classRoom->name }}</td>
+               <td>{{ $test->subject->name }}</td>
+               <td>{{ $test->assessment->name }}</td>
                <td>{{ $test->displayWeightage }}</td>
                <td class="text-right">
                    @include('partials.actions', ['actions'=> ['edit', 'delete'], 'route' => 'tests', 'item' => $test])

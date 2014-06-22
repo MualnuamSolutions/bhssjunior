@@ -73,7 +73,12 @@ class TestsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+      $test = Test::findOrFail($id);
+      $classes = ClassRoom::getDropDownList();
+      $assessments = Assessment::getDropDownList();
+      $subjects = Subject::getDropDownList();
+
+      return View::make('tests.edit', compact('assessments', 'classes', 'subjects', 'test'));
 	}
 
 

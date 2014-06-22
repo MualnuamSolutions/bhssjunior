@@ -26,6 +26,12 @@ class Test extends Ardent
       'id'
    ];
 
+   public static $relationsData = [
+      'subject'  => [self::BELONGS_TO, 'Subject'],
+      'classRoom'  => [self::BELONGS_TO, 'ClassRoom'],
+      'assessment'  => [self::BELONGS_TO, 'Assessment']
+   ];
+
    public function getDisplayWeightageAttribute($value)
    {
       return $this->weightage ? $this->weightage . '% ' : null;
