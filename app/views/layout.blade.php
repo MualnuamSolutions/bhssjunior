@@ -8,7 +8,7 @@
    <link rel="stylesheet" type="text/css" href="{{ asset('foundation-icons/foundation-icons.css') }}">
    <link rel="stylesheet" type="text/css" href="{{ asset('zurb-responsive-tables/responsive-tables.css') }}" media="screen" />
    <link rel="stylesheet" type="text/css" href="{{ asset('chosen_v1.1.0/chosen.min.css') }}" media="screen" />
-   <link rel="stylesheet" type="text/css" href="{{ asset('assets/stylesheets/app.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
    <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
    <link rel="stylesheet" type="text/css" href="{{ asset('foundation-datepicker/foundation-datepicker.css') }}" />
    <link rel="stylesheet" type="text/css" href="{{ asset('jquery.fileapi/statics/main-custom.css') }}" />
