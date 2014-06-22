@@ -8,6 +8,6 @@
 
 @if ( in_array('delete', $actions) )
 {{ Form::open(['route' => [$route . '.destroy', $item->id], 'method' => 'delete', 'class' => 'inline']) }}
-<button type="submit" class="button  tiny alert"><i class="fi-x"></i><span class="hide-for-small-only">&nbsp;Delete</span></button>
+<button type="submit" class="button  tiny alert" onclick="return confirm('Are you sure you want to delete?');"><i class="fi-x"></i><span class="hide-for-small-only">&nbsp;Delete</span></button>
 {{ Form::close() }}
 @endif

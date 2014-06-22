@@ -110,7 +110,14 @@ class TestsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+      if(Test::destroy($id)) {
+         Notification::success('Test deleted');
+         return Redirect::route('tests.index');
+      }
+      else {
+         Notification::error('Test delete failed');
+         return Redirect::route('tests.index');
+      }
 	}
 
 
