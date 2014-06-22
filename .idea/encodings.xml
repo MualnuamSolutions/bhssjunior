@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/app/config/app.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/config/packages/barryvdh/laravel-debugbar/config.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/controllers/AssessmentsController.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/controllers/TestsController.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/database/migrations/2014_06_22_154257_add_classroom_id_to_tests_table.php" charset="UTF-8" />
