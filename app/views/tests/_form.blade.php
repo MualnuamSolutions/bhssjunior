@@ -21,12 +21,12 @@
       @endif
    </div>
    <div class="medium-3 columns">
-      {{ Form::label('classroom_id', 'Class', ['class' => ($errors->has('classroom_id') ? 'error' : '')]) }}
+      {{ Form::label('class_room_id', 'Class', ['class' => ($errors->has('class_room_id') ? 'error' : '')]) }}
 
-      {{ Form::select('classroom_id', $classes, null, ['class' => $errors->has('classroom_id') ? 'error' : '']) }}
+      {{ Form::select('class_room_id', $classes, null, ['class' => $errors->has('class_room_id') ? 'error' : '']) }}
 
-      @if($errors->has('classroom_id'))
-      <small class="error">{{ $errors->first('classroom_id') }}</small>
+      @if($errors->has('class_room_id'))
+      <small class="error">{{ $errors->first('class_room_id') }}</small>
       @endif
    </div>
    <div class="medium-4 columns">
