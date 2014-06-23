@@ -32,8 +32,17 @@ class Test extends Ardent
       'assessment'  => [self::BELONGS_TO, 'Assessment']
    ];
 
-   public function getDisplayWeightageAttribute($value)
+   public static function getDropDownList($input = [])
    {
-      return $this->weightage ? $this->weightage . '% ' : null;
+      return self::where(function($query) use ($input){
+            if (isset($input['assessment_id']))
+               $query->where('assessment_id', '=', $input['assessment_id']);
+
+            if (isset($input['subject_id']))
+               $query->where('subject_id', '=', $input['subject_id']);
+         })
+         ->select(['id', DB::raw('CONCAT(name, " - ", totalmarks, " marks") AS name_mark')])
+         ->get()
+         ->lists('name_mark', 'id');
    }
 }

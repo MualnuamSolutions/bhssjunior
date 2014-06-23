@@ -134,7 +134,7 @@ class ClassRoomsController extends \BaseController {
    {
       $classroom = ClassRoom::find($id);
       $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
-      $academicSessions = AcademicSession::getSessionsForDropdown();
+      $academicSessions = AcademicSession::getDropDownList();
 
       return View::make('classrooms.addstudents', compact('classroom', 'classRooms', 'academicSessions'));
    }

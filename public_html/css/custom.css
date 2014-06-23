@@ -8,3 +8,20 @@
 .inline {
    display: inline;
 }
+select.error {
+   margin-bottom: 0;
+}
+.emptyFormIcon {
+   font-size: 180px; 
+   color: #CCCCCC;
+}
+.emptyFormText {
+   font-size: 13px;
+   color: #999999;
+}
+#marks-entry-form .error {
+   border-color: #FF0000;
+}
+#marks-entry-form input {
+   margin-bottom: 0;
+}

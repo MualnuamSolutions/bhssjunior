@@ -29,7 +29,7 @@ class StudentsController extends \BaseController {
 	public function create()
 	{
       $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
-      $academicSessions = AcademicSession::getSessionsForDropdown();
+      $academicSessions = AcademicSession::getDropDownList();
 		return View::make('students.create', compact('classRooms', 'academicSessions'));
 	}
 
@@ -75,7 +75,7 @@ class StudentsController extends \BaseController {
 	{
       $student = Student::find($id);
       $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
-      $academicSessions = AcademicSession::getSessionsForDropdown();
+      $academicSessions = AcademicSession::getDropDownList();
       return View::make('students.edit', compact('student', 'academicSessions', 'classRooms'));
 	}
 

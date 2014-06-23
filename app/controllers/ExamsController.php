@@ -14,7 +14,9 @@ class ExamsController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+      $exams = Exam::with(['test', 'classRoom', 'academicSession'])->paginate(Config::get('view.pagination_limit'));
+
+      return View::make('exams.index', compact('exams'));
 	}
 
 
@@ -60,7 +62,9 @@ class ExamsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+      $exam = Exam::with('marks')->find($id);
+
+		return View::make('exams.edit', compact('exam'));
 	}
 
 
@@ -72,7 +76,27 @@ class ExamsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+      $input = Input::all();
+      $validator = Mark::validator($input);
+
+      if($validator->passes()) {
+         $exam = Exam::find($id);
+         $exam->note = $input['note'];
+         $exam->save();
+
+         $input['exam_id'] = $exam->id;
+         $input['update'] = true;
+
+         Mark::store($input);
+
+         Notification::success('Exams marks updated');
+         return Redirect::route('exams.index');
+      }
+      else {
+         return Redirect::route('exams.edit', $id)
+            ->withErrors($validator)
+            ->withInput();
+      }
 	}
 
 

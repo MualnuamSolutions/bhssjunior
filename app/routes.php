@@ -32,3 +32,4 @@ Route::get('assessments/{id}/tests', ['uses' => 'AssessmentsController@tests', '
 Route::get('assessments/{id}/create-test', ['uses' => 'AssessmentsController@createTest', 'as' => 'assessments.createTest', 'before' => 'sentry']);
 Route::post('assessments/{id}/tests', ['uses' => 'AssessmentsController@storeTest', 'as' => 'assessments.storeTest', 'before' => 'sentry']);
 Route::resource('assessments', 'AssessmentsController');
+Route::resource('marks', 'MarksController');

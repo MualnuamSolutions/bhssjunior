@@ -32,7 +32,7 @@ class AcademicSession extends Ardent
       return $this->start . " - " . $this->end;
    }
 
-   public static function getSessionsForDropdown()
+   public static function getDropDownList()
    {
       return self::getSessions()->lists('session', 'id');
    }

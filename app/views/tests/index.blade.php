@@ -14,7 +14,7 @@
                <th>Name</th>
                <th>Subject</th>
                <th>Assessment</th>
-               <th>Weightage</th>
+               <th>Total Marks</th>
                <th></th>
             </tr>
          </thead>
@@ -25,7 +25,7 @@
                <td>{{ $test->name }}</td>
                <td>{{ $test->subject->name }}</td>
                <td>{{ $test->assessment->name }}</td>
-               <td>{{ $test->displayWeightage }}</td>
+               <td>{{ $test->totalmarks }}</td>
                <td class="text-right">
                    @include('partials.actions', ['actions'=> ['edit', 'delete'], 'route' => 'tests', 'item' => $test])
                </td>

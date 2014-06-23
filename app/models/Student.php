@@ -78,4 +78,5 @@ class Student extends Ardent
    {
       return $this->currentClass ? $this->currentClass->pivot->roll_no : null;
    }
+
 }
