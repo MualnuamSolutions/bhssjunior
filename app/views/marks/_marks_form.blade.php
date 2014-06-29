@@ -34,10 +34,10 @@
 <table class="small-12">
    <thead>
       <tr>
-         <th class="small-1">Roll No</th>
-         <th class="small-4">Name</th>
-         <th class="small-1">Mark</th>
-         <th class="small-5">Remarks</th>
+         <th class="small-1">R.No</th>
+         <th class="small-5">Name</th>
+         <th class="small-2">Mark</th>
+         <th class="small-4">Remarks</th>
       </tr>
    </thead>
    <tbody>
