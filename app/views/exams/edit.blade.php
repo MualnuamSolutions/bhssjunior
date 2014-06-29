@@ -19,9 +19,6 @@
 
          <label for="">Assessment</label>
          <input type="text" disabled="disabled" value="{{ $exam->test->assessment->name }}" />
-
-         <label for="">Test</label>
-         <input type="text" disabled="disabled" value="{{ $exam->test->name . ' - ' . $exam->test->totalmarks . ' marks' }}" />
       </div>
       <div class="medium-9 columns" id="marks-entry-form">
          {{ Form::model($exam, ['route' => ['exams.update', $exam->id], 'method' => 'put']) }}
