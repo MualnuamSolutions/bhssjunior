@@ -12,9 +12,10 @@
             <tr>
                <th>#</th>
                <th>Test</th>
+               <th>Exam Date</th>
                <th>Assessment</th>
                <th>Subject</th>
-               <th>Classroom</th>
+               <th>Class</th>
                <th>Academic Session</th>
                <th></th>
             </tr>
@@ -23,11 +24,15 @@
             @foreach($exams as $key => $exam)
             <tr>
                <td>{{ $exams->getFrom() + $key }}</td>
-               <td>{{ $exam->test->name }}</td>
-               <td>{{ $exam->test->assessment->name }}</td>
-               <td>{{ $exam->test->subject->name }}</td>
-               <td>{{ $exam->classRoom->name }}</td>
-               <td>{{ $exam->academicSession->session }}</td>
+               <td>
+                  {{ $exam->name }}<br>
+                  <small>{{ $exam->test ? $exam->test->name : null}}</small>
+               </td>
+               <td>{{ date('j M Y', strtotime($exam->exam_date)) }}</td>
+               <td>{{ $exam->test && $exam->test->assessment ? $exam->test->assessment->name : null }}</td>
+               <td>{{ $exam->test && $exam->test->subject ? $exam->test->subject->name : null }}</td>
+               <td>{{ $exam->classRoom ? $exam->classRoom->name : null}}</td>
+               <td>{{ $exam->academicSession ? $exam->academicSession->session : null }}</td>
                <td class="text-right">
                   @include('partials.actions', ['actions'=> ['edit', 'delete'], 'route' => 'exams', 'item' => $exam])
                </td>

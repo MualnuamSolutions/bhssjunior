@@ -81,6 +81,8 @@ class ExamsController extends \BaseController {
 
       if($validator->passes()) {
          $exam = Exam::find($id);
+         $exam->name = $input['name'];
+         $exam->exam_date = $input['exam_date'];
          $exam->note = $input['note'];
          $exam->save();
 

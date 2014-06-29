@@ -22,6 +22,6 @@ select.error {
 #marks-entry-form .error {
    border-color: #FF0000;
 }
-#marks-entry-form input {
+#marks-entry-form table input {
    margin-bottom: 0;
 }

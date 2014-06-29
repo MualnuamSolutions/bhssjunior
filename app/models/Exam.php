@@ -6,13 +6,17 @@ class Exam extends Eloquent
 
    protected $rules = [
       'test_id' => 'required',
+      'name' => 'required',
+      'exam_date' => 'required',
    ];
 
    protected $fillable = [
       'test_id',
+      'name',
       'academic_session_id',
       'class_room_id',
       'note',
+      'exam_date',
    ];
 
    protected $guarded = [
@@ -43,9 +47,11 @@ class Exam extends Eloquent
    {
       $exam = Exam::create([
          'test_id' => $input['test_id'],
+         'name' => $input['name'],
          'academic_session_id' => $input['academic_session_id'],
          'class_room_id' => $input['class_room_id'],
          'note' => $input['note'],
+         'exam_date' => $input['exam_date'],
       ]);
 
       $input['exam_id'] = $exam->id;

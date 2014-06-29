@@ -57,6 +57,11 @@
          <small class="error">{{ $errors->first('contact2') }}</small>
          @endif
 
+         {{ Form::label('address', 'Address', ['class' => ($errors->has('address')?'error':'')]) }}
+         {{ Form::text('address', null, ['class' => $errors->has('address')?'error':'']) }}
+         @if($errors->has('address'))
+         <small class="error">{{ $errors->first('address') }}</small>
+         @endif
       </fieldset>
    </div>
 

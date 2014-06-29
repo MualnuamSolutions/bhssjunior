@@ -8,7 +8,7 @@
 
 {{ Form::label('class_room_id', 'Class', ['class' => ($errors->has('class_room_id') ? 'error' : '')]) }}
 
-{{ Form::select('class_room_id', $classes, Input::get('class_room_id', null), ['class' => $errors->has('class_room_id') ? 'error' : '']) }}
+{{ Form::select('class_room_id', $classes, Input::get('class_room_id', 4), ['class' => $errors->has('class_room_id') ? 'error' : '']) }}
 
 @if($errors->has('class_room_id'))
 <small class="error">{{ $errors->first('class_room_id') }}</small>

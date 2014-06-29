@@ -24,7 +24,7 @@
          <input type="text" disabled="disabled" value="{{ $exam->test->name . ' - ' . $exam->test->totalmarks . ' marks' }}" />
       </div>
       <div class="medium-9 columns" id="marks-entry-form">
-         {{ Form::open(['route' => ['exams.update', $exam->id], 'method' => 'put']) }}
+         {{ Form::model($exam, ['route' => ['exams.update', $exam->id], 'method' => 'put']) }}
          @include("exams/_form")
          {{ Form::close() }}
       </div>

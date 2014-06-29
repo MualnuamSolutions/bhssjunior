@@ -81,16 +81,13 @@ Route::filter('csrf', function()
 
 
 Route::filter('sentry', function($route, $request) {
-   if( ! Sentry::check() ) {
-      $public = Sentry::findGroupByName('Public');
-      $public_permissions = $public->getPermissions();
+   View::share('current_route', $route->getName());
+   View::share('adminGroup', Sentry::findGroupByName('Admin'));
+   View::share('staffGroup', Sentry::findGroupByName('Staff'));
 
-      if( !array_key_exists($route->getName(), $public_permissions)
-         || (array_key_exists($route->getName(), $public_permissions)
-            && $public_permissions[$route->getName()] != 1) )
-         return Redirect::guest(route('login'));
-   }
-   else {
+   if( ! Sentry::check() ) {
+      return Redirect::guest(route('login'));
+   } else {
       $user = Sentry::getUser();
       View::share('logged_user', $user);
 

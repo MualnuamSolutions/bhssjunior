@@ -3,13 +3,33 @@
 {{ Form::hidden('subject_id', $input['subject_id']) }}
 {{ Form::hidden('assessment_id', $input['assessment_id']) }}
 
-{{ Form::label('test_id', 'Test', ['class' => ($errors->has('test_id') ? 'error' : '')]) }}
+<div class="row">
+   <div class="medium-4 columns">
+      {{ Form::label('test_id', 'Test', ['tabIndex' => 1, 'class' => ($errors->has('test_id') ? 'error' : '')]) }}
 
-{{ Form::select('test_id', $tests, null, ['class' => $errors->has('test_id') ? 'error' : '']) }}
+      {{ Form::select('test_id', $tests, null, ['tabIndex' => 1, 'class' => $errors->has('test_id') ? 'error' : '']) }}
 
-@if($errors->has('test_id'))
-<small class="error">{{ $errors->first('test_id') }}</small>
-@endif
+      @if($errors->has('test_id'))
+      <small class="error">{{ $errors->first('test_id') }}</small>
+      @endif
+   </div>
+   <div class="medium-5 columns">
+      {{ Form::label('name', 'Test Name', ['class' => ($errors->has('name') ? 'error' : '')]) }}
+
+      {{ Form::text('name', null, ['tabIndex' => 2, 'class' => $errors->has('name') ? 'error' : '']) }}
+      @if($errors->has('name'))
+      <small class="error">{{ $errors->first('name') }}</small>
+      @endif
+   </div>
+   <div class="medium-3 columns">
+      {{ Form::label('exam_date', 'Exam Date', ['class' => ($errors->has('exam_date') ? 'error' : '')]) }}
+
+      {{ Form::text('exam_date', null, ['tabIndex' => 3, 'class' => 'fdatepicker ' . ($errors->has('exam_date') ? 'error' : '')]) }}
+      @if($errors->has('exam_date'))
+      <small class="error">{{ $errors->first('exam_date') }}</small>
+      @endif
+   </div>
+</div>
 
 <table class="small-12">
    <thead>
@@ -31,18 +51,19 @@
                class="{{ $errors->has("mark.{$student->id}") ? 'has-tip error' : '' }}"
                type="number"
                name="mark[{{ $student->id }}]"
+               tabIndex="{{ $key+4 }}"
                min="0"
                value="{{ Input::old("mark.{$student->id}", 0) }}"/>
          </td>
-         <td>{{ Form::text("remarks[$student->id]", Input::old("remarks.{$student->id}", null), ['placeholder' => 'Optional']) }}</td>
+         <td>{{ Form::text("remarks[$student->id]", Input::old("remarks.{$student->id}", null), ['tabIndex' => ($key+$students->count()+4), 'placeholder' => 'Optional']) }}</td>
       </tr>
    @endforeach
    </tbody>
 </table>
 
-{{ Form::textarea('note', Input::old('note', null), ['placeholder' => 'Optional note', 'rows' => 3]) }}
+{{ Form::textarea('note', Input::old('note', null), ['tabIndex' => ($students->count()*2+5), 'placeholder' => 'Optional note', 'rows' => 3]) }}
 
 <hr>
 <div class="medium-12 text-right">
-   {{ Form::button('Submit', ['class' => 'large button success', 'type' => 'submit']) }}
+   {{ Form::button('Submit', ['class' => 'large button success', 'type' => 'submit', 'tabIndex' => ($students->count()*2+6)]) }}
 </div>

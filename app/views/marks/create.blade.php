@@ -42,7 +42,7 @@
          loadSubjects();
       });
 
-      $("table input[type='text']:first").focus();
+      $("table input:first").focus();
    });
 
    function loadSubjects()
