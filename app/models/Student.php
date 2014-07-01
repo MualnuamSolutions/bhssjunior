@@ -60,6 +60,13 @@ class Student extends Ardent
       $regno = 'BHSSJR' . $session->start . str_pad($this->id, 4, 0, STR_PAD_LEFT);
       $this->update(['regno' => $regno]);
 
+      $enrollment = new ClassRoomStudent();
+      $enrollment->academic_session_id = Input::get('academic_session');
+      $enrollment->class_room_id = Input::get('class_room');
+      $enrollment->student_id = $this->id;
+      $enrollment->roll_no = Input::get('roll_no');
+      $enrollment->save();
+
       $photoPath = Input::get('photo');
       if (!empty($photoPath)) {
          $photo = new Photo(['path' => $photoPath, 'default' => true]);
