@@ -28,6 +28,8 @@ Route::resource('results', 'ResultsController');
 Route::resource('tests', 'TestsController');
 Route::post('/students/upload-photo', array('as' => 'students.uploadPhoto', 'uses' => 'StudentsController@uploadPhoto'));
 Route::resource('students', 'StudentsController');
+Route::get('students/{id}/enrollments', array('uses' => 'StudentsController@enrollments', 'as' => 'students.enrollments'));
+Route::get('students/{id}/photos', array('uses' => 'StudentsController@photos', 'as' => 'students.photos'));
 Route::resource('subjects', 'SubjectsController');
 Route::resource('academicsessions', 'AcademicSessionsController');
 Route::get('assessments/{id}/tests', ['uses' => 'AssessmentsController@tests', 'as' => 'assessments.tests', 'before' => 'sentry']);

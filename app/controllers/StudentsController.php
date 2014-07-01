@@ -92,7 +92,7 @@ class StudentsController extends \BaseController
 
       if ($student->save()) {
          Notification::success('Student updated');
-         return Redirect::route('students.index');
+         return Redirect::route('students.edit', $id);
       }
    }
 
@@ -127,5 +127,15 @@ class StudentsController extends \BaseController
       }
 
       return Response::json($result);
+   }
+
+   public function enrollments($id)
+   {
+
+   }
+
+   public function photos($id)
+   {
+
    }
 }
