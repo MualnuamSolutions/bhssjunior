@@ -1,10 +1,11 @@
 <?php
 
-class UsersController extends \BaseController {
+class UsersController extends \BaseController
+{
 
    public function __construct()
    {
-      $this->beforeFilter('sentry', ['except' => ['login', 'doLogin']]);
+      //$this->beforeFilter('sentry', ['except' => ['login', 'doLogin', 'logout']]);
    }
 
    /**
@@ -14,8 +15,10 @@ class UsersController extends \BaseController {
     */
    public function index()
    {
-      $users = User::orderBy('email', 'asc')->paginate();
-      $index = $users->getPerPage() * ($users->getCurrentPage()-1) + 1;
+      $users = User::with('groups')
+         ->where('id', '<>', 1)
+         ->orderBy('email', 'asc')->paginate();
+      $index = $users->getPerPage() * ($users->getCurrentPage() - 1) + 1;
       return View::make('users.index', compact('users', 'index'));
    }
 
@@ -26,7 +29,8 @@ class UsersController extends \BaseController {
     */
    public function create()
    {
-      return View::make('users.create');
+      $userGroup = null;
+      return View::make('users.create', compact('userGroup'));
    }
 
    /**
@@ -39,11 +43,10 @@ class UsersController extends \BaseController {
       $validator = Validator::make(Input::all(), User::$rules);
 
       if ($validator->passes()) {
-         $group = Sentry::findGroupByName(Input::get('role'));
-         $public_group = Sentry::findGroupByName('Public');
+         $group = Sentry::findGroupById(Input::get('role'));
 
          // Create the user
-          $user = Sentry::createUser(array(
+         $user = Sentry::createUser(array(
             'name' => Input::get('name'),
             'email' => Input::get('email'),
             'password' => Input::get('password'),
@@ -55,15 +58,13 @@ class UsersController extends \BaseController {
 
          // Assign the group to the user
          $user->addGroup($group);
-         // We assign every user to public group by default.
-         $user->addGroup($public_group);
 
-         return Redirect::route('users.create')
-            ->with('success', "User created successfully.");
+         Notification::success('User created successfully.');
+         return Redirect::route('users.create');
 
       } else {
+         Notification::error('Please correct the following errors.');
          return Redirect::route('users.create')
-            ->with('info', "Please correct the following errors.")
             ->withErrors($validator)
             ->withInput(Input::all());
       }
@@ -72,7 +73,7 @@ class UsersController extends \BaseController {
    /**
     * Display the specified resource.
     *
-    * @param  int  $id
+    * @param  int $id
     * @return Response
     */
    public function show($id)
@@ -83,29 +84,57 @@ class UsersController extends \BaseController {
    /**
     * Show the form for editing the specified resource.
     *
-    * @param  int  $id
+    * @param  int $id
     * @return Response
     */
    public function edit($id)
    {
-      //
+      $user = User::with('groups')->find($id);
+      $userGroup = $user->groups ? $user->groups[0]->id : null;
+      return View::make('users.edit', compact('user', 'userGroup'));
    }
 
    /**
     * Update the specified resource in storage.
     *
-    * @param  int  $id
+    * @param  int $id
     * @return Response
     */
    public function update($id)
    {
-      //
+      $validator = Validator::make(Input::all(), User::$updateRules);
+
+      if ($validator->passes()) {
+         $group = Sentry::findGroupById(Input::get('role'));
+
+         // Get the user and update
+         $user = Sentry::findUserById($id);
+         $user->name = Input::get('name');
+         $user->email = Input::get('email');
+         $user->phone = Input::get('phone');
+         $user->address = Input::get('address');
+         $user->activated = Input::get('activated');
+
+         // Assign the group to the user
+         $user->addGroup($group);
+
+         $user->save();
+
+         Notification::success('User updated successfully.');
+         return Redirect::route('users.index');
+
+      } else {
+         Notification::error('Please correct the following errors.');
+         return Redirect::route('users.edit', $id)
+            ->withErrors($validator)
+            ->withInput(Input::all());
+      }
    }
 
    /**
     * Remove the specified resource from storage.
     *
-    * @param  int  $id
+    * @param  int $id
     * @return Response
     */
    public function destroy($id)
@@ -133,14 +162,12 @@ class UsersController extends \BaseController {
       $rules = [
          'email' => 'required|email',
          'password' => 'required'
-         ];
+      ];
 
       $validator = Validator::make(Input::all(), $rules);
 
-      if($validator->passes()) {
-         $error = "Login failed. Please check your credentials.";
-         try
-         {
+      if ($validator->passes()) {
+         try {
             // Set login credentials
             $credentials = array(
                'email' => Input::get('email'),
@@ -148,42 +175,28 @@ class UsersController extends \BaseController {
             );
 
             // Try to authenticate the user. Set remember flag to false
-            $user = Sentry::authenticate($credentials, false);
+            Sentry::authenticate($credentials, false);
 
-            if(Sentry::check()) {
+            if (Sentry::check()) {
                return Redirect::route('home');
             } else {
                $this->loginFailed();
             }
-         }
-         catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
-         {
-             $this->loginFailed();
-         }
-         catch (Cartalyst\Sentry\Users\PasswordRequiredException $e)
-         {
-            $this->loginFailed();
-         }
-         catch (Cartalyst\Sentry\Users\WrongPasswordException $e)
-         {
-             $this->loginFailed();
-         }
-         catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
-         {
-             $this->loginFailed();
-         }
-         catch (Cartalyst\Sentry\Users\UserNotActivatedException $e)
-         {
-             $this->loginFailed();
-         }
-         // The following is only required if throttle is enabled
-         catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e)
-         {
-            $this->loginFailed('suspended');
-         }
-         catch (Cartalyst\Sentry\Throttling\UserBannedException $e)
-         {
-             $this->loginFailed('banned');
+         } catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
+            return $this->loginFailed();
+         } catch (Cartalyst\Sentry\Users\PasswordRequiredException $e) {
+            return $this->loginFailed();
+         } catch (Cartalyst\Sentry\Users\WrongPasswordException $e) {
+            return $this->loginFailed();
+         } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+            return $this->loginFailed();
+         } catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {
+            return $this->loginFailed();
+         } // The following is only required if throttle is enabled
+         catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e) {
+            return $this->loginFailed('suspended');
+         } catch (Cartalyst\Sentry\Throttling\UserBannedException $e) {
+            return $this->loginFailed('banned');
          }
 
       } else {
@@ -191,26 +204,54 @@ class UsersController extends \BaseController {
       }
    }
 
-   private function loginFailed($type = null)
+   public function loginFailed($type = null)
    {
       $error = "Login failed. Please check your credentials.";
 
       if ($type == 'suspended') {
          $suspension_time = Config::get('cartalyst/sentry::throttling.suspension_time');
-         $minutes = $suspension_time>1?'minutes':'minute';
+         $minutes = $suspension_time > 1 ? 'minutes' : 'minute';
          $error = sprintf('Your account has been suspended due to multiple login attempts. Please try again after %d %s.', $suspension_time, $minutes);
-
-      } elseif ($type == 'suspended') {
+      } elseif ($type == 'banned') {
          $error = "You account has been banned due to security policy. Please contact administrator";
       }
 
-      return Redirect::route('login')->with('error', $error);
+      Notification::error($error);
+      return Redirect::route('login');
    }
 
-  public function logout()
-  {
-    Sentry::logout();
-    return Redirect::route('login');
-  }
+   public function logout()
+   {
+      Sentry::logout();
+      return Redirect::route('login');
+   }
+
+   public function password($id)
+   {
+      $user = User::with('groups')->find($id);
+      $userGroup = $user->groups ? $user->groups[0]->id : null;
+      return View::make('users.password', compact('user', 'userGroup'));
+   }
+
+   public function updatePassword($id)
+   {
+      $validator = Validator::make(Input::all(), User::$passwordRules);
+
+      if ($validator->passes()) {
+
+         $user = Sentry::findUserById($id);
+         $user->password = Input::get('password');
+         $user->save();
+
+         Notification::success('User password changed successfully.');
+         return Redirect::route('users.password', $id);
+      }
+      else {
+         Notification::alert('Please correct the following errors.');
+         return Redirect::route('users.password', $id)
+            ->withErrors($validator)
+            ->withInput(Input::all());
+      }
+   }
 
 }

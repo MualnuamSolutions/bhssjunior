@@ -2,7 +2,8 @@
 <div class="row">
    <div class="medium-4 columns">
       <label for="">Test</label>
-      <input type="text" disabled="disabled" value="{{ $exam->test->name . ' - ' . $exam->test->totalmarks . ' marks' }}" />
+      <input type="text" disabled="disabled"
+             value="{{ $exam->test->name . ' - ' . $exam->test->totalmarks . ' marks' }}"/>
    </div>
    <div class="medium-5 columns">
       {{ Form::label('name', 'Test Name', ['class' => ($errors->has('name') ? 'error' : '')]) }}

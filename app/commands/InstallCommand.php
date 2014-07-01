@@ -4,87 +4,87 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class InstallCommand extends Command {
+class InstallCommand extends Command
+{
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'install';
+   /**
+    * The console command name.
+    *
+    * @var string
+    */
+   protected $name = 'install';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Run all migration and seeder.';
+   /**
+    * The console command description.
+    *
+    * @var string
+    */
+   protected $description = 'Run all migration and seeder.';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+   /**
+    * Create a new command instance.
+    *
+    * @return void
+    */
+   public function __construct()
+   {
+      parent::__construct();
+   }
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
+   /**
+    * Execute the console command.
+    *
+    * @return mixed
+    */
+   public function fire()
+   {
       $this->info("Initiating installation.");
-      if ( !Schema::hasTable('migrations') ) {
+      if (!Schema::hasTable('migrations')) {
          Artisan::call('migrate:install');
          $this->info("=> Migrations installed");
       }
 
-      if($this->option('reset')) {
+      if ($this->option('reset')) {
          Artisan::call('migrate:reset');
          $this->info("=> Reset installation successfully.");
       }
 
       Artisan::call('migrate', array(
-      '--package' => 'cartalyst/sentry'
+         '--package' => 'cartalyst/sentry'
       ));
       $this->info("=> Migration table created successfully.");
 
       Artisan::call('migrate');
       $this->info("=> All migration executed successfully.");
 
-      if($this->option('seed')) {
+      if ($this->option('seed')) {
          Artisan::call('db:seed');
          $this->info("=> Database table seeded successfully.");
       }
-	}
+   }
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-			// array('example', InputArgument::REQUIRED, 'An example argument.'),
-		);
-	}
+   /**
+    * Get the console command arguments.
+    *
+    * @return array
+    */
+   protected function getArguments()
+   {
+      return array(// array('example', InputArgument::REQUIRED, 'An example argument.'),
+      );
+   }
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-			array('reset', null, InputOption::VALUE_OPTIONAL, 'Reset installer and run again.', true),
+   /**
+    * Get the console command options.
+    *
+    * @return array
+    */
+   protected function getOptions()
+   {
+      return array(
+         array('reset', null, InputOption::VALUE_OPTIONAL, 'Reset installer and run again.', true),
          array('seed', null, InputOption::VALUE_OPTIONAL, 'Run seeder.', true),
-		);
-	}
+      );
+   }
 
 }

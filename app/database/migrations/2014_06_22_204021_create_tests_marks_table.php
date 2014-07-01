@@ -3,16 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTestsMarksTable extends Migration {
+class CreateTestsMarksTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-      Schema::create('tests_marks', function(Blueprint $table){
+   /**
+    * Run the migrations.
+    *
+    * @return void
+    */
+   public function up()
+   {
+      Schema::create('tests_marks', function (Blueprint $table) {
          $table->increments('id');
          $table->integer('test_id');
          $table->integer('student_id');
@@ -21,16 +22,16 @@ class CreateTestsMarksTable extends Migration {
          $table->text('remarks');
          $table->timestamps();
       });
-	}
+   }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('tests_marks');
-	}
+   /**
+    * Reverse the migrations.
+    *
+    * @return void
+    */
+   public function down()
+   {
+      Schema::drop('tests_marks');
+   }
 
 }

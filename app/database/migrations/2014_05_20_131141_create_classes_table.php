@@ -3,16 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClassesTable extends Migration {
+class CreateClassesTable extends Migration
+{
 
-	/**
+   /**
     * Run the migrations.
     *
     * @return void
     */
    public function up()
    {
-      Schema::create('class_rooms', function(Blueprint $table){
+      Schema::create('class_rooms', function (Blueprint $table) {
          $table->increments('id');
          $table->string('name');
          $table->timestamps();

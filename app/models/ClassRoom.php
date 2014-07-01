@@ -21,13 +21,13 @@ class ClassRoom extends Ardent
    ];
 
    public static $relationsData = [
-      'students'  => [self::BELONGS_TO_MANY, 'Student', 'pivotKeys' => ['roll_no', 'academic_session_id']]
+      'students' => [self::BELONGS_TO_MANY, 'Student', 'pivotKeys' => ['roll_no', 'academic_session_id']]
    ];
 
    public function afterSave()
    {
       $subjects = Input::get('subjects');
-      if ( !empty($subjects) )
+      if (!empty($subjects))
          return $this->subjects()->sync($subjects);
       else
          return true;

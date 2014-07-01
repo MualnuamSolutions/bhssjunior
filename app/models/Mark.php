@@ -73,7 +73,7 @@ class Mark extends Eloquent
       $academicTable = (new AcademicSession)->getTable();
 
       return Mark::with(['student', 'test', 'academicSession'])
-         ->join($academicTable, "{$academicTable}.id", "=", "{$table}.academic_session_id" )
+         ->join($academicTable, "{$academicTable}.id", "=", "{$table}.academic_session_id")
          ->select(["{$table}.*", "{$academicTable}.start", "{$academicTable}.end"])
          ->groupBy('test_id', 'academic_session_id')
          ->orderBy('start', 'desc')

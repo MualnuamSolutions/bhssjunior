@@ -11,15 +11,13 @@
 |
 */
 
-App::before(function($request)
-{
-	//
+App::before(function ($request) {
+   //
 });
 
 
-App::after(function($request, $response)
-{
-	//
+App::after(function ($request, $response) {
+   //
 });
 
 /*
@@ -33,15 +31,13 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
-{
-	if (Auth::guest()) return Redirect::guest(route('user.login'));
+Route::filter('auth', function () {
+   if (Auth::guest()) return Redirect::guest(route('user.login'));
 });
 
 
-Route::filter('auth.basic', function()
-{
-	return Auth::basic();
+Route::filter('auth.basic', function () {
+   return Auth::basic();
 });
 
 /*
@@ -55,9 +51,8 @@ Route::filter('auth.basic', function()
 |
 */
 
-Route::filter('guest', function()
-{
-	if (Auth::check()) return Redirect::to('/');
+Route::filter('guest', function () {
+   if (Auth::check()) return Redirect::to('/');
 });
 
 /*
@@ -71,27 +66,25 @@ Route::filter('guest', function()
 |
 */
 
-Route::filter('csrf', function()
-{
-	if (Session::token() != Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
+Route::filter('csrf', function () {
+   if (Session::token() != Input::get('_token')) {
+      throw new Illuminate\Session\TokenMismatchException;
+   }
 });
 
 
-Route::filter('sentry', function($route, $request) {
+Route::filter('sentry', function ($route, $request) {
    View::share('current_route', $route->getName());
    View::share('adminGroup', Sentry::findGroupByName('Admin'));
    View::share('staffGroup', Sentry::findGroupByName('Staff'));
 
-   if( ! Sentry::check() ) {
+   if (!Sentry::check()) {
       return Redirect::guest(route('login'));
    } else {
       $user = Sentry::getUser();
       View::share('logged_user', $user);
 
-      if(!$user->hasAccess($route->getName()))
-         return Response::view('error.denied', array('route_name'=>$route->getName()), 403);
+      if (!$user->hasAccess($route->getName()))
+         return Response::view('error.denied', array('route_name' => $route->getName()), 403);
    }
 });

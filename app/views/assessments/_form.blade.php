@@ -21,7 +21,9 @@
       {{ Form::label('weightage', 'Weightage', ['class' => ($errors->has('weightage')?'error':'')]) }}
 
       <div class="row collapse">
-         <div class="small-10 medium-7 columns">{{ Form::text('weightage', null, ['class' => $errors->has('weightage')?'error':'']) }}</div>
+         <div class="small-10 medium-7 columns">{{ Form::text('weightage', null, ['class' =>
+            $errors->has('weightage')?'error':'']) }}
+         </div>
          <div class="small-2 medium-5 columns">
             <span class="postfix"> / 100</span>
          </div>

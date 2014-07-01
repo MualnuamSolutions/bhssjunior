@@ -4,18 +4,36 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use LaravelBook\Ardent\Ardent;
 
-class User extends Ardent {
+class User extends Eloquent
+{
 
-    public static $rules = [
+   public static $rules = [
       'email' => 'required',
       'password' => 'required|alpha_num|between:4,8|confirmed',
       'password_confirmation' => 'required|alpha_num|between:4,8',
       'name' => 'required',
       'phone' => 'numeric',
       'permissions' => [],
-    ];
+   ];
 
-    public static $roles = ['Staff' => 'Staff', 'Admin' => 'Admin'];
+   public static $passwordRules = [
+      'password' => 'required|alpha_num|between:4,8|confirmed',
+      'password_confirmation' => 'required|alpha_num|between:4,8',
+   ];
+
+   public static $updateRules = [
+      'email' => 'required',
+      'name' => 'required',
+      'phone' => 'numeric',
+      'permissions' => [],
+   ];
+
+   public static $roles = [1 => 'Admin', 2 => 'Staff'];
+
+   public function groups()
+   {
+      return $this->belongsToMany('Group', 'users_groups', 'user_id', 'group_id')->orderBy('name', 'asc');
+   }
 
    /**
     * The database table used by the model.
@@ -64,7 +82,7 @@ class User extends Ardent {
    /**
     * Set the token value for the "remember me" session.
     *
-    * @param  string  $value
+    * @param  string $value
     * @return void
     */
    public function setRememberToken($value)

@@ -12,7 +12,9 @@
    <div class="medium-6 columns">
       {{ Form::label('subjects', 'Subjects', ['class' => ($errors->has('subject')?'error':'')]) }}
 
-      {{ Form::select('subjects[]', $subjects, (isset($classroom) ? array_pluck($classroom->subjects, 'id') : null), [ 'class' => 'chosen-select ' . ($errors->has('name')?'error':''), 'data-placeholder' => 'Choose subjects', 'multiple']) }}
+      {{ Form::select('subjects[]', $subjects, (isset($classroom) ? array_pluck($classroom->subjects, 'id') : null), [
+      'class' => 'chosen-select ' . ($errors->has('name')?'error':''), 'data-placeholder' => 'Choose subjects',
+      'multiple']) }}
 
       @if($errors->has('subject'))
       <small class="error">{{ $errors->first('subject') }}</small>

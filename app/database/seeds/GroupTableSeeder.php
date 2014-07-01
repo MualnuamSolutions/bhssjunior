@@ -1,4 +1,5 @@
 <?php
+
 class GroupTableSeeder extends Seeder
 {
    public function run()
@@ -7,14 +8,14 @@ class GroupTableSeeder extends Seeder
 
       Sentry::createGroup(
          array(
-         'name'        => 'Admin',
-         'permissions' => array()
-      ));
+            'name' => 'Admin',
+            'permissions' => array()
+         ));
 
       Sentry::createGroup(
          array(
-         'name'        => 'Staff',
-         'permissions' => array()
-      ));
+            'name' => 'Staff',
+            'permissions' => array()
+         ));
    }
 }

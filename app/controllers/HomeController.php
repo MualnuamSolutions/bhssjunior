@@ -3,10 +3,10 @@ use \Mualnuam\Permission;
 
 class HomeController extends BaseController
 {
-	public function index()
-	{
-		return View::make('home');
-	}
+   public function index()
+   {
+      return View::make('home');
+   }
 
    public function refresh()
    {

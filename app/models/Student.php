@@ -17,6 +17,7 @@ class Student extends Ardent
    ];
 
    protected $fillable = [
+      'regno',
       'name',
       'age',
       'gender',
@@ -34,7 +35,7 @@ class Student extends Ardent
    ];
 
    public static $relationsData = [
-      'photos'  => [self::HAS_MANY, 'Photo']
+      'photos' => [self::HAS_MANY, 'Photo']
    ];
 
    public function classRooms()
@@ -47,7 +48,7 @@ class Student extends Ardent
    public function classRoom()
    {
       return $this->belongsToMany('ClassRoom')
-         ->whereIn( 'academic_session_id', AcademicSession::getSessions()->lists('id') )
+         ->whereIn('academic_session_id', AcademicSession::getSessions()->lists('id'))
          ->withPivot('roll_no', 'academic_session_id');
    }
 
@@ -55,21 +56,24 @@ class Student extends Ardent
 
    public function afterCreate()
    {
+      $session = AcademicSession::getRecentSession();
+      $regno = 'BHSSJR' . $session->start . str_pad($this->id, 4, 0, STR_PAD_LEFT);
+      $this->update(['regno' => $regno]);
+
       $photoPath = Input::get('photo');
-      if ( !empty($photoPath) ) {
+      if (!empty($photoPath)) {
          $photo = new Photo(['path' => $photoPath, 'default' => true]);
          $this->photos()->save($photo);
-      }
-      else
+      } else
          return true;
    }
 
-   public function getCurrentClassAttribute( $value )
+   public function getCurrentClassAttribute($value)
    {
       return $this->classRoom->first();
    }
 
-   public function getClassAttribute( $value )
+   public function getClassAttribute($value)
    {
       return $this->currentClass ? $this->currentClass->name : null;
    }

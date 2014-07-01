@@ -24,7 +24,8 @@
    <div class="medium-3 columns">
       {{ Form::label('exam_date', 'Exam Date', ['class' => ($errors->has('exam_date') ? 'error' : '')]) }}
 
-      {{ Form::text('exam_date', null, ['tabIndex' => 3, 'class' => 'fdatepicker ' . ($errors->has('exam_date') ? 'error' : '')]) }}
+      {{ Form::text('exam_date', null, ['tabIndex' => 3, 'class' => 'fdatepicker ' . ($errors->has('exam_date') ?
+      'error' : '')]) }}
       @if($errors->has('exam_date'))
       <small class="error">{{ $errors->first('exam_date') }}</small>
       @endif
@@ -33,30 +34,32 @@
 
 <table class="small-12">
    <thead>
-      <tr>
-         <th class="small-1">R.No</th>
-         <th class="small-5">Name</th>
-         <th class="small-2">Mark</th>
-         <th class="small-4">Remarks</th>
-      </tr>
+   <tr>
+      <th class="small-1">R.No</th>
+      <th class="small-5">Name</th>
+      <th class="small-2">Mark</th>
+      <th class="small-4">Remarks</th>
+   </tr>
    </thead>
    <tbody>
    @foreach ($students as $key => $student)
-      <tr>
-         <td>{{ $student->rollNo }}</td>
-         <td>{{ $student->name }}</td>
-         <td>
-            <input data-tooltip
-               title="{{ $errors->has("mark.{$student->id}") ? 'This field is required and must be numeric' : '' }}"
-               class="{{ $errors->has("mark.{$student->id}") ? 'has-tip error' : '' }}"
-               type="number"
-               name="mark[{{ $student->id }}]"
-               tabIndex="{{ $key+4 }}"
-               min="0"
-               value="{{ Input::old("mark.{$student->id}", 0) }}"/>
-         </td>
-         <td>{{ Form::text("remarks[$student->id]", Input::old("remarks.{$student->id}", null), ['tabIndex' => ($key+$students->count()+4), 'placeholder' => 'Optional']) }}</td>
-      </tr>
+   <tr>
+      <td>{{ $student->rollNo }}</td>
+      <td>{{ $student->name }}</td>
+      <td>
+         <input data-tooltip
+                title="{{ $errors->has(" mark.{$student->id}") ? 'This field is required and must be numeric' : '' }}"
+         class="{{ $errors->has("mark.{$student->id}") ? 'has-tip error' : '' }}"
+         type="number"
+         name="mark[{{ $student->id }}]"
+         tabIndex="{{ $key+4 }}"
+         min="0"
+         value="{{ Input::old("mark.{$student->id}", 0) }}"/>
+      </td>
+      <td>{{ Form::text("remarks[$student->id]", Input::old("remarks.{$student->id}", null), ['tabIndex' =>
+         ($key+$students->count()+4), 'placeholder' => 'Optional']) }}
+      </td>
+   </tr>
    @endforeach
    </tbody>
 </table>
@@ -65,5 +68,6 @@
 
 <hr>
 <div class="medium-12 text-right">
-   {{ Form::button('Submit', ['class' => 'large button success', 'type' => 'submit', 'tabIndex' => ($students->count()*2+6)]) }}
+   {{ Form::button('Submit', ['class' => 'large button success', 'type' => 'submit', 'tabIndex' =>
+   ($students->count()*2+6)]) }}
 </div>

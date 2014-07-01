@@ -16,7 +16,8 @@
          @endif
 
          {{ Form::label('dob', 'Date of Birth', ['class' => ($errors->has('dob')?'error':'')]) }}
-         {{ Form::text('dob', null, ['readonly' => 'readonly', 'placeholder' => 'Pick date', 'class' => 'fdatepicker' . ($errors->has('dob') ? ' error' : '')]) }}
+         {{ Form::text('dob', null, ['readonly' => 'readonly', 'placeholder' => 'Pick date', 'class' => 'fdatepicker' .
+         ($errors->has('dob') ? ' error' : '')]) }}
          @if($errors->has('dob'))
          <small class="error">{{ $errors->first('dob') }}</small>
          @endif
@@ -27,7 +28,8 @@
          <small class="error">{{ $errors->first('father') }}</small>
          @endif
 
-         {{ Form::label('fathers_occupation', 'Father\'s Occupation', ['class' => ($errors->has('fathers_occupation')?'error':'')]) }}
+         {{ Form::label('fathers_occupation', 'Father\'s Occupation', ['class' =>
+         ($errors->has('fathers_occupation')?'error':'')]) }}
          {{ Form::text('fathers_occupation', null, ['class' => $errors->has('fathers_occupation')?'error':'']) }}
          @if($errors->has('fathers_occupation'))
          <small class="error">{{ $errors->first('fathers_occupation') }}</small>
@@ -39,7 +41,8 @@
          <small class="error">{{ $errors->first('mother') }}</small>
          @endif
 
-         {{ Form::label('mothers_occupation', 'Mother\'s Occupation', ['class' => ($errors->has('mothers_occupation')?'error':'')]) }}
+         {{ Form::label('mothers_occupation', 'Mother\'s Occupation', ['class' =>
+         ($errors->has('mothers_occupation')?'error':'')]) }}
          {{ Form::text('mothers_occupation', null, ['class' => $errors->has('mothers_occupation')?'error':'']) }}
          @if($errors->has('mothers_occupation'))
          <small class="error">{{ $errors->first('mothers_occupation') }}</small>
@@ -69,8 +72,10 @@
       <fieldset>
          <legend>Enrollment</legend>
 
-         {{ Form::label('academic_session', 'Academic Session', ['class' => ($errors->has('academic_session') ? 'error' : '')]) }}
-         {{ Form::select('academic_session', $academicSessions, null, ['class' => $errors->has('academic_session')?'error':'']) }}
+         {{ Form::label('academic_session', 'Academic Session', ['class' => ($errors->has('academic_session') ? 'error'
+         : '')]) }}
+         {{ Form::select('academic_session', $academicSessions, null, ['class' =>
+         $errors->has('academic_session')?'error':'']) }}
          @if($errors->has('academic_session'))
          <small class="error">{{ $errors->first('academic_session') }}</small>
          @endif
@@ -79,6 +84,12 @@
          {{ Form::select('class_room', $classRooms, null, ['class' => $errors->has('class_room')?'error':'']) }}
          @if($errors->has('class_room'))
          <small class="error">{{ $errors->first('class_room') }}</small>
+         @endif
+
+         {{ Form::label('roll_no', 'Roll No', ['class' => ($errors->has('roll_no')?'error':'')]) }}
+         {{ Form::text('roll_no', null, ['class' => $errors->has('roll_no')?'error':'']) }}
+         @if($errors->has('roll_no'))
+         <small class="error">{{ $errors->first('roll_no') }}</small>
          @endif
 
       </fieldset>
@@ -97,7 +108,9 @@
                         {{ Form::hidden('photo', '', array('id'=>'photo')) }}
                      </div>
                      <div class="js-upload" style="display: none;">
-                        <div class="progress progress-success"><div class="js-progress bar"></div></div>
+                        <div class="progress progress-success">
+                           <div class="js-progress bar"></div>
+                        </div>
                         <span class="btn-txt">Uploading</span>
                      </div>
                   </div>
@@ -112,7 +125,9 @@
                         <span class="btn-txt">Webcam</span>
                      </div>
                      <div class="js-upload" style="display: none;">
-                        <div class="progress progress-success"><div class="js-progress bar"></div></div>
+                        <div class="progress progress-success">
+                           <div class="js-progress bar"></div>
+                        </div>
                         <span class="btn-txt">Uploading</span>
                      </div>
                   </div>
@@ -138,10 +153,11 @@
 
 @section('scripts')
 <script>
-    window.FileAPI = {
-          debug: false // debug mode
-        , staticPath: '{{ asset('jquery.fileapi/FileAPI/') }}' // path to *.swf
-    };
+   window.FileAPI = {
+      debug: false // debug mode
+      , staticPath: '{{ asset('jquery.fileapi / FileAPI / ') }}' // path to *.swf
+   }
+   ;
 </script>
 <script src="{{ asset('jquery.fileapi/FileAPI/FileAPI.min.js') }}"></script>
 <script src="{{ asset('jquery.fileapi/FileAPI/FileAPI.exif.js') }}"></script>

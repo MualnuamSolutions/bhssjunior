@@ -4,16 +4,16 @@ class ZurbPresenter extends \Illuminate\Pagination\Presenter
 {
    public function getActivePageWrapper($text)
    {
-      return '<li class="current"><a href="">'.$text.'</a></li>';
+      return '<li class="current"><a href="">' . $text . '</a></li>';
    }
 
    public function getDisabledTextWrapper($text)
    {
-      return '<li class="unavailable">'.$text.'</li>';
+      return '<li class="unavailable">' . $text . '</li>';
    }
 
    public function getPageLinkWrapper($url, $page, $rel = null)
    {
-      return '<li><a href="'.$url.'">'.$page.'</a></li>';
+      return '<li><a href="' . $url . '">' . $page . '</a></li>';
    }
 }

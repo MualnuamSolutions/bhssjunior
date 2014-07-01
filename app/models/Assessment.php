@@ -8,7 +8,7 @@ class Assessment extends Ardent
    public $autoHydrateEntityFromInput = true;
    public $forceEntityHydrationFromInput = true;
 
-   public static $terms = [1 => 'First Term', 2 => 'Second Term'];
+   public static $terms = [1 => 'First Term', 2 => 'Second Term', 3 => 'Third Term', 4 => 'Fourth Term', 5 => 'Fifth Term', 6 => 'Sixth Term'];
 
    public static $rules = [
       'name' => 'required',
