@@ -102,13 +102,25 @@
     background: url('/jquery.fileapi/statics/uploader/userpic.gif') no-repeat;
     background-size: cover;
 }
+.sign {
+    width: 245px;
+    height: 138px;
+    display: inline-block;
+    position: relative;
+    background: #eee;
+    background-size: cover;
+}
 .webcam .btn,
 .userpic .btn {
     margin-top: 150px;
 }
+.sign .btn {
+    margin-top: 100px;
+}
 
 .webcam__preview,
-.userpic__preview {
+.userpic__preview,
+.sign__preview {
     position: absolute;
 }
 

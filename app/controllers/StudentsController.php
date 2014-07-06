@@ -3,139 +3,171 @@
 class StudentsController extends \BaseController
 {
 
-   public function __construct()
-   {
-      $this->beforeFilter('sentry');
-   }
+    public function __construct()
+    {
+        $this->beforeFilter('sentry');
+    }
 
-   /**
-    * Display a listing of the resource.
-    *
-    * @return Response
-    */
-   public function index()
-   {
-      $students = Student::with('classRoom', 'photos')
-         ->orderBy('name', 'asc')
-         ->paginate(Config::get('view.pagination_limit'));
-      return View::make('students.index', compact('students'));
-   }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $students = Student::with('enrollment')
+            ->orderBy('name', 'asc')
+            ->paginate(Config::get('view.pagination_limit'));
 
-
-   /**
-    * Show the form for creating a new resource.
-    *
-    * @return Response
-    */
-   public function create()
-   {
-      $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
-      $academicSessions = AcademicSession::getDropDownList();
-      return View::make('students.create', compact('classRooms', 'academicSessions'));
-   }
+        return View::make('students.index', compact('students'));
+    }
 
 
-   /**
-    * Store a newly created resource in storage.
-    *
-    * @return Response
-    */
-   public function store()
-   {
-      $student = new Student;
-
-      if ($student->save()) {
-         Notification::success('New student created');
-         return Redirect::route('students.index');
-      } else {
-         return Redirect::route('students.create')->withErrors($student->errors());
-      }
-   }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
+        $academicSessions = AcademicSession::getDropDownList();
+        return View::make('students.create', compact('classRooms', 'academicSessions'));
+    }
 
 
-   /**
-    * Display the specified resource.
-    *
-    * @param  int $id
-    * @return Response
-    */
-   public function show($id)
-   {
-      //
-   }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $student = new Student;
+
+        if ($student->save()) {
+            Notification::success('New student created');
+            return Redirect::route('students.index');
+        } else {
+            return Redirect::route('students.edit', $student->id)->withErrors($student->errors());
+        }
+    }
 
 
-   /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  int $id
-    * @return Response
-    */
-   public function edit($id)
-   {
-      $student = Student::find($id);
-      $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
-      $academicSessions = AcademicSession::getDropDownList();
-      return View::make('students.edit', compact('student', 'academicSessions', 'classRooms'));
-   }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
 
-   /**
-    * Update the specified resource in storage.
-    *
-    * @param  int $id
-    * @return Response
-    */
-   public function update($id)
-   {
-      $student = Student::find($id);
-
-      if ($student->save()) {
-         Notification::success('Student updated');
-         return Redirect::route('students.edit', $id);
-      }
-   }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $student = Student::find($id);
+        $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
+        $academicSessions = AcademicSession::getDropDownList();
+        return View::make('students.edit', compact('student', 'academicSessions', 'classRooms'));
+    }
 
 
-   /**
-    * Remove the specified resource from storage.
-    *
-    * @param  int $id
-    * @return Response
-    */
-   public function destroy($id)
-   {
-      //
-   }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        $student = Student::find($id);
 
-   public function uploadPhoto()
-   {
-      $result = ['status' => '', 'photoPath' => ''];
+        if ($student->save()) {
+            Notification::success('Student updated');
+            return Redirect::route('students.edit', $id);
+        }
+    }
 
-      if (Input::hasFile('photoFile')) {
-         $photo = Input::file('photoFile');
-         $hash = md5($photo->getClientOriginalName());
-         $extension = $photo->getClientOriginalExtension();
-         $fileName = $hash . '.' . $extension;
-         $path = chunk_split($hash, 2, '/');
-         $uploadDir = public_path('uploads/students/') . $path;
-         $tempPhoto = $photo->move($uploadDir, $fileName);
-         $result = [
-            'status' => 'OK',
-            'photoPath' => $path . $fileName,
-         ];
-      }
 
-      return Response::json($result);
-   }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 
-   public function enrollments($id)
-   {
+    public function enrollments($id)
+    {
+        $student = Student::find($id);
+        $enrollments = Enrollment::with('academicSession', 'classRoom')
+            ->where('student_id', '=', $id)->paginate();
 
-   }
+        return View::make('students.enrollments', compact('enrollments', 'student'));
+    }
 
-   public function photos($id)
-   {
+    /*public function editEnrollment($id)
+    {
+        $enrollment = Enrollment::find($id);
+        $student = Student::find($enrollment->student_id);
+        $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
+        $academicSessions = AcademicSession::getDropDownList();
 
-   }
+        return View::make('students.editEnrollment', compact('enrollment', 'student', 'academicSessions', 'classRooms'));
+    }*/
+
+    public function addEnrollment($id)
+    {
+        $student = Student::find($id);
+        $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
+        $academicSessions = AcademicSession::getDropDownList();
+
+        return View::make('students.addenrollment', compact('student', 'academicSessions', 'classRooms'));
+    }
+
+    public function storeEnrollment($id)
+    {
+        $student = Student::find($id);
+        $enrollment = new Enrollment;
+        $enrollment->student_id = $student->id;
+
+        if ($enrollment->save()) {
+            Notification::success('New enrollment created for ' . $student->name);
+            return Redirect::route('students.enrollments', $student->id);
+        } else {
+            return Redirect::route('students.addEnrollment', $student->id)->withErrors($enrollment->errors());
+        }
+    }
+
+    public function removeEnrollment($id)
+    {
+        $enrollment = Enrollment::find($id);
+        $student = Student::find($enrollment->student_id);
+
+        if ($enrollment->delete()) {
+            Notification::success('Enrollment record removed for ' . $student->name);
+            return Redirect::route('students.enrollments', $student->id);
+        } else {
+            Notification::alert('Enrollment record cannot be removed.');
+            return Redirect::route('students.enrollments', $student->id);
+        }
+
+    }
+
+    public function photos($id)
+    {
+
+    }
 }

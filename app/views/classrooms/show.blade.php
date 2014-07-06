@@ -25,36 +25,36 @@
             <table class="small-12">
                <thead>
                <tr>
-                  <th class="small-3">Roll No</th>
-                  <th>Name</th>
-                  <th></th>
+                  <th class="small-2">R.No</th>
+                  <th class="small-7">Name</th>
+                  <th class="small-3"></th>
                </tr>
                </thead>
                <tbody>
-               @if (0 == $classroom->students->count())
+               @if (0 == $enrollments->count())
                <tr>
                   <td colspan="3" class="text-center">No students</td>
                </tr>
                @endif
 
-               @foreach($students as $key => $student)
+               @foreach($enrollments as $key => $enrollment)
                <tr>
-                  <td>{{ $student->pivot->roll_no }}</td>
+                  <td>{{ $enrollment->roll_no }}</td>
                   <td>
-                     {{ $student->name }}<br>
+                     {{ $enrollment->student->name }}<br>
                      <small>
-                        @if ($student->gender == "Male" && $student->father)
+                        @if ($enrollment->student->gender == "Male" && $enrollment->student->father)
                         s/o
-                        @elseif ($student->gender == "Female" && $student->mother)
+                        @elseif ($enrollment->student->gender == "Female" && $enrollment->student->mother)
                         d/o
                         @else
                         c/o
                         @endif
-                        {{ $student->father ? : $student->mother }}
+                        {{ $enrollment->student->father ? : $enrollment->student->mother }}
                      </small>
                   </td>
                   <td class="text-right">
-                     @include('partials.actions', ['actions' => ['edit'], 'route' => 'students', 'item' => $student])
+                     @include('partials.actions', ['actions' => ['edit'], 'route' => 'students', 'item' => $enrollment->student])
                   </td>
                </tr>
                @endforeach

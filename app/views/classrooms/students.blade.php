@@ -15,36 +15,34 @@
             <table class="small-12">
                <thead>
                <tr>
-                  <th class="small-3">Roll No</th>
-                  <th>Name</th>
-                  <th>Age</th>
-                  <th>Gender</th>
-                  <th>Father</th>
+                  <th class="small-1">R.No</th>
+                  <th class="small-4">Name</th>
+                  <th class="small-3">DOB</th>
+                  <th class="small-2">Gender</th>
                   <th></th>
                </tr>
                </thead>
                <tbody>
-               @if (0 == $classroom->students->count())
+               @if (0 == $enrollments->count())
                <tr>
                   <td colspan="3" class="text-center">No students</td>
                </tr>
                @endif
 
-               @foreach($students as $key => $student)
+               @foreach($enrollments as $key => $enrollment)
                <tr>
-                  <td>{{ $student->pivot->roll_no }}</td>
+                  <td>{{ $enrollment->roll_no }}</td>
                   <td>
-                     {{ $student->name }}
+                     {{ $enrollment->student->name }}
                            <span>
-                              {{ $student->gender == "Male" && ($student->father && $student->mother) ? 's/o' : 'd/o' }}
-                              {{ $student->father ? : $student->mother }}
+                              {{ $enrollment->student->gender == "Male" && ($enrollment->student->father && $enrollment->student->mother) ? 's/o' : 'd/o' }}
+                              {{ $enrollment->student->father ? : $enrollment->student->mother }}
                            </span>
                   </td>
-                  <td>{{ $student->age }}</td>
-                  <td>{{ $student->gender }}</td>
-                  <td>{{ $student->father }}</td>
+                  <td>{{ $enrollment->student->dob }}</td>
+                  <td>{{ $enrollment->student->gender }}</td>
                   <td class="text-right">
-                     @include('partials.actions', ['actions' => ['edit'], 'route' => 'students', 'item' => $student])
+                     @include('partials.actions', ['actions' => ['edit'], 'route' => 'students', 'item' => $enrollment->student])
                   </td>
                </tr>
                @endforeach

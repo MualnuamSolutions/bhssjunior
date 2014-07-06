@@ -24,7 +24,7 @@
          <td>{{ $classrooms->getFrom() + $key }}</td>
          <td>{{ $classroom->name }}</td>
          <td>{{ sizeof($classroom->subjects->lists('name')) }}</td>
-         <td>{{ $classroom->students->count() }}</td>
+         <td>{{ $classroom->enrollments->count() }}</td>
          <td class="text-right">
             @include('partials.actions', ['actions'=> ['view', 'edit', 'delete'], 'route' => 'classrooms', 'item' => $classroom])
          </td>
