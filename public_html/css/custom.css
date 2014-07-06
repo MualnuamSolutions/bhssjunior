@@ -25,3 +25,6 @@ select.error {
 #marks-entry-form table input {
    margin-bottom: 0;
 }
+.highlight {
+    background: #FFDC73;
+}

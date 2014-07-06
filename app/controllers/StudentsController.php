@@ -15,11 +15,41 @@ class StudentsController extends \BaseController
      */
     public function index()
     {
-        $students = Student::with('enrollment')
-            ->orderBy('name', 'asc')
-            ->paginate(Config::get('view.pagination_limit'));
+        $search = Input::get('s');
+        $order = Input::get('order', 'name');
+        $limit = Input::get('limit', Config::get('view.pagination_limit'));
 
-        return View::make('students.index', compact('students'));
+        $orderOptions = [
+            'name' => 'Order by Name Alphabetically',
+            'id' => 'Order By Recently Added',
+            'regno' => 'Order By Reg. No',
+        ];
+
+        $limits = [
+            10 => 'Show 10',
+            20 => 'Show 20',
+            40 => 'Show 40',
+            50 => 'Show 50',
+            100 => 'Show 100',
+        ];
+
+        $orderDirection = [
+            'name' => 'asc',
+            'id' => 'desc',
+            'regno' => 'asc'
+        ];
+
+        $students = Student::with('enrollment')
+            ->where(function($query) use ($search) {
+                $query->where('name', 'LIKE', '%' . $search . '%');
+                $query->orWhere('father', 'LIKE', '%' . $search . '%');
+                $query->orWhere('regno', 'LIKE', '%' . $search . '%');
+                $query->orWhere('contact1', 'LIKE', $search . '%');
+            })
+            ->orderBy($order, $orderDirection[$order])
+            ->paginate($limit);
+
+        return View::make('students.index', compact('students', 'orderOptions', 'limits'));
     }
 
 
