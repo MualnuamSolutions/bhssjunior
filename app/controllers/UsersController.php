@@ -18,7 +18,6 @@ class UsersController extends \BaseController
     public function index()
     {
         $users = User::with('groups')
-            ->where('id', '<>', 1)
             ->orderBy('email', 'asc')->paginate();
         $index = $users->getPerPage() * ($users->getCurrentPage() - 1) + 1;
         return View::make('users.index', compact('users', 'index'));
@@ -106,7 +105,8 @@ class UsersController extends \BaseController
     public function edit($id)
     {
         $user = User::with('groups')->find($id);
-        $userGroup = $user->groups ? $user->groups[0]->id : null;
+        $userGroup = $user->groups->first();// ? $user->groups[0]->id : null;
+        $userGroup = $userGroup ? $userGroup->id : null;
         return View::make('users.edit', compact('user', 'userGroup'));
     }
 
