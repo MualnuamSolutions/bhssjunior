@@ -1,4 +1,5 @@
 <?php
+use \Mualnuam\ImageHelper;
 
 class StudentsController extends \BaseController
 {
@@ -198,6 +199,79 @@ class StudentsController extends \BaseController
 
     public function photos($id)
     {
+        $student = Student::find($id);
+        $photos = Photo::orderBy('created_at', 'desc')->where('student_id', '=', $id)->paginate();
 
+        return View::make('students.photos', compact('photos', 'student'));
+    }
+
+    public function defaultPhoto($id)
+    {
+        $student = Student::find($id);
+        $photo = Photo::find(Input::get('default'));
+
+        if($photo) {
+            Photo::where('student_id', '=', $student->id)->update(['default' => 0]);
+
+            $photo->default = 1;
+            $photo->save();
+
+            Notification::success('Default photo updated successfully.');
+            return Redirect::route('students.photos', $student->id);
+        }
+        else {
+            Notification::alert('Setting default photo failed. Photo not found');
+            return Redirect::route('students.photos', $student->id);
+        }
+    }
+
+    public function addPhoto($id)
+    {
+        $student = Student::find($id);
+
+        return View::make('students.addphoto', compact('student'));
+    }
+
+    public function storePhoto($id)
+    {
+        $student = Student::find($id);
+
+        Photo::where('student_id', '=', $student->id)->update(['default' => 0]);
+
+        $photo = new Photo;
+        $photo->path = ImageHelper::store(Input::get('photo'));
+        $photo->student_id = $student->id;
+        $photo->default = 1;
+        $photo->save();
+
+        Notification::success('New photo uploaded successfully.');
+        return Redirect::route('students.photos', $student->id);
+    }
+
+    public function removePhoto($id)
+    {
+        $student = Student::find($id);
+        $photo = Photo::find(Input::get('delete'));
+        if($photo) {
+            if($photo->default) {
+                $photo->delete();
+
+                Photo::where('student_id', '=', $student->id)->update(['default' => 0]);
+
+                $photo = Photo::orderBy('created_at', 'desc')->where('student_id', '=', $student->id)->first();
+                $photo->default = 1;
+                $photo->save();
+            }
+            else {
+                $photo->delete();
+            }
+
+            Notification::success('Photo deleted successfully.');
+            return Redirect::route('students.photos', $student->id);
+        }
+        else {
+            Notification::alert('Delete photo failed. Photo not found');
+            return Redirect::route('students.photos', $student->id);
+        }
     }
 }

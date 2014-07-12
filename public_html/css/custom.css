@@ -28,3 +28,6 @@ select.error {
 .highlight {
     background: #FFDC73;
 }
+table .student-photo {
+    height: 100px;
+}

@@ -1,5 +1,6 @@
 <?php
 use LaravelBook\Ardent\Ardent;
+use \Mualnuam\ImageHelper;
 
 class Student extends Ardent
 {
@@ -51,6 +52,11 @@ class Student extends Ardent
 
     public static $genders = ['Male' => 'Male', 'Female' => 'Female'];
 
+    public function beforeCreate()
+    {
+        $this->regno = '';
+    }
+
     public function afterCreate()
     {
         $session = AcademicSession::getRecentSession();
@@ -64,7 +70,7 @@ class Student extends Ardent
         $enrollment->roll_no = Input::get('roll_no');
         $enrollment->save();
 
-        $photoPath = Input::get('photo');
+        $photoPath = Input::get('photo') ? ImageHelper::store(Input::get('photo')) : null;
         if (!empty($photoPath)) {
             $photo = new Photo(['path' => $photoPath, 'default' => true]);
             $this->photos()->save($photo);
