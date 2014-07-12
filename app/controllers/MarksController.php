@@ -67,7 +67,7 @@ class MarksController extends \BaseController
             $input = Input::all();
             Exam::store($input);
 
-            Notification::success('New exams marks entry completed');
+            Notification::success('New exam marks entry completed');
             return Redirect::route('exams.index');
         } else {
             return Redirect::route('marks.create', [

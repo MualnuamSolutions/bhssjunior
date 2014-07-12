@@ -7,7 +7,7 @@ class UsersController extends \BaseController
 
     public function __construct()
     {
-        //$this->beforeFilter('sentry', ['except' => ['login', 'doLogin', 'logout']]);
+        $this->beforeFilter('sentry', ['except' => ['login', 'doLogin', 'logout']]);
     }
 
     /**
@@ -177,7 +177,7 @@ class UsersController extends \BaseController
         Notification::success('User deleted succesfully.');
 
         return Redirect::route('users.index', $id);
-     }
+    }
 
     /**
      * Show login form
@@ -285,6 +285,58 @@ class UsersController extends \BaseController
         } else {
             Notification::alert('Please correct the following errors.');
             return Redirect::route('users.password', $id)
+                ->withErrors($validator)
+                ->withInput(Input::all());
+        }
+    }
+
+    public function profile()
+    {
+        $user = Sentry::getUser();
+        $user = User::with('groups')->find($user->id);
+        $userGroup = $user->groups ? (isset($user->groups[0]) ? $user->groups[0]->id : null) : null;
+        return View::make('users.profile', compact('user', 'userGroup'));
+    }
+
+    public function updateProfile()
+    {
+        $validator = Validator::make(Input::all(), User::$profileRules);
+
+        if ($validator->passes()) {
+            // Get the user and update
+            $user = Sentry::getUser();
+
+            // Move signature & photo file
+            if (Input::get('signature')) {
+                ImageHelper::remove(public_path($user->signature));
+                $user->signature = ImageHelper::store(Input::get('signature'));
+            }
+
+            if (Input::get('photo')) {
+                ImageHelper::remove(public_path($user->photo));
+                $user->photo = ImageHelper::store(Input::get('photo'));
+            }
+
+            $user->password = Input::get('password');
+            $user->name = Input::get('name');
+            $user->phone = Input::get('phone');
+            $user->address = Input::get('address');
+            $user->dob = Input::get('dob');
+            $user->father = Input::get('father');
+            $user->epic_no = Input::get('epic_no');
+            $user->date_of_joining = Input::get('date_of_joining');
+            $user->qualification = Input::get('qualification');
+            $user->professional_training = Input::get('professional_training');
+            $user->email = Input::get('email');
+
+            $user->save();
+
+            Notification::success('User updated successfully.');
+            return Redirect::route('users.profile');
+
+        } else {
+            Notification::error('Please correct the following errors.');
+            return Redirect::route('users.profile')
                 ->withErrors($validator)
                 ->withInput(Input::all());
         }

@@ -71,6 +71,11 @@
       <li><a href="{{ route('users.index') }}"><i class="fi-torsos-all"></i></a></li>
       @endif
 
+      @if ( $logged_user->hasAccess('users.profile') && $logged_user->hasAccess('users.profile') )
+      <li class="divider"></li>
+      <li><a href="{{ route('users.profile') }}"><i class="fi-pencil"></i></a></li>
+      @endif
+
       <li class="divider"></li>
       <li><a href="#"><i class="fi-wrench"></i></a></li>
 

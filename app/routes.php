@@ -15,9 +15,11 @@ Route::get('/', array('before' => 'sentry', 'uses' => 'HomeController@index', 'a
 Route::get('logout', array('uses' => 'UsersController@logout', 'as' => 'logout'));
 Route::get('login', array('uses' => 'UsersController@login', 'as' => 'login'));
 Route::post('login', array('uses' => 'UsersController@doLogin', 'as' => 'doLogin'));
-Route::resource('users', 'UsersController');
 Route::get('users/{id}/password', array('uses' => 'UsersController@password', 'as' => 'users.password'));
 Route::post('users/{id}/password', array('uses' => 'UsersController@updatePassword', 'as' => 'users.updatePassword'));
+Route::get('users/profile', array('uses' => 'UsersController@profile', 'as' => 'users.profile'));
+Route::post('users/profile', array('uses' => 'UsersController@updateProfile', 'as' => 'users.updateProfile'));
+Route::resource('users', 'UsersController');
 Route::get('/refresh', array('uses' => 'HomeController@refresh', 'as' => 'refresh'));
 Route::get('classrooms/{id}/add-students', array('as' => 'classrooms.addstudents', 'uses' => 'ClassRoomsController@addStudents'));
 Route::post('classrooms/{id}/add-students', array('as' => 'classrooms.storestudents', 'uses' => 'ClassRoomsController@storeStudents'));
