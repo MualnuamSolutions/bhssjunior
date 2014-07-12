@@ -39,18 +39,17 @@
       <td>{{ $mark->student->rollNo }}</td>
       <td>{{ $mark->student->name }}</td>
       <td>
-         <input data-tooltip
-                title="{{ $errors->has(" mark.{$mark->student_id}") ? 'This field is required and must be numeric' : ''
-         }}"
-         class="has-tip {{ $errors->has("mark.{$mark->student_id}") ? 'error' : '' }}"
-         type="number"
-         tabIndex="{{ $key+3 }}"
-         name="mark[{{ $mark->student_id }}]"
-         min="0"
-         value="{{ Input::old("mark.{$mark->student_id}", $mark->mark) }}"/>
+         <input
+            {{ $errors->has("mark.{$mark->student_id}") ? "data-tooltip" : "" }}
+            title="{{ $errors->has("mark.{$mark->student_id}") ? 'This field is required and must be numeric' : ''}}"
+            class="has-tip {{ $errors->has("mark.{$mark->student_id}") ? 'error' : '' }}"
+            type="number"
+            tabIndex="{{ $key+3 }}"
+            name="mark[{{ $mark->student_id }}]"
+            min="0"
+            value="{{ Input::old("mark.{$mark->student_id}", $mark->mark) }}"/>
       </td>
-      <td>{{ Form::text("remarks[$mark->student_id]", Input::old("remarks.{$mark->student_id}", $mark->remarks),
-         ['tabIndex' => ($key+$exam->marks->count()+3), 'placeholder' => 'Optional']) }}
+      <td>{{ Form::text("remarks[$mark->student_id]", Input::old("remarks.{$mark->student_id}", $mark->remarks), ['tabIndex' => ($key+$exam->marks->count()+3), 'placeholder' => 'Optional']) }}
       </td>
    </tr>
    @endforeach
@@ -61,6 +60,5 @@
 
 <hr>
 <div class="medium-12 text-right">
-   {{ Form::button('Submit', ['tabIndex' => ($exam->marks->count()*2+5), 'class' => 'large button success', 'type' =>
-   'submit']) }}
+   {{ Form::button('Submit', ['tabIndex' => ($exam->marks->count()*2+5), 'class' => 'large button success', 'type' => 'submit']) }}
 </div>

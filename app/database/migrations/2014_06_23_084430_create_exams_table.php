@@ -21,6 +21,7 @@ class CreateExamsTable extends Migration
             $table->integer('class_room_id');
             $table->text('note')->nullable();
             $table->date('exam_date');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }

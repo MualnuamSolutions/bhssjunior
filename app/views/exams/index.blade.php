@@ -16,7 +16,7 @@
          <th>Assessment</th>
          <th>Subject</th>
          <th>Class</th>
-         <th>Academic Session</th>
+         <th>Teacher</th>
          <th></th>
       </tr>
       </thead>
@@ -32,7 +32,7 @@
          <td>{{ $exam->test && $exam->test->assessment ? $exam->test->assessment->name : null }}</td>
          <td>{{ $exam->test && $exam->test->subject ? $exam->test->subject->name : null }}</td>
          <td>{{ $exam->classRoom ? $exam->classRoom->name : null}}</td>
-         <td>{{ $exam->academicSession ? $exam->academicSession->session : null }}</td>
+         <td>{{ $exam->user->name }}</td>
          <td class="text-right">
             @include('partials.actions', ['actions'=> ['edit', 'delete'], 'route' => 'exams', 'item' => $exam])
          </td>

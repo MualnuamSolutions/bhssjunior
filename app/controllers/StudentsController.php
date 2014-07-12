@@ -26,8 +26,8 @@ class StudentsController extends \BaseController
         ];
 
         $limits = [
-            10 => 'Show 10',
-            20 => 'Show 20',
+            15 => 'Show 15',
+            25 => 'Show 25',
             40 => 'Show 40',
             50 => 'Show 50',
             100 => 'Show 100',

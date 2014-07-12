@@ -64,7 +64,8 @@ class MarksController extends \BaseController
         $validator = Mark::validator(Input::all());
 
         if ($validator->passes()) {
-            Exam::store(Input::all());
+            $input = Input::all();
+            Exam::store($input);
 
             Notification::success('New exams marks entry completed');
             return Redirect::route('exams.index');

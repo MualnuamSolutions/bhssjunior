@@ -24,7 +24,7 @@
 
     <div class="medium-3 columns">
         {{ Form::label('exam_date', 'Exam Date', ['class' => ($errors->has('exam_date') ? 'error' : '')]) }}
-        {{ Form::text('exam_date', null, ['tabIndex' => 3, 'class' => 'fdatepicker ' . ($errors->has('exam_date') ? 'error' : '')]) }}
+        {{ Form::text('exam_date', date('Y-m-d'), ['tabIndex' => 3, 'class' => 'fdatepicker ' . ($errors->has('exam_date') ? 'error' : '')]) }}
 
         @if($errors->has('exam_date'))
         <small class="error">{{ $errors->first('exam_date') }}</small>
@@ -47,8 +47,9 @@
             <td>{{ $enrollment->roll_no }}</td>
             <td>{{ $enrollment->student->name }}</td>
             <td>
-                <input data-tooltip
-                    title="{{ $errors->has(" mark.{$enrollment->student->id}") ? 'This field is required and must be numeric' : '' }}"
+                <input
+                    {{ $errors->has("mark.{$enrollment->student->id}") ? "data-tooltip" : "" }}
+                    title="{{ $errors->has("mark.{$enrollment->student->id}") ? 'This field is required and must be numeric' : '' }}"
                     class="{{ $errors->has("mark.{$enrollment->student->id}") ? 'has-tip error' : '' }}"
                     type="number"
                     name="mark[{{ $enrollment->student->id }}]"

@@ -15,7 +15,7 @@ class ExamsController extends \BaseController
     */
    public function index()
    {
-      $exams = Exam::with(['test', 'classRoom', 'academicSession'])->paginate(Config::get('view.pagination_limit'));
+      $exams = Exam::with(['test', 'classRoom', 'academicSession', 'user'])->paginate(Config::get('view.pagination_limit'));
 
       return View::make('exams.index', compact('exams'));
    }
@@ -110,7 +110,16 @@ class ExamsController extends \BaseController
     */
    public function destroy($id)
    {
-      //
+       $exam = Exam::find($id);
+       if($exam) {
+           Mark::where('exam_id', '=', $id)->delete();
+           $exam->delete();
+
+           Notification::success('Exam deleted successfully.');
+           return Redirect::route('exams.index');
+       }
+       Notification::alert("Exam not found");
+       return Redirect::route('exams.index');
    }
 
 
