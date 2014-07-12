@@ -11,14 +11,14 @@
                 <small class="error">{{ $errors->first('email') }}</small>
                 @endif
 
-                {{ Form::label('password', 'Password', ['class' => $errors->has('password')?'error':'']) }}
-                {{ Form::password('password', ['placeholder' => 'Leave blank to retain current password', 'class' => $errors->has('password')?'error':'']) }}
+                {{ Form::label('password', 'New Password', ['class' => $errors->has('password')?'error':'']) }}
+                {{ Form::password('password', ['autocomplete' => 'off', 'placeholder' => 'Leave blank to retain current password', 'class' => $errors->has('password')?'error':'']) }}
 
                 @if($errors->has('password'))
                 <small class="error">{{ $errors->first('password') }}</small>
                 @endif
 
-                {{ Form::label('password_confirmation', 'Confirm Password', ['class' => $errors->has('password_confirmation')?'error':'']) }}
+                {{ Form::label('password_confirmation', 'Confirm New Password', ['class' => $errors->has('password_confirmation')?'error':'']) }}
                 {{ Form::password('password_confirmation', ['placeholder' => 'Confirm password', 'class' => $errors->has('password_confirmation')?'error':'']) }}
 
                 @if($errors->has('password_confirmation'))
