@@ -97,6 +97,7 @@ class Permission
                 'exams.index' => 1,
                 'exams.edit' => 1,
                 'exams.update' => 1,
+                'exams.destroy' => 1,
                 'users.profile' => 1,
                 'users.updateProfile' => 1,
             ]
