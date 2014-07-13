@@ -253,6 +253,8 @@ class StudentsController extends \BaseController
         $student = Student::find($id);
         $photo = Photo::find(Input::get('delete'));
         if($photo) {
+            ImageHelper::remove(public_path($photo->path));
+            
             if($photo->default) {
                 $photo->delete();
 
