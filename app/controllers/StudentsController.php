@@ -40,12 +40,13 @@ class StudentsController extends \BaseController
             'regno' => 'asc'
         ];
 
-        $students = Student::with('enrollment')
-            ->where(function($query) use ($search) {
-                $query->where('name', 'LIKE', '%' . $search . '%');
-                $query->orWhere('father', 'LIKE', '%' . $search . '%');
-                $query->orWhere('regno', 'LIKE', '%' . $search . '%');
-                $query->orWhere('contact1', 'LIKE', $search . '%');
+        $students = Student::where(function($query) use ($search) {
+                if($search != "") {
+                    $query->where('name', 'LIKE', '%' . $search . '%');
+                    $query->orWhere('father', 'LIKE', '%' . $search . '%');
+                    $query->orWhere('regno', 'LIKE', '%' . $search . '%');
+                    $query->orWhere('contact1', 'LIKE', $search . '%');
+                }
             })
             ->orderBy($order, $orderDirection[$order])
             ->paginate($limit);
@@ -254,7 +255,7 @@ class StudentsController extends \BaseController
         $photo = Photo::find(Input::get('delete'));
         if($photo) {
             ImageHelper::remove(public_path($photo->path));
-            
+
             if($photo->default) {
                 $photo->delete();
 

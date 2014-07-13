@@ -36,7 +36,8 @@ class Student extends Ardent
     ];
 
     public static $relationsData = [
-        'photos' => [self::HAS_MANY, 'Photo']
+        'photos' => [self::HAS_MANY, 'Photo'],
+        'photo' => [self::HAS_ONE, 'Photo']
     ];
 
     public function enrollments()

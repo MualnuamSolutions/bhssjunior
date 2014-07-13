@@ -47,3 +47,5 @@ Route::resource('assessments', 'AssessmentsController');
 Route::resource('marks', 'MarksController');
 Route::resource('photos', 'PhotosController');
 Route::post('/photos/uploader', array('as' => 'photos.uploader', 'uses' => 'PhotosController@uploader'));
+Route::resource('parents', 'ParentsController');
+Route::post('parents/result', array('as' => 'parents.result', 'uses' => 'ParentsController@result'));

@@ -37,7 +37,7 @@
             @endif
 
             @if ( $logged_user->hasAccess('exams.index') )
-            <li><a href="{{ route('exams.index') }}">Exams</a></li>
+            <li><a href="{{ route('exams.index') }}">Test Records</a></li>
             @endif
 
             @if ( $logged_user->hasAccess('assessments.create') && $logged_user->hasAccess('assessments.index') )

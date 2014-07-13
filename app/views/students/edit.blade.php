@@ -8,6 +8,7 @@
    <hr>
    <ul class="button-group">
       <li><a href="{{ route('students.edit', $student->id) }}" class="button">Profile</a></li>
+      <li><a href="{{ route('students.edit', $student->id) }}" class="button secondary">Physical Measurement</a></li>
       <li><a href="{{ route('students.enrollments', $student->id) }}" class="button secondary">Enrollments</a></li>
       <li><a href="{{ route('students.photos', $student->id) }}" class="button secondary">Photos</a></li>
    </ul>

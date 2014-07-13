@@ -3,90 +3,93 @@
 class ResultsController extends \BaseController
 {
 
-   public function __construct()
-   {
-      $this->beforeFilter('sentry');
-   }
+    public function __construct()
+    {
+        $this->beforeFilter('sentry');
+    }
 
-   /**
-    * Display a listing of the resource.
-    *
-    * @return Response
-    */
-   public function index()
-   {
-      //
-   }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $classrooms = ClassRoom::with('subjects', 'enrollments')
+            ->orderBy('id', 'asc')->paginate(Config::get('view.pagination_limit'));
 
-
-   /**
-    * Show the form for creating a new resource.
-    *
-    * @return Response
-    */
-   public function create()
-   {
-      //
-   }
+        return View::make('results.index', compact('classrooms'));
+    }
 
 
-   /**
-    * Store a newly created resource in storage.
-    *
-    * @return Response
-    */
-   public function store()
-   {
-      //
-   }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        //
+    }
 
 
-   /**
-    * Display the specified resource.
-    *
-    * @param  int $id
-    * @return Response
-    */
-   public function show($id)
-   {
-      //
-   }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        //
+    }
 
 
-   /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  int $id
-    * @return Response
-    */
-   public function edit($id)
-   {
-      //
-   }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
 
-   /**
-    * Update the specified resource in storage.
-    *
-    * @param  int $id
-    * @return Response
-    */
-   public function update($id)
-   {
-      //
-   }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
 
-   /**
-    * Remove the specified resource from storage.
-    *
-    * @param  int $id
-    * @return Response
-    */
-   public function destroy($id)
-   {
-      //
-   }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        //
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 
 
 }

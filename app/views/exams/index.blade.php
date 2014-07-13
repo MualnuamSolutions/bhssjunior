@@ -1,10 +1,10 @@
 @extends('layout')
 
 @section('content')
-@include('partials.crumbs', ['current' => 'Exams'])
+@include('partials.crumbs', ['current' => 'Test Records'])
 
 <div class="panel">
-    <h5><i class="fi-list"></i> Exams</h5>
+    <h5><i class="fi-list"></i> Test Records</h5>
     <hr>
 
     <table class="small-12">

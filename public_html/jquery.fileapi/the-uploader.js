@@ -59,6 +59,7 @@ $(function () {
         url: '/photos/uploader',
         accept: 'image/*',
         autoUpload: true,
+        paramName: 'photoFile',
         elements: {
             active: {show: '.js-upload', hide: '.js-webcam'},
             preview: {
@@ -67,6 +68,20 @@ $(function () {
                 height: 200
             },
             progress: '.js-progress'
+        },
+        onFileComplete: function (evt, uiEvt) {
+            console.log('adsdsd');
+            var file = uiEvt.file;
+            var json = uiEvt.result;
+            var error = uiEvt.error;
+
+            file.data = {
+                id: json.id,
+                token: json.token
+            };
+
+            if (json.status == "OK")
+                $("#photo").val(json.photoPath);
         }
     });
     $('.js-webcam', '#webcam').click(function (evt) {

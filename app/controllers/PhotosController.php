@@ -98,6 +98,20 @@ class PhotosController extends \BaseController {
                 'photoPath' => $fileName,
             ];
         }
+        else {
+            foreach(Input::file('files') as $photo) {
+
+                $hash = md5($photo->getClientOriginalName() . time());
+                $extension = $photo->getClientOriginalExtension();
+                $fileName = $hash . '.' . $extension;
+                $uploadDir = public_path('uploads/temp/');
+                $photo->move($uploadDir, $fileName);
+                $result = [
+                    'status' => 'OK',
+                    'photoPath' => $fileName,
+                ];
+            }
+        }
 
         return Response::json($result);
     }
