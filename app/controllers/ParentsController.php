@@ -14,7 +14,7 @@ class ParentsController extends \BaseController {
 
         if(Input::get('regno') && Input::get('contact1')) {
             $student = Student::where('regno', '=', Input::get('regno'))
-//                ->where('contact1', '=', Input::get('contact1'))
+                ->where('contact1', '=', Input::get('contact1'))
                 ->first();
             $marks = Mark::join('exams', 'exams_marks.exam_id', '=', 'exams.id')
                 ->join('users', 'exams.user_id', '=', 'users.id')
