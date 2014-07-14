@@ -12,7 +12,7 @@
 
     @if($student)
     <div class="row">
-        <div class="small-4 columns">
+        <div class="medium-4 small-12 columns">
             <table>
                 <tbody>
                     <tr>
@@ -38,7 +38,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="small-8 columns">
+        <div class="small-12 medium-8 columns">
             <table>
                 <thead>
                     <tr>
