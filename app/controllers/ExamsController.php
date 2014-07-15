@@ -23,6 +23,7 @@ class ExamsController extends \BaseController
                 if($user->inGroup($staff))
                     $query->where('user_id', '=', $user->id);
             })
+            ->orderBy('created_at', 'desc')
             ->paginate(Config::get('view.pagination_limit'));
 
         return View::make('exams.index', compact('exams'));

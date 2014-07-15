@@ -55,6 +55,7 @@
                     name="mark[{{ $enrollment->student->id }}]"
                     tabIndex="{{ $key+4 }}"
                     min="0"
+                    step="any"
                     value="{{ Input::old("mark.{$enrollment->student->id}", 0) }}"/>
             </td>
             <td>{{ Form::text("remarks[$enrollment->student_id]", Input::old("remarks.{$enrollment->student_id}", null), ['tabIndex' => ($key+$enrollments->count()+4), 'placeholder' => 'Optional']) }}</td>
