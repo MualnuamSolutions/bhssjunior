@@ -54,10 +54,14 @@ return array(
 
         'mysql' => array(
             'driver' => 'mysql',
-            'host' => getenv('HOST'),
-            'database' => getenv('DATABASE'),
-            'username' => getenv('USERNAME'),
-            'password' => getenv('PASSWORD'),
+//            'host' => getenv('HOST'),
+//            'database' => getenv('DATABASE'),
+//            'username' => getenv('USERNAME'),
+//            'password' => getenv('PASSWORD'),
+            'host' => 'bhssjunior.db.11797024.hostedresource.com',
+            'database' => 'bhssjunior',
+            'username' => 'bhssjunior',
+            'password' => 'BH##jun!0r',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
