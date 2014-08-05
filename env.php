@@ -6,6 +6,7 @@
  * Time: 7:10 PM
  */
 return [
+    'ENV'       =>  'production',
     'HOST'      =>  'bhssjunior.db.11797024.hostedresource.com',
     'DATABASE'  =>  'bhssjunior',
     'USERNAME'  =>  'bhssjunior',
