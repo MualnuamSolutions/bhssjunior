@@ -82,10 +82,9 @@
 
         <li class="alert"><a href="{{ route('logout') }}" title="Log Out"><i class="fi-power"></i></a></li>
 
-        @endif
-
+        @else
         <li><a href="{{ route('parents.index') }}">Parent's Dashboard</a></li>
-
+        @endif
     </ul>
 </section>
 

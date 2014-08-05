@@ -10,6 +10,7 @@ class Student extends Ardent
     public $forceEntityHydrationFromInput = true;
 
     public static $rules = [
+        'regno' => 'required',
         'name' => 'required',
         'dob' => 'required',
         'gender' => 'required',

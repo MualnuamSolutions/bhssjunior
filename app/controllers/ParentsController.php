@@ -11,21 +11,28 @@ class ParentsController extends \BaseController {
 	{
         $student = null;
         $marks = null;
+        $notfound = false;
 
         if(Input::get('regno') && Input::get('contact1')) {
             $student = Student::where('regno', '=', Input::get('regno'))
                 ->where('contact1', '=', Input::get('contact1'))
                 ->first();
-            $marks = Mark::join('exams', 'exams_marks.exam_id', '=', 'exams.id')
-                ->join('users', 'exams.user_id', '=', 'users.id')
-                ->join('tests', 'exams.test_id', '=', 'tests.id')
-                ->join('subjects', 'tests.subject_id', '=', 'subjects.id')
-                ->where('exams_marks.student_id', '=', $student->id)
-                ->select('exams.*', 'exams_marks.*', 'tests.name as test_name', 'users.name as teacher_name', 'subjects.name as subject_name')
-                ->get();
+            if($student) {
+                $marks = Mark::join('exams', 'exams_marks.exam_id', '=', 'exams.id')
+                    ->join('users', 'exams.user_id', '=', 'users.id')
+                    ->join('tests', 'exams.test_id', '=', 'tests.id')
+                    ->join('subjects', 'tests.subject_id', '=', 'subjects.id')
+                    ->where('exams_marks.student_id', '=', $student->id)
+                    ->select('exams.*', 'exams_marks.*', 'tests.name as test_name', 'users.name as teacher_name', 'subjects.name as subject_name')
+                    ->get();
+            }
+            else {
+                $notfound = true;
+            }
+
         }
 
-        return View::make('parents.index', compact('student', 'marks'));
+        return View::make('parents.index', compact('student', 'marks', 'notfound'));
 	}
 
 	/**

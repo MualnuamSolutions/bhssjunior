@@ -2,6 +2,14 @@
 
 @section('content')
 
+@if($notfound)
+<div class="row">
+    <div class="large-12 columns">
+        <div data-alert class="alert-box alert">Student not found. Please try again with correct detail.<a href="#" class="close">&times;</a></div>
+    </div>
+</div>
+@endif
+
 @include( 'partials.crumbs', ['current' => 'Parent\'s Dashboard'] )
 
 <div class="panel">
@@ -12,33 +20,32 @@
 
     @if($student)
     <div class="row">
-        <div class="medium-4 small-12 columns">
+        <div class="small-12 columns">
+            <div class="row">
+                <div class="small-12 medium"></div>
+            </div>
             <table>
+                <thead>
+                    <tr>
+                        <th class="-2">Photo</th>
+                        <th class="-2">Name</th>
+                        <th class="-2">Registration No</th>
+                        <th class="-2">Primary Contact</th>
+                        <th class="-2">Class</th>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr>
-                        <th class="small-4 text-right">Name</th>
+                        <td>{{ $student->photo ? '<img src="' . asset($student->photo->path) . '" style="width:80px;height:80px;" />' : null }}</td>
                         <td>{{ $student->name }}</td>
-                    </tr>
-                    <tr>
-                        <th class="small-4 text-right">Photo</th>
-                        <td>{{ $student->photo ? '<img src="' . asset($student->photo->path) . '" style="height:80px" />' : null }}</td>
-                    </tr>
-                    <tr>
-                        <th class="small-4 text-right">Reg No</th>
                         <td>{{ $student->regno }}</td>
-                    </tr>
-                    <tr>
-                        <th class="small-4 text-right">Primary Contact</th>
                         <td>{{ $student->contact1 }}</td>
-                    </tr>
-                    <tr>
-                        <th class="small-4 text-right">Class</th>
                         <td>{{ $student->class}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="small-12 medium-8 columns">
+        <div class="small-12 columns">
             <table>
                 <thead>
                     <tr>
