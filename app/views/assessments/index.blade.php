@@ -12,6 +12,7 @@
       <tr>
          <th>#</th>
          <th>Name</th>
+         <th>Short</th>
          <th>Term</th>
          <th>Weightage</th>
          <th></th>
@@ -22,6 +23,7 @@
       <tr>
          <td>{{ $assessments->getFrom() + $key }}</td>
          <td>{{ $assessment->name }}</td>
+         <td>{{ $assessment->short_name }}</td>
          <td>{{ $assessment->termName }}</td>
          <td>{{ $assessment->displayWeightage }}</td>
          <td class="text-right">

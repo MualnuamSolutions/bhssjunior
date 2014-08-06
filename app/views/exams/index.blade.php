@@ -32,8 +32,8 @@
                 {{ $exam->name }}<br>
                 <small>{{ $exam->test ? $exam->test->name : null}}</small>
             </td>
-            <td>{{ date('j M Y', strtotime($exam->exam_date)) }}</td>
-            <td>{{ $exam->test && $exam->test->assessment ? $exam->test->assessment->name : null }}</td>
+            <td>{{ date('j/m/Y', strtotime($exam->exam_date)) }}</td>
+            <td>{{ $exam->test && $exam->test->assessment ? $exam->test->assessment->short_name : null }}</td>
             <td>{{ $exam->test && $exam->test->subject ? $exam->test->subject->name : null }}</td>
             <td>{{ $exam->classRoom ? $exam->classRoom->name : null}}</td>
 

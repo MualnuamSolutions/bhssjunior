@@ -54,10 +54,6 @@ return array(
 
         'mysql' => array(
             'driver' => 'mysql',
-//            'host' => getenv('HOST'),
-//            'database' => getenv('DATABASE'),
-//            'username' => getenv('USERNAME'),
-//            'password' => getenv('PASSWORD'),
             'host' => 'bhssjunior.db.11797024.hostedresource.com',
             'database' => 'bhssjunior',
             'username' => 'bhssjunior',
