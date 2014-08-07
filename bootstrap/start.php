@@ -24,9 +24,10 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(function(){
-    return getenv('ENV') ? : 'local';
-});
+$env = $app->detectEnvironment(array(
+    'production' => array('sg2nlhftpg024.shr.prod.sin2.secureserver.net'),
+    'local' => array('Alans-MacBook-Pro.local')
+));
 
 /*
 |--------------------------------------------------------------------------
