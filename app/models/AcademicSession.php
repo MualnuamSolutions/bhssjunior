@@ -44,6 +44,6 @@ class AcademicSession extends Ardent
 
    public static function getSessions()
    {
-      return self::orderBy('start', 'asc')->get();
+      return self::orderBy('start', 'desc')->get();
    }
 }
