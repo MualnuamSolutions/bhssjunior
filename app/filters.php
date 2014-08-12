@@ -74,10 +74,6 @@ Route::filter('csrf', function () {
 
 
 Route::filter('sentry', function ($route, $request) {
-   View::share('current_route', $route->getName());
-   View::share('adminGroup', Sentry::findGroupByName('Admin'));
-   View::share('staffGroup', Sentry::findGroupByName('Staff'));
-
    if (!Sentry::check()) {
       return Redirect::guest(route('login'));
    } else {

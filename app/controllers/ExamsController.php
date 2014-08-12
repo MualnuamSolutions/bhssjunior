@@ -15,18 +15,54 @@ class ExamsController extends \BaseController
      */
     public function index()
     {
-        $exams = Exam::with(['test', 'classRoom', 'academicSession', 'user'])
-            ->where(function($query) {
-                $user = Sentry::getUser();
-                $staff = Sentry::findGroupByName('Staff');
+        $loggedUser = $this->logged_user;
+        $staffGroup = $this->staffGroup;
+        $testTable = (new Test)->getTable();
+        $examTable = (new Exam)->getTable();
+        $subjectTable = (new Subject)->getTable();
+        $classRoomTable = (new ClassRoom)->getTable();
+        $userTable = (new User)->getTable();
+        $assessmentTable = (new Assessment)->getTable();
 
-                if($user->inGroup($staff))
-                    $query->where('user_id', '=', $user->id);
+        $academicSessions = AcademicSession::getDropDownList();
+        $assessments = ['' => 'All'] + Assessment::getDropDownList(true);
+        $subjects = ['' => 'All'] + Subject::getDropDownList();
+
+        $search = Input::get('s');
+        $limit = Input::get('limit', Config::get('view.pagination_limit'));
+
+        $limits = [
+            15 => 'Show 15',
+            25 => 'Show 25',
+            40 => 'Show 40',
+            50 => 'Show 50',
+            100 => 'Show 100',
+        ];
+
+        $exams = Exam::join($testTable, $testTable . '.id', '=', $examTable . '.test_id')
+            ->join($subjectTable, $subjectTable . '.id', '=', $testTable . '.subject_id')
+            ->join($assessmentTable, $assessmentTable . '.id', '=', $testTable . '.assessment_id')
+            ->join($classRoomTable, $classRoomTable . '.id', '=', $examTable . '.user_id')
+            ->join($userTable, $userTable . '.id', '=', $examTable . '.class_room_id')
+            ->where(function($query) use ($loggedUser, $staffGroup) {
+                if($loggedUser->inGroup($staffGroup))
+                    $query->where('user_id', '=', $loggedUser->id);
             })
-            ->orderBy('created_at', 'desc')
-            ->paginate(Config::get('view.pagination_limit'));
+            ->select(
+                $examTable . '.id',
+                $examTable . '.name',
+                $examTable . '.exam_date',
+                $examTable . '.user_id',
+                $testTable . '.name as testName',
+                $classRoomTable . '.name as classRoom',
+                $subjectTable . '.name as subject',
+                $assessmentTable . '.short_name as assessment',
+                $userTable . '.name as teacherName'
+            )
+            ->orderBy($examTable . '.created_at', 'desc')
+            ->paginate($limit);
 
-        return View::make('exams.index', compact('exams'));
+        return View::make('exams.index', compact('exams', 'orderOptions', 'limits', 'academicSessions', 'assessments', 'subjects'));
     }
 
 
@@ -129,6 +165,44 @@ class ExamsController extends \BaseController
         }
         Notification::alert("Exam not found");
         return Redirect::route('exams.index');
+    }
+
+    /**
+     * Print test result
+     */
+    public function printout($id)
+    {
+        $examTable = (new Exam)->getTable();
+        $markTable = (new Mark)->getTable();
+        $academicSessionTable = (new AcademicSession)->getTable();
+        $assessmentTable = (new Assessment)->getTable();
+        $testTable = (new Test)->getTable();
+        $classRoomTable = (new ClassRoom)->getTable();
+        $userTable = (new User)->getTable();
+        $subjectTable = (new Subject)->getTable();
+        $studentTable = (new Student)->getTable();
+
+        $exam = Exam::join($academicSessionTable, $academicSessionTable . '.id', '=', $examTable . '.academic_session_id')
+            ->join($testTable, $testTable . '.id', '=', $examTable . '.test_id')
+            ->join($classRoomTable, $classRoomTable . '.id', '=', $examTable . '.class_room_id')
+            ->join($userTable, $userTable . '.id', '=', $examTable . '.user_id')
+            ->join($subjectTable, $subjectTable . '.id', '=', $testTable . '.subject_id')
+            ->join($assessmentTable, $assessmentTable . '.id', '=', $testTable . '.assessment_id')
+            ->select(
+                $examTable . '.*',
+                $testTable . '.name as testName',
+                $testTable . '.totalmarks',
+                $academicSessionTable . '.start',
+                $academicSessionTable . '.end',
+                $classRoomTable . '.name as classRoom',
+                $userTable . '.name as teacher',
+                $assessmentTable . '.name as assessmentName',
+                $subjectTable . '.name as subjectName'
+            )
+            ->where($examTable . '.id', '=', $id)
+            ->first();
+
+        return View::make('exams.print', compact('exam'));
     }
 
 

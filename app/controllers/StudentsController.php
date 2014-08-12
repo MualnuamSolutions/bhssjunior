@@ -277,4 +277,50 @@ class StudentsController extends \BaseController
             return Redirect::route('students.photos', $student->id);
         }
     }
+
+    public function measurements($id)
+    {
+        $student = Student::find($id);
+        $measurements = Measurement::get($student->id, $paginate = true);
+
+        return View::make('students.measurements', compact('measurements', 'student'));
+    }
+
+    public function addMeasurement($id)
+    {
+        $student = Student::find($id);
+        $academicSessions = AcademicSession::getDropDownList();
+
+        return View::make('students.addmeasurement', compact('student', 'academicSessions'));
+    }
+
+    public function storeMeasurement($id)
+    {
+        $student = Student::find($id);
+        $measurement = new Measurement;
+        $measurement->student_id = $student->id;
+
+        if ($measurement->save()) {
+            Notification::success('New measurement added for ' . $student->name);
+            return Redirect::route('students.measurements', $student->id);
+        } else {
+            return Redirect::route('students.addMeasurement', $student->id)->withErrors($measurement->errors());
+        }
+    }
+
+    public function removeMeasurement($id)
+    {
+        $measurement = Measurement::find($id);
+        $student = Student::find($measurement->student_id);
+
+        if ($measurement->delete()) {
+            Notification::success('Measurement record removed for ' . $student->name);
+            return Redirect::route('students.measurements', $student->id);
+        } else {
+            Notification::alert('Measurement record cannot be removed.');
+            return Redirect::route('students.measurements', $student->id);
+        }
+
+    }
+
 }

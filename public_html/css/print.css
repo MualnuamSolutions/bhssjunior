@@ -1,0 +1,82 @@
+body {margin:0}
+
+.test-result table {font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-size: 12px; width:100%; border-spacing: 1px 1px;}
+
+.test-result table.header {margin-bottom: 30px;}
+
+.test-result table.header th,
+.test-result table.header td {
+    padding: 0 0 10px;
+    vertical-align: top;
+}
+
+.test-result table.header b {
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+.test-result .data-head {
+    background: #555555;
+    page-break-before: auto;
+    page-break-after: auto;
+    page-break-inside: avoid;
+    /*border-top: 1px solid #111;*/
+    /*border-bottom: 1px solid #111;*/
+}
+
+.test-result .data-row {
+    page-break-before: auto;
+    page-break-after: auto;
+    page-break-inside: avoid;
+    /*border-bottom: 1px solid #111;*/
+    background: #555555;
+}
+
+.test-result .data-head table,
+.test-result .data-row table {
+    font-size: 11px;
+}
+
+.test-result .data-head table th,
+.test-result .data-row table td {
+    padding: 8px 10px;
+}
+
+.test-result .data-head table th {
+    text-transform: uppercase;
+    background: #fafafa;
+}
+
+.test-result .data-row table td {
+    /*border-bottom:1px solid #000;*/
+    background: #fafafa;
+}
+
+.test-result .data-row table tr.even td {
+    background: #fafafa;
+}
+
+.test-result .logo-head {
+    margin-bottom: 20px;
+}
+
+.test-result .logo-head hr {
+    height: 1px;
+    background: #000000;
+    border: none;
+}
+
+.test-result .logo-head img {
+    height: 80px;
+}
+.test-result .logo-head h3 {
+    font-size: 14px;
+    margin: 10px 0 18px;
+    padding: 0;
+}
+
+.test-result .logo-head h1 {
+    font-size: 16px;
+    margin: 1px 0 6px;
+    padding: 0;
+}

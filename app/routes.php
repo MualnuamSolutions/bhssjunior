@@ -25,9 +25,13 @@ Route::get('classrooms/{id}/add-students', array('as' => 'classrooms.addstudents
 Route::post('classrooms/{id}/add-students', array('as' => 'classrooms.storestudents', 'uses' => 'ClassRoomsController@storeStudents'));
 Route::get('classrooms/{id}/students', array('as' => 'classrooms.students', 'uses' => 'ClassRoomsController@students'));
 Route::resource('classrooms', 'ClassRoomsController');
+
 Route::resource('exams', 'ExamsController');
+Route::get('exams/{id}/print', array('uses' => 'ExamsController@printout', 'as' => 'exams.print'));
+
 Route::resource('results', 'ResultsController');
 Route::resource('tests', 'TestsController');
+
 Route::resource('students', 'StudentsController');
 Route::get('students/{id}/enrollments', array('uses' => 'StudentsController@enrollments', 'as' => 'students.enrollments'));
 Route::get('students/{id}/add-enrollment', array('uses' => 'StudentsController@addEnrollment', 'as' => 'students.addEnrollment'));
@@ -38,6 +42,11 @@ Route::get('students/{id}/add-photo', array('uses' => 'StudentsController@addPho
 Route::post('students/{id}/store-photo', array('uses' => 'StudentsController@storePhoto', 'as' => 'students.storePhoto'));
 Route::post('students/{id}/remove-photo', array('uses' => 'StudentsController@removePhoto', 'as' => 'students.removePhoto'));
 Route::post('students/{id}/default-photo', array('uses' => 'StudentsController@defaultPhoto', 'as' => 'students.defaultPhoto'));
+Route::get('students/{id}/measurements', array('uses' => 'StudentsController@measurements', 'as' => 'students.measurements'));
+Route::get('students/{id}/add-measurement', array('uses' => 'StudentsController@addMeasurement', 'as' => 'students.addMeasurement'));
+Route::post('students/{id}/store-measurement', array('uses' => 'StudentsController@storeMeasurement', 'as' => 'students.storeMeasurement'));
+Route::delete('students/{id}/remove-measurement', array('uses' => 'StudentsController@removeMeasurement', 'as' => 'students.removeMeasurement'));
+
 Route::resource('subjects', 'SubjectsController');
 Route::resource('academicsessions', 'AcademicSessionsController');
 Route::get('assessments/{id}/tests', ['uses' => 'AssessmentsController@tests', 'as' => 'assessments.tests', 'before' => 'sentry']);

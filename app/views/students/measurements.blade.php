@@ -1,38 +1,40 @@
 @extends('layout')
 
 @section('content')
-@include( 'partials.crumbs', ['current' => 'Enrollments', 'crumbs' => ['Students' => route('students.index')]] )
+@include( 'partials.crumbs', ['current' => 'Measurements', 'crumbs' => ['Students' => route('students.index')]] )
 
 <div class="panel">
     <h5><i class="fi-page-edit"></i> Edit Student - {{ $student->name }} ({{ $student->regno }})</h5>
     <hr>
 
-    @include( 'students._submenu', ['active' => 'enrollments'])
+    @include( 'students._submenu', ['active' => 'measurements'])
 
     <div class="row">
         <div class="medium-12 columns">
             <fieldset>
-                <legend>Enrollment Detail</legend>
+                <legend>Measurements</legend>
 
                 <table class="small-12">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th class="small-4">Academic Session</th>
-                        <th class="small-2">Class</th>
-                        <th class="small-2">Roll No</th>
+                        <th class="small-3">Academic Session</th>
+                        <th class="small-2">Height</th>
+                        <th class="small-2">Weight</th>
+                        <th class="small-2">Entry Date</th>
                         <th class="small-3"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($enrollments as $key => $enrollment)
+                    @foreach($measurements as $key => $measurement)
                     <tr>
-                        <td>{{ $enrollments->getFrom() + $key }}</td>
-                        <td>{{ $enrollment->academicSession->session }}</td>
-                        <td>{{ $enrollment->classRoom->name }}</td>
-                        <td>{{ $enrollment->roll_no }}</td>
+                        <td>{{ $measurements->getFrom() + $key }}</td>
+                        <td>{{ $measurement->academicSession->session }}</td>
+                        <td>{{ $measurement->height }}</td>
+                        <td>{{ $measurement->weight }}</td>
+                        <td>{{ date('d/m/Y h:iA', strtotime($measurement->created_at)) }}</td>
                         <td class="text-right">
-                            {{ Form::open(['route' => ['students.removeEnrollment', $enrollment->id], 'method' => 'delete', 'class' => 'inline']) }}
+                            {{ Form::open(['route' => ['students.removeMeasurement', $measurement->id], 'method' => 'delete', 'class' => 'inline']) }}
                             <button type="submit" class="button tiny alert" onclick="return confirm('Are you sure you want to delete?');"><i
                                     class="fi-x"></i><span class="hide-for-small-only">&nbsp;Delete</span></button>
                             {{ Form::close() }}
@@ -45,8 +47,8 @@
                 <hr>
                 <div class="row">
                     <div class="small-12 columns text-right">
-                        <a class="button small success" href="{{ route('students.addEnrollment', $student->id) }}">Add
-                            Enrollment</a>
+                        <a class="button small success" href="{{ route('students.addMeasurement', $student->id) }}">Add
+                            Measurement</a>
                     </div>
                 </div>
 
@@ -54,6 +56,6 @@
         </div>
     </div>
 
-    {{ $enrollments->links() }}
+    {{ $measurements->links() }}
 </div>
 @stop
