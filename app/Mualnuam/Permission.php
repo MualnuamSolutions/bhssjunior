@@ -129,6 +129,9 @@ class Permission
                 'users.profile' => 1,
                 'users.updateProfile' => 1,
 
+                'classrooms.index' => 1,
+                'classrooms.show' => 1,
+
                 'students.index' => 1,
                 'students.edit' => 1,
                 'students.update' => 1,

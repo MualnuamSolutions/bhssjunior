@@ -8,7 +8,7 @@
         <li class="has-dropdown">
             <a href="{{ $logged_user->hasAccess('classrooms.index') ? route('classrooms.index') : '#' }}">Class</a>
             <ul class="dropdown">
-                @if ( $logged_user->hasAccess('classrooms.create') || $logged_user->hasAccess('classrooms.index') )
+                @if ( $logged_user->hasAccess('classrooms.create') )
                 <li><a href="{{ route('classrooms.create') }}">Create New Class</a></li>
                 @endif
 
