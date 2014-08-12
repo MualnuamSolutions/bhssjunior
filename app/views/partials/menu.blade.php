@@ -6,22 +6,30 @@
         @if ( $logged_user->hasAnyAccess(['classrooms.index', 'subjects.index', 'students.index']) )
         <li class="divider"></li>
         <li class="has-dropdown">
-            <a href="{{ route('classrooms.index') }}">Class</a>
+            <a href="{{ $logged_user->hasAccess('classrooms.index') ? route('classrooms.index') : '#' }}">Class</a>
             <ul class="dropdown">
-                @if ( $logged_user->hasAccess('classrooms.create') && $logged_user->hasAccess('classrooms.index') )
+                @if ( $logged_user->hasAccess('classrooms.create') || $logged_user->hasAccess('classrooms.index') )
                 <li><a href="{{ route('classrooms.create') }}">Create New Class</a></li>
                 @endif
 
-                @if ( $logged_user->hasAccess('subjects.create') && $logged_user->hasAccess('subjects.index') )
+                @if ( $logged_user->hasAccess('subjects.create') || $logged_user->hasAccess('subjects.index') )
                 <li><label>Subject</label></li>
+                @if ( $logged_user->hasAccess('subjects.index'))
                 <li><a href="{{ route('subjects.index') }}">View Subjects</a></li>
+                @endif
+                @if ( $logged_user->hasAccess('subjects.create'))
                 <li><a href="{{ route('subjects.create') }}">Create Subject</a></li>
                 @endif
+                @endif
 
-                @if ( $logged_user->hasAccess('students.create') && $logged_user->hasAccess('students.index') )
+                @if ( $logged_user->hasAccess('students.create') || $logged_user->hasAccess('students.index') )
                 <li><label>Student</label></li>
+                @if ( $logged_user->hasAccess('students.index'))
                 <li><a href="{{ route('students.index') }}">View Students</a></li>
+                @endif
+                @if ( $logged_user->hasAccess('students.create'))
                 <li><a href="{{ route('students.create') }}">Create New Student</a></li>
+                @endif
                 @endif
             </ul>
         </li>
@@ -30,7 +38,7 @@
         @if ( $logged_user->hasAnyAccess(['exams.index', 'marks.create', 'assessments.index', 'tests.index']) )
         <li class="divider"></li>
         <li class="has-dropdown">
-            <a href="{{ route('home') }}">Examination</a>
+            <a href="{{ $logged_user->hasAccess('exams.index') ? route('exams.index') : '#' }}">Examination</a>
             <ul class="dropdown">
                 <li><label>Results</label></li>
                 @if ( $logged_user->hasAccess('marks.create') )

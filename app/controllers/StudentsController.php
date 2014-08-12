@@ -40,7 +40,10 @@ class StudentsController extends \BaseController
             'regno' => 'asc'
         ];
 
-        $students = Student::where(function($query) use ($search) {
+        $students = Student::join('enrollments','enrollments.student_id','=', 'students.id')
+            ->join('academic_sessions','academic_sessions.id', '=', 'enrollments.academic_session_id')
+            ->join('class_rooms','class_rooms.id', '=', 'enrollments.class_room_id')
+            ->where(function($query) use ($search) {
                 if($search != "") {
                     $query->where('name', 'LIKE', '%' . $search . '%');
                     $query->orWhere('father', 'LIKE', '%' . $search . '%');
@@ -48,7 +51,9 @@ class StudentsController extends \BaseController
                     $query->orWhere('contact1', 'LIKE', $search . '%');
                 }
             })
-            ->orderBy($order, $orderDirection[$order])
+            ->orderBy('students.id', 'asc')
+            ->orderBy('academic_sessions.start', 'desc')
+            ->groupBy('students.id')
             ->paginate($limit);
 
         return View::make('students.index', compact('students', 'orderOptions', 'limits'));

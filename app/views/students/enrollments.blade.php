@@ -32,16 +32,19 @@
                         <td>{{ $enrollment->classRoom->name }}</td>
                         <td>{{ $enrollment->roll_no }}</td>
                         <td class="text-right">
+                            @if( $logged_user->hasAccess('students.removeEnrollment'))
                             {{ Form::open(['route' => ['students.removeEnrollment', $enrollment->id], 'method' => 'delete', 'class' => 'inline']) }}
                             <button type="submit" class="button tiny alert" onclick="return confirm('Are you sure you want to delete?');"><i
                                     class="fi-x"></i><span class="hide-for-small-only">&nbsp;Delete</span></button>
                             {{ Form::close() }}
+                            @endif
                         </td>
                     </tr>
                     @endforeach
                     </tbody>
                 </table>
 
+                @if( $logged_user->hasAccess('students.addEnrollment'))
                 <hr>
                 <div class="row">
                     <div class="small-12 columns text-right">
@@ -49,6 +52,7 @@
                             Enrollment</a>
                     </div>
                 </div>
+                @endif
 
             </fieldset>
         </div>

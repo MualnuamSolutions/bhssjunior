@@ -41,16 +41,19 @@
                             @endif
                         </td>
                         <td class="text-right">
+                            @if( $logged_user->hasAccess('students.removePhoto'))
                             {{ Form::open(['route' => ['students.removePhoto', $student->id], 'method' => 'post', 'class' => 'inline']) }}
                             <button type="submit" class="button tiny alert" name="delete" value="{{ $photo->id }}" onclick="return confirm('Are you sure you want to delete?');"><i
                                     class="fi-x"></i><span class="hide-for-small-only">&nbsp;Delete</span></button>
                             {{ Form::close() }}
+                            @endif
                         </td>
                     </tr>
                     @endforeach
                     </tbody>
                 </table>
 
+                @if( $logged_user->hasAccess('students.addPhoto'))
                 <hr>
                 <div class="row">
                     <div class="small-12 columns text-right">
@@ -58,6 +61,7 @@
                             Photo</a>
                     </div>
                 </div>
+                @endif
 
             </fieldset>
         </div>
