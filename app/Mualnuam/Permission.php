@@ -105,6 +105,8 @@ class Permission
                 'exams.destroy' => 1,
                 'users.profile' => 1,
                 'users.updateProfile' => 1,
+                'users.edit' => 1,
+                'users.update' => 1,
             ]
         ];
 
