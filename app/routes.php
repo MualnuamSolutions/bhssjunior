@@ -49,9 +49,9 @@ Route::delete('students/{id}/remove-measurement', array('uses' => 'StudentsContr
 
 Route::resource('subjects', 'SubjectsController');
 Route::resource('academicsessions', 'AcademicSessionsController');
-Route::get('assessments/{id}/tests', ['uses' => 'AssessmentsController@tests', 'as' => 'assessments.tests', 'before' => 'sentry']);
-Route::get('assessments/{id}/create-test', ['uses' => 'AssessmentsController@createTest', 'as' => 'assessments.createTest', 'before' => 'sentry']);
-Route::post('assessments/{id}/tests', ['uses' => 'AssessmentsController@storeTest', 'as' => 'assessments.storeTest', 'before' => 'sentry']);
+Route::get('assessments/{id}/tests', array('uses' => 'AssessmentsController@tests', 'as' => 'assessments.tests', 'before' => 'sentry'));
+Route::get('assessments/{id}/create-test', array('uses' => 'AssessmentsController@createTest', 'as' => 'assessments.createTest', 'before' => 'sentry'));
+Route::post('assessments/{id}/tests', array('uses' => 'AssessmentsController@storeTest', 'as' => 'assessments.storeTest', 'before' => 'sentry'));
 Route::resource('assessments', 'AssessmentsController');
 Route::resource('marks', 'MarksController');
 Route::resource('photos', 'PhotosController');

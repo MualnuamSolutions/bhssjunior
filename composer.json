@@ -4,11 +4,11 @@
    "keywords": ["framework", "laravel"],
    "license": "MIT",
    "require": {
-      "laravel/framework": "4.1.*",
+      "laravel/framework": "4.2.*",
       "cartalyst/sentry": "dev-master",
       "barryvdh/laravel-debugbar": "1.6.1",
       "laravelbook/ardent": "dev-master",
-      "edvinaskrucas/notification": "2.*"
+      "edvinaskrucas/notification": "3.*"
    },
    "autoload": {
       "classmap": [
