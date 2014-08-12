@@ -54,11 +54,6 @@ class Student extends Ardent
 
     public static $genders = ['Male' => 'Male', 'Female' => 'Female'];
 
-    public function beforeCreate()
-    {
-        $this->regno = '';
-    }
-
     public function afterCreate()
     {
         $session = AcademicSession::getRecentSession();

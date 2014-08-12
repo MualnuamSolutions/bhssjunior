@@ -86,7 +86,7 @@ class StudentsController extends \BaseController
             Notification::success('New student created');
             return Redirect::route('students.index');
         } else {
-            return Redirect::route('students.edit', $student->id)->withErrors($student->errors());
+            return Redirect::route('students.create', $student->id)->withErrors($student->errors());
         }
     }
 
