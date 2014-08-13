@@ -16,6 +16,11 @@ class StudentsController extends \BaseController
      */
     public function index()
     {
+        $studentTable = (new Student)->getTable();
+        $enrollmentTable = (new Enrollment)->getTable();
+        $academicSessionTable = (new AcademicSession)->getTable();
+        $classRoomTable = (new ClassRoom)->getTable();
+
         $search = Input::get('s');
         $order = Input::get('order', 'name');
         $limit = Input::get('limit', Config::get('view.pagination_limit'));
@@ -40,9 +45,9 @@ class StudentsController extends \BaseController
             'regno' => 'asc'
         ];
 
-        $students = Student::join('enrollments','enrollments.student_id','=', 'students.id')
-            ->join('academic_sessions','academic_sessions.id', '=', 'enrollments.academic_session_id')
-            ->join('class_rooms','class_rooms.id', '=', 'enrollments.class_room_id')
+        $students = Student::leftJoin($enrollmentTable . '',$enrollmentTable . '.student_id','=', $studentTable . '.id')
+            ->leftJoin($academicSessionTable . '',$academicSessionTable . '.id', '=', $enrollmentTable . '.academic_session_id')
+            ->join($classRoomTable . '',$classRoomTable . '.id', '=', $enrollmentTable . '.class_room_id')
             ->where(function($query) use ($search) {
                 if($search != "") {
                     $query->where('name', 'LIKE', '%' . $search . '%');
@@ -51,9 +56,19 @@ class StudentsController extends \BaseController
                     $query->orWhere('contact1', 'LIKE', $search . '%');
                 }
             })
-            ->orderBy('students.id', 'asc')
-            ->orderBy('academic_sessions.start', 'desc')
-            ->groupBy('students.id')
+            ->groupBy($studentTable . '.id')
+            ->orderBy($academicSessionTable . '.start', 'desc')
+            ->orderBy($studentTable . '.' . $order, $orderDirection[$order])
+            ->select(
+                $studentTable . '.id',
+                $studentTable . '.regno',
+                $studentTable . '.name',
+                $studentTable . '.father',
+                $studentTable . '.contact1',
+                $classRoomTable . '.name as classRoom',
+                $enrollmentTable . '.academic_session_id',
+                $academicSessionTable . '.start'
+            )
             ->paginate($limit);
 
         return View::make('students.index', compact('students', 'orderOptions', 'limits'));

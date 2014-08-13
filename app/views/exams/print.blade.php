@@ -7,10 +7,11 @@
             <td colspan="2" align="center">
                 <img src="{{ asset('images/logo.jpg') }}" alt=""/>
                 <h3>BAPTIST HIGHER SECONDARY SCHOOL JUNIOR SECTION</h3>
-                <hr/>
                 <h1>TEST REPORT</h1>
-                <hr/>
             </td>
+        </tr>
+        <tr>
+            <td><hr/></td>
         </tr>
     </table>
 
@@ -33,33 +34,60 @@
         </tr>
     </table>
 
-    <div class="data-head">
-        <table>
-            <thead>
-                <tr>
-                  <th width="10%">R.No</th>
-                  <th width="40%">Name</th>
-                  <th width="10%">Mark</th>
-                  <th width="40%">Remarks</th>
-                </tr>
-            </thead>
-        </table>
+    <div class="row">
+        <div class="col2 fl">
+            <div class="data-head">
+                <table>
+                    <thead>
+                        <tr>
+                          <th width="20%">R.No</th>
+                          <th width="60%">Name</th>
+                          <th width="20%">Mark</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="col2 fr">
+            <div class="data-head">
+                <table>
+                    <thead>
+                        <tr>
+                          <th width="20%">R.No</th>
+                          <th width="60%">Name</th>
+                          <th width="20%">Mark</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 
-    @foreach ($exam->marks as $key => $mark)
-    <div class="data-row">
-        <table>
-            <tbody>
-                <tr class="{{ ($key+1)%2 == 0 ? 'even' : null }}">
-                    <td width="10%">{{ $mark->student->rollNo }}</td>
-                    <td width="40%">{{ $mark->student->name }}</td>
-                    <td width="10%">{{ $mark->mark }}</td>
-                    <td width="40%">{{ $mark->remarks }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    @endforeach
+    <div class="row">
+        <div class="col2 fl">
+            @foreach ($exam->marks as $key => $mark)
+                <div class="data-row">
+                    <table>
+                        <tbody>
+                            <tr class="{{ ($key+1)%2 == 0 ? 'even' : null }}">
+                                <td width="20%">{{ $mark->student->rollNo }}</td>
+                                <td width="60%">{{ $mark->student->name }}</td>
+                                <td width="20%">{{ $mark->mark }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
+            @if( floor($exam->marks->count() / 2) == ($key+1) )
+            </div><div class="col2 fr">
+            @endif
+
+            @endforeach
+        </div>
+    </div>
+
+    <div class="signature">
+        <p>({{ strtoupper($exam->teacher) }})</p>
+    </div>
 </div>
 @stop
