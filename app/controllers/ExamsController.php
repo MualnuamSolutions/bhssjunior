@@ -42,8 +42,8 @@ class ExamsController extends \BaseController
         $exams = Exam::join($testTable, $testTable . '.id', '=', $examTable . '.test_id')
             ->join($subjectTable, $subjectTable . '.id', '=', $testTable . '.subject_id')
             ->join($assessmentTable, $assessmentTable . '.id', '=', $testTable . '.assessment_id')
-            ->join($classRoomTable, $classRoomTable . '.id', '=', $examTable . '.user_id')
-            ->join($userTable, $userTable . '.id', '=', $examTable . '.class_room_id')
+            ->join($classRoomTable, $classRoomTable . '.id', '=', $examTable . '.class_room_id')
+            ->join($userTable, $userTable . '.id', '=', $examTable . '.user_id')
             ->where(function($query) use ($loggedUser, $staffGroup) {
                 if($loggedUser->inGroup($staffGroup))
                     $query->where('user_id', '=', $loggedUser->id);
