@@ -8,7 +8,7 @@ class User extends Eloquent
 {
 
     public static $rules = [
-        'email' => 'required`',
+        'email' => 'required',
         'password' => 'required|alpha_num|between:4,8|confirmed',
         'password_confirmation' => 'required|alpha_num|between:4,8',
         'name' => 'required',
