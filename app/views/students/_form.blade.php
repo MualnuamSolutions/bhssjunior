@@ -3,8 +3,6 @@
         <fieldset>
             <legend>Personal Detail</legend>
 
-            {{ Form::hidden('regno', 'NEWBHSSJR') }}
-
             {{ Form::label('name', 'Name', ['class' => ($errors->has('name')?'error':'')]) }}
             {{ Form::text('name', null, ['class' => $errors->has('name')?'error':'']) }}
             @if($errors->has('name'))
