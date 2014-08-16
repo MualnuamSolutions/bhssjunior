@@ -48,12 +48,12 @@ class StudentsController extends \BaseController
         $students = Student::leftJoin($enrollmentTable . '',$enrollmentTable . '.student_id','=', $studentTable . '.id')
             ->leftJoin($academicSessionTable . '',$academicSessionTable . '.id', '=', $enrollmentTable . '.academic_session_id')
             ->join($classRoomTable . '',$classRoomTable . '.id', '=', $enrollmentTable . '.class_room_id')
-            ->where(function($query) use ($search) {
+            ->where(function($query) use ($search, $studentTable) {
                 if($search != "") {
-                    $query->where('name', 'LIKE', '%' . $search . '%');
-                    $query->orWhere('father', 'LIKE', '%' . $search . '%');
-                    $query->orWhere('regno', 'LIKE', '%' . $search . '%');
-                    $query->orWhere('contact1', 'LIKE', $search . '%');
+                    $query->where($studentTable . '.name', 'LIKE', '%' . $search . '%');
+                    $query->orWhere($studentTable . '.father', 'LIKE', '%' . $search . '%');
+                    $query->orWhere($studentTable . '.regno', 'LIKE', '%' . $search . '%');
+                    $query->orWhere($studentTable . '.contact1', 'LIKE', $search . '%');
                 }
             })
             ->groupBy($studentTable . '.id')
