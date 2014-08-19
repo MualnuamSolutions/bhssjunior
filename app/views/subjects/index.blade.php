@@ -9,7 +9,8 @@
       <thead>
       <tr>
          <th>#</th>
-         <th class="medium-9">Name</th>
+         <th class="medium-6">Name</th>
+         <th class="medium-3">Type</th>
          <th></th>
       </tr>
       </thead>
@@ -18,6 +19,7 @@
       <tr>
          <td>{{ $subjects->getFrom() + $key }}</td>
          <td>{{ $subject->name }}</td>
+         <td>{{ $subject->type }}</td>
          <td class="text-right">
             @include('partials.actions', ['actions'=> ['edit', 'delete'], 'route' => 'subjects', 'item' => $subject])
          </td>

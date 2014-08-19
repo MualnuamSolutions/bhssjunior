@@ -13,7 +13,8 @@ class Subject extends Ardent
    ];
 
    protected $fillable = [
-      'name'
+      'name',
+      'type'
    ];
 
    protected $guarded = [

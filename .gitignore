@@ -1,6 +1,6 @@
 .DS_Store
 .env.*.php
 .env.php
+.idea
 Thumbs.db
 uploads
-.idea
