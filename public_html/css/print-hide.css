@@ -1,1 +1,2 @@
-.phpdebugbar {display: none;}
+.phpdebugbar,
+.lightbox-loader {display: none;}

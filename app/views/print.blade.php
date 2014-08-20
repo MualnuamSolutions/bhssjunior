@@ -10,12 +10,6 @@
 @yield('content')
 
 <script type="text/javascript" src="{{ asset('jquery/jquery.min.js') }}"></script>
-<script>
-$(function(){
-    window.print();
-    setTimeout("window.close()", 1);
-});
-</script>
 @yield('scripts')
 </body>
 </html>

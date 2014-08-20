@@ -8,6 +8,10 @@
         <li class="has-dropdown">
             <a href="{{ $logged_user->hasAccess('classrooms.index') ? route('classrooms.index') : '#' }}">Class</a>
             <ul class="dropdown">
+                @if ( $logged_user->hasAccess('classrooms.index') )
+                <li><a href="{{ route('classrooms.index') }}">Class Rooms</a></li>
+                @endif
+
                 @if ( $logged_user->hasAccess('classrooms.create') )
                 <li><a href="{{ route('classrooms.create') }}">Create New Class</a></li>
                 @endif
@@ -47,6 +51,18 @@
 
                 @if ( $logged_user->hasAccess('exams.index') )
                 <li><a href="{{ route('exams.index') }}">Test Records</a></li>
+                @endif
+
+                @if ( $logged_user->hasAccess('results.index') )
+                <li><a href="{{ route('results.index') }}">Prepare Results</a></li>
+                @endif
+
+                @if ( $logged_user->hasAccess('result-configuration.create') )
+                <li><a href="{{ route('result-configuration.create') }}">Create Result Configuration</a></li>
+                @endif
+
+                @if ( $logged_user->hasAccess('result-configuration.index') )
+                <li><a href="{{ route('result-configuration.index') }}">Result Configurations</a></li>
                 @endif
 
                 @if ( $logged_user->hasAccess('assessments.create') && $logged_user->hasAccess('assessments.index') )

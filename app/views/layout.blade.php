@@ -7,6 +7,9 @@
    <!--   <link rel="stylesheet" type="text/css" href="{{ asset('foundation-5.2.2/css/foundation.min.css') }}">-->
    <link rel="stylesheet" type="text/css" href="{{ asset('foundation-icons/foundation-icons.css') }}">
    <!--   <link rel="stylesheet" type="text/css" href="{{ asset('zurb-responsive-tables/responsive-tables.css') }}" media="screen" />-->
+   <link rel="stylesheet" type="text/css" href="{{ asset('jquery-ui-1.11.1.custom/jquery-ui.min.css') }}" media="screen"/>
+   <link rel="stylesheet" type="text/css" href="{{ asset('jquery-ui-1.11.1.custom/jquery-ui.structure.min.css') }}" media="screen"/>
+   <link rel="stylesheet" type="text/css" href="{{ asset('jquery-ui-1.11.1.custom/jquery-ui.theme.min.css') }}" media="screen"/>
    <link rel="stylesheet" type="text/css" href="{{ asset('chosen_v1.1.0/chosen.min.css') }}" media="screen"/>
    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
    <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
@@ -59,9 +62,11 @@
 
 <script type="text/javascript" src="{{ asset('modernizr/modernizr.js') }}"></script>
 <script type="text/javascript" src="{{ asset('jquery/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('jquery-ui-1.11.1.custom/jquery-ui.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('foundation-5.2.2/js/foundation.min.js') }}"></script>
-<!--<script type="text/javascript" src="{{ asset('zurb-responsive-tables/responsive-tables.js') }}"></script>-->
 <script type="text/javascript" src="{{ asset('chosen_v1.1.0/chosen.jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('chosen_v1.1.0/chosen-order/chosen.order.jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('chosen_v1.1.0/jquery-chosen-sortable.js') }}"></script>
 <script type="text/javascript" src="{{ asset('foundation-datepicker/foundation-datepicker.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 @yield('scripts')

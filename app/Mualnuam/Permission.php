@@ -40,13 +40,16 @@ class Permission
                 'exams.show' => 1,
                 'exams.print' => 1,
 
-                'results.create' => 1,
-                'results.store' => 1,
+                'results-configuration.create' => 1,
+                'results-configuration.store' => 1,
+                'results-configuration.index' => 1,
+                'results-configuration.edit' => 1,
+                'results-configuration.update' => 1,
+                'results-configuration.destroy' => 1,
+                'results-configuration.show' => 1,
+
                 'results.index' => 1,
-                'results.edit' => 1,
-                'results.update' => 1,
-                'results.destroy' => 1,
-                'results.show' => 1,
+                'results.print' => 1,
 
                 'tests.create' => 1,
                 'tests.store' => 1,

@@ -30,7 +30,9 @@ class ClassRoomsController extends \BaseController
     public function create()
     {
         $subjects = Subject::orderBy('name', 'asc')->lists('name', 'id');
-        return View::make('classrooms.create', compact('subjects'));
+        $staffs = array('' => 'Select Staff') + User::getStaff();
+
+        return View::make('classrooms.create', compact('subjects', 'staffs'));
     }
 
 
@@ -82,9 +84,15 @@ class ClassRoomsController extends \BaseController
      */
     public function edit($id)
     {
-        $classroom = ClassRoom::find($id);
+        $classroom = ClassRoom::with('subjects')->find($id);
+        $classroomSubjects = [];
+        foreach($classroom->subjects as $subject)
+            $classroomSubjects[] = $subject->id;
+
+        $staffs = array('' => 'Select Staff') + User::getStaff();
+
         $subjects = Subject::orderBy('name', 'asc')->lists('name', 'id');
-        return View::make('classrooms.edit', compact('classroom', 'subjects'));
+        return View::make('classrooms.edit', compact('classroom', 'subjects', 'classroomSubjects', 'staffs'));
     }
 
 
@@ -100,7 +108,7 @@ class ClassRoomsController extends \BaseController
 
         if ($classroom->save()) {
             Notification::success('Class room updated');
-            return Redirect::route('classrooms.index');
+            return Redirect::route('classrooms.edit', $id);
         } else {
             return Redirect::route('classrooms.edit', $id)->withErrors($classroom->errors());
         }

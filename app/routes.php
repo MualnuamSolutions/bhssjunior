@@ -29,7 +29,11 @@ Route::resource('classrooms', 'ClassRoomsController');
 Route::resource('exams', 'ExamsController');
 Route::get('exams/{id}/print', array('uses' => 'ExamsController@printout', 'as' => 'exams.print'));
 
+Route::resource('result-configuration', 'ResultConfigurationController');
+
 Route::resource('results', 'ResultsController');
+Route::get('results/print', function(){dd('ee');});//array('uses' => 'ResultsController@printout', 'as' => 'results.print'));
+
 Route::resource('tests', 'TestsController');
 
 Route::resource('students', 'StudentsController');

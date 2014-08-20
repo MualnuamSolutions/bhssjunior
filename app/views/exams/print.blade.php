@@ -25,7 +25,7 @@
             <td><b>Subject</b>: {{ $exam->subjectName }}</td>
         </tr>
         <tr>
-            <td><b>Test Date</b>: {{ $exam->exam_date }}</td>
+            <td><b>Test Date</b>: {{ date('d-m-Y', strtotime($exam->exam_date)) }}</td>
             <td><b>Teacher</b>: {{ $exam->teacher }}</td>
         </tr>
         <tr>
@@ -90,4 +90,13 @@
         <p>({{ strtoupper($exam->teacher) }})</p>
     </div>
 </div>
+@stop
+
+@section('scripts')
+<script>
+$(function(){
+    window.print();
+    setTimeout("window.close()", 1);
+});
+</script>
 @stop

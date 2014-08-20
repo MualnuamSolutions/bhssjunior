@@ -1,0 +1,99 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>Chosen order handler : Prototype plugin</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
+    <script type="text/javascript" src="vendor/chosen/chosen.proto.min.js"></script>
+    <script type="text/javascript" src="chosen.order.proto.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="vendor/chosen/chosen.min.css">
+    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <article class="container">
+        <h1>Chosen order handler <small>Prototype plugin</small></h1>
+
+        <p>
+            <a href="https://github.com/tristanjahier/chosen-order">Github repository</a>
+            &bull;
+            <a href="index.html">Checkout jQuery version of the plugin</a>
+        </p>
+
+        <hr>
+        <p>
+            <div class="input-group">
+                <span class="input-group-addon">Fruits &laquo; à la française &raquo;</span>
+                <select class="form-control chosen" multiple style="width: 450px;">
+                    <option value="banane">Banane</option>
+                    <option value="pomme">Pomme</option>
+                    <option value="poire">Poire</option>
+                    <option value="ananas" selected>Ananas</option>
+                    <option value="kiwi" selected>Kiwi</option>
+                    <option value="goyave">Goyave</option>
+                    <option value="abricot">Abricot</option>
+                    <option value="fraise" selected>Fraise</option>
+                    <option value="framboise">Framboise</option>
+                    <option value="avocat" selected>Avocat</option>
+                </select>
+            </div>
+        </p>
+        <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <button type="button" id="get-order" class="btn btn-primary" style="width: 150px">Retrieve order</button>
+                <br><br>
+                <ol id="order-list"></ol>
+            </div>
+            <div class="col-lg-3 col-lg-offset-1 col-sm-6">
+                <button type="button" id="set-order" class="btn btn-success" style="width: 150px">Set order</button>
+                <br><br>
+                <input id="order" type="text" class="form-control" value="poire,  ananas, banane  ,kiwi " style="width: 250px;">
+            </div>
+        </div>
+        <hr>
+        <p>
+            <div class="input-group">
+                <span class="input-group-addon">Another multiple select</span>
+                <select class="form-control chosen" multiple style="width: 450px;">
+                    <option value="1" selected>Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                    <option value="4" selected>Option 4</option>
+                    <option value="5" selected>Option 5</option>
+                </select>
+            </div>
+        </p>
+    </article>
+
+    <script type="text/javascript">
+        // Chosenify every multiple select DOM elements with class 'chosen'
+        $$('select[multiple].chosen').each(function(element) { new Chosen(element); });
+        var MY_SELECT = $$('select[multiple].chosen')[0];
+
+        $('get-order').on('click', 'button', function(event, element)
+        {
+            // Functional
+            // var selection = ChosenOrder.getSelectionOrder(MY_SELECT);
+            // Object-oriented
+            var selection = MY_SELECT.getSelectionOrder();
+
+            while ($('order-list').hasChildNodes())
+                $('order-list').removeChild($('order-list').lastChild);
+
+            $(selection).each(function(fruit)
+            {
+                $('order-list').appendChild(new Element('li').update(fruit));
+            });
+        });
+
+        $('set-order').on('click', 'button', function(event, element)
+        {
+            // Functional
+            // ChosenOrder.setSelectionOrder(MY_SELECT, $('order').value.split(','), true);
+            // Object-oriented
+            MY_SELECT.setSelectionOrder($('order').value.split(','), true);
+        })
+
+        // $('get-order').click();
+        // $('set-order').click();
+    </script>
+</body>
+</html>

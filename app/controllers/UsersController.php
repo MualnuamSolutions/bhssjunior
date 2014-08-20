@@ -215,7 +215,7 @@ class UsersController extends \BaseController
                 Sentry::authenticate($credentials, false);
 
                 if (Sentry::check()) {
-                    return Redirect::route('home');
+                    return Redirect::intended('/');
                 } else {
                     $this->loginFailed();
                 }

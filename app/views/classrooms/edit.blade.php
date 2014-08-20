@@ -11,3 +11,13 @@
    {{ Form::close() }}
 </div>
 @stop
+
+@section('scripts')
+<script>
+var order;
+$(function(){
+    order = ['{{ implode("','", $classroomSubjects) }}'];
+    $('.chosen-select').setSelectionOrder(order);
+});
+</script>
+@stop

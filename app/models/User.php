@@ -119,5 +119,17 @@ class User extends Eloquent
         return $this->email;
     }
 
+    public static function getStaff()
+    {
+        $staffGroup = Sentry::findGroupByName('Staff');
+        $groupTable = (new Group)->getTable();
+        $userTable = (new User)->getTable();
 
+        $staffs = User::join('users_groups', 'users_groups.user_id', '=', $userTable . '.id')
+            ->where('users_groups.group_id', '=', $staffGroup->id)
+            ->orderBy('name', 'asc')
+            ->get()->lists('name', 'id');
+
+        return $staffs;
+    }
 }

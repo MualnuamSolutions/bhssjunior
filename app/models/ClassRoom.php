@@ -9,11 +9,13 @@ class ClassRoom extends Ardent
     public $forceEntityHydrationFromInput = true;
 
     public static $rules = [
-        'name' => 'required'
+        'name' => 'required',
+        'class_master_id' => 'required',
     ];
 
     protected $fillable = [
-        'name'
+        'name',
+        'class_master_id'
     ];
 
     protected $guarded = [
@@ -35,8 +37,12 @@ class ClassRoom extends Ardent
 
     public function subjects()
     {
-        return $this->belongsToMany('Subject')
-            ->orderBy('name', 'asc');
+        return $this->belongsToMany('Subject');
+    }
+
+    public function classMaster()
+    {
+        return $this->belongsTo('User', 'class_master_id');
     }
 
     public static function getSubjectsJson()

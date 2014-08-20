@@ -112,3 +112,143 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
     margin: 0;
     text-align: right;
 }
+
+
+.assessment-result {
+    page-break-after: always;
+    page-break-inside: avoid;
+    width:148mm;
+    margin-top: 0.6in;
+    /*margin: 0 auto;*/
+}
+.assessment-result .top-head {
+    margin-bottom: 0.25in;
+    width: 148mm;
+}
+.assessment-result .top-head h2 {
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+.assessment-result .top-head h4 {
+    margin: 8px 0 0;
+}
+.assessment-result .top-head hr {
+    margin:0 0 10px;
+}
+.assessment-result .header {
+    width: 148mm;
+    font-size: 12px;
+    margin: 0 0 15px;
+}
+.assessment-result table.data {
+    border-collapse: collapse;
+    border:1px solid #000000;
+    /*table-layout : fixed;*/
+    font-size: 11px;
+    width:148mm;
+}
+.assessment-result table.data th {
+    border:1px solid #000000;
+    /*padding: 4px 8px;*/
+    height: 122px;
+    position: relative;
+}
+.assessment-result table.data th strong {
+    /*display: block;*/
+    /*font-size:14px;*/
+    /*height:100px;*/
+}
+.assessment-result table.data th b {
+    display: block;
+    transform: rotate(270deg);
+    /*-moz-transform: rotate(270deg);*/
+    /*-webkit-transform: rotate(270deg);*/
+    /*width: 100px;*/
+    position: absolute;
+    left: -53px;
+    text-align: left;
+    width: 140px;
+    bottom: 73px;
+}
+.assessment-result table.data td {
+    border:1px solid #000000;
+    padding: 6px 8px;
+}
+.assessment-result table.footer {
+    border-collapse: collapse;
+    border: 1px solid #000000;
+    width: 148mm;
+    margin-top: 10px;
+}
+.assessment-result table.footer th,
+.assessment-result table.footer td{
+    border: 1px solid #000000;
+}
+.verticalTableHeader {
+    /*text-align:left;*/
+    /*white-space:nowrap;*/
+    /*transform-origin:50% 50%;*/
+    /*-webkit-transform: rotate(270deg);*/
+    /*-moz-transform: rotate(270deg);*/
+    /*-ms-transform: rotate(270deg);*/
+    /*-o-transform: rotate(270deg);*/
+    /*transform: rotate(270deg);*/
+
+}
+/*.verticalTableHeader:before {*/
+    /*content:'';*/
+    /*padding-top:110%;*//* takes width as reference, + 10% for faking some extra padding */
+    /*display:inline-block;*/
+    /*vertical-align:middle;*/
+/*}*/
+.assessment-result table.data .verticalTableHeader.head1 {
+    width: 30px;
+}
+.assessment-result table.data .verticalTableHeader.head2 {
+    width: 30px;
+}
+.assessment-result table.data .verticalTableHeader.head3 {
+    width: 30px;
+}
+.assessment-result table.data .verticalTableHeader.head4 {
+    width: 30px;
+}
+.assessment-result table.data .verticalTableHeader.head5 {
+    width: 30px;
+}
+.assessment-result table.data .verticalTableHeader.head6 {
+    width: 30px;
+}
+.assessment-result table.data .verticalTableHeader.head7 {
+    width: 30px;
+}
+.assessment-result table.info {
+    width: 148mm;
+    margin-top: 30px;
+}
+.assessment-result table.info td {
+    vertical-align: bottom;
+}
+.assessment-result table.info span {
+    display: block;
+    border: 1px dashed #333333;
+    padding: 8px;
+}
+.lightbox-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.75);
+    height: 100%;
+    z-index: 10000;
+}
+.lightbox-loader span {
+    position: absolute;
+    top: 40%;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
