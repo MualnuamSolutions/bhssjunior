@@ -22,7 +22,7 @@ var totalStudents = {{ $students->count() }};
 $(function(){
    @foreach($students as $student)
    jQuery.ajaxQueue({
-        url: '{{ route('results.show', $student->id) }}}',
+        url: '{{ route('results.show', $student->id) }}',
         type: 'get',
         data: 'academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}'
    })
@@ -40,10 +40,10 @@ function closeLightbox()
     if(totalStudents == completed) {
 
         $.ajaxQueue({
-            url: '{{ route('results.overview', $class->id) }}',
+            url: "{{ route('results.overview', $class->id) }}",
             type: 'get',
             dataType: 'json',
-            data: 'academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}'
+            data: "academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}"
         })
         .done(function(result){
             console.log(result.classHighest);

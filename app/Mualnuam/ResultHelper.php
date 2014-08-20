@@ -42,9 +42,10 @@ class ResultHelper
         }
 
         $return['teacher_name'] = is_array($return['teacher_name']) ? implode('<br>', array_unique($return['teacher_name'])) : null;
-        $return['percentage'] = round(($return['total_of_marks'] / $return['total_of_full_marks']) * 100, 2);
+        $return['percentage'] = $return['total_of_full_marks'] > 0 ? round(($return['total_of_marks'] / $return['total_of_full_marks']) * 100, 2) : null;
         $return['cumulated'] = round(($return['percentage'] / 100) * $resultConfig->weightage, 2);
-        $return['grade'] = self::grade( ($return['total_of_marks']/$return['count']), $resultConfig );
+        $point = $return['count'] ? ($return['total_of_marks']/$return['count']) : null;
+        $return['grade'] = self::grade( $point, $resultConfig );
 
         return $return;
     }
