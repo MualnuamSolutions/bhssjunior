@@ -29,7 +29,8 @@ class ClassRoomsController extends \BaseController
      */
     public function create()
     {
-        $subjects = Subject::orderBy('name', 'asc')->lists('name', 'id');
+        $subjects = Subject::lists('name', 'id');
+
         $staffs = array('' => 'Select Staff') + User::getStaff();
 
         return View::make('classrooms.create', compact('subjects', 'staffs'));

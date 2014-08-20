@@ -89,7 +89,7 @@ class ResultsController extends \BaseController
             }
         }
 
-        return View::make('results.create', compact('students', 'academicSession', 'assessment'));
+        return View::make('results.create', compact('students', 'academicSession', 'assessment', 'class'));
     }
 
 
@@ -114,6 +114,7 @@ class ResultsController extends \BaseController
     {
         $resultConfigTable = (new ResultConfiguration)->getTable();
         $assessmentConfigTable = (new AssessmentConfiguration)->getTable();
+        $assessmentTable = (new Assessment)->getTable();
 
         $student = Student::find($id);
         $academicSession = AcademicSession::find(Input::get('academic_session'));
@@ -128,6 +129,21 @@ class ResultsController extends \BaseController
             ->where($assessmentConfigTable . '.assessment_id', '=', $assessment->id)
             ->first();
 
+        $resultConfigs = ResultConfiguration::join($assessmentConfigTable, $assessmentConfigTable . '.result_config_id', '=', $resultConfigTable . '.id')
+            ->join($assessmentTable, $assessmentConfigTable . '.assessment_id', '=', $assessmentTable . '.id')
+            ->where($resultConfigTable . '.academic_session_id', '=', $academicSession->id)
+            ->select(
+                $assessmentConfigTable . '.weightage',
+                $assessmentTable . '.short_name'
+            )
+            ->get();
+
+        $schemes = [];
+        $schemesTotal = 0;
+        foreach($resultConfigs as $config) {
+            $schemes[] = $config->short_name . "({$config->weightage}%)";
+            $schemesTotal += $config->weightage;
+        }
 
 
         return View::make('results.show', compact(
@@ -136,7 +152,9 @@ class ResultsController extends \BaseController
             'assessment',
             'classRoom',
             'enrollment',
-            'resultConfig'
+            'resultConfig',
+            'schemes',
+            'schemesTotal'
         ));
     }
 
@@ -173,4 +191,58 @@ class ResultsController extends \BaseController
     {
     }
 
+    public function overview($id)
+    {
+        $classRoom = ClassRoom::find($id);
+        $academicSessionId = Input::get('academic_session');
+        $assessmentId = Input::get('assessment');
+
+        $testTable = (new Test)->getTable();
+        $examTable = (new Exam)->getTable();
+        $markTable = (new Mark)->getTable();
+        $studentTable = (new Student)->getTable();
+
+        $marks = Mark::join($examTable, $markTable . '.exam_id', '=', $examTable . '.id')
+            ->join($testTable, $examTable . '.test_id', '=', $testTable . '.id')
+            ->join($studentTable, $markTable . '.student_id', '=', $studentTable . '.id')
+            ->whereIn($testTable . '.subject_id', $classRoom->subjects()->lists('id'))
+            ->where('class_room_id', '=', $classRoom->id)
+            ->where('academic_session_id', '=', $academicSessionId)
+            ->where('assessment_id', '=', $assessmentId)
+            ->select(
+                $markTable . '.student_id',
+                DB::raw("SUM({$testTable}.totalmarks) as totalmarks"),
+                DB::raw("SUM({$markTable}.mark) as mark")
+            )
+            ->groupBy('student_id')
+            ->orderBy('mark', 'desc')
+            ->get();
+
+        $topTen = [];
+        $totalPercentage = 0;
+
+        foreach($marks as $key => $mark) {
+            $percentage = round(($mark->mark / $mark->totalmarks) * 100, 2);
+
+            if(sizeof($topTen) < 10 ) {
+                $topTen[] = [
+                    'student_id' => $mark->student_id,
+                    'percentage' => $percentage
+                ];
+            }
+
+            $totalPercentage += $percentage;
+        }
+
+        $classAverage = round($totalPercentage / $marks->count(), 2);
+        $classHighest = $topTen[0];
+
+        $return = [
+            'classHighest' => $classHighest['percentage'],
+            'classAverage' => $classAverage,
+            'topTen' => $topTen
+        ];
+
+        return Response::json($return);
+    }
 }

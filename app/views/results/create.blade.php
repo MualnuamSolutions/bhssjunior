@@ -36,10 +36,40 @@ function closeLightbox()
 {
     var completed = $('.results-container .assessment-result').size();
     if(totalStudents == completed) {
-        $('.lightbox-loader').hide();
-        window.print();
-        setTimeout("window.close()", 1);
+
+        $.ajaxQueue({
+            url: '{{ route('results.overview', $class->id) }}',
+            type: 'get',
+            dataType: 'json',
+            data: 'academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}'
+        })
+        .done(function(result){
+            console.log(result.classHighest);
+            $('.class-highest').text(result.classHighest + '%');
+            $('.class-average').text(result.classAverage + '%');
+
+            $.each(result.topTen, function(key, data){
+                $('.rank_' + data['student_id']).html(rank(parseInt(key+1)));
+            });
+
+            $('.lightbox-loader').hide();
+//            window.print();
+//            setTimeout("window.close()", 1);
+        });
     }
 }
+
+function rank(rank)
+{
+    if(rank >= 4)
+        return rank + "<sup>th</sup>";
+    else if(rank == 3)
+        return rank + "<sup>rd</sup>";
+    else if(rank == 2)
+        return rank + "<sup>nd</sup>";
+    else if(rank == 1)
+        return rank + "<sup>st</sup>";
+}
+
 </script>
 @stop

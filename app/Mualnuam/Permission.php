@@ -49,7 +49,9 @@ class Permission
                 'results-configuration.show' => 1,
 
                 'results.index' => 1,
-                'results.print' => 1,
+                'results.overview' => 1,
+                'results.create' => 1,
+                'results.show' => 1,
 
                 'tests.create' => 1,
                 'tests.store' => 1,

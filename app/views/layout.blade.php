@@ -66,7 +66,7 @@
 <script type="text/javascript" src="{{ asset('foundation-5.2.2/js/foundation.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('chosen_v1.1.0/chosen.jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('chosen_v1.1.0/chosen-order/chosen.order.jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('chosen_v1.1.0/jquery-chosen-sortable.js') }}"></script>
+{{--<script type="text/javascript" src="{{ asset('chosen_v1.1.0/jquery-chosen-sortable.js') }}"></script>--}}
 <script type="text/javascript" src="{{ asset('foundation-datepicker/foundation-datepicker.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 @yield('scripts')

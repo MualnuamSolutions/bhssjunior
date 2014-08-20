@@ -38,9 +38,10 @@ class ResultHelper
         foreach($tests as $test) {
             $return['total_of_full_marks'] += $test->totalmarks;
             $return['total_of_marks'] += $test->mark;
-            $return['teacher_name'] = $test->teacherName;
+            $return['teacher_name'][] = $test->teacherName;
         }
 
+        $return['teacher_name'] = implode('<br>', array_unique($return['teacher_name']));
         $return['percentage'] = round(($return['total_of_marks'] / $return['total_of_full_marks']) * 100, 2);
         $return['cumulated'] = round(($return['percentage'] / 100) * $resultConfig->weightage, 2);
         $return['grade'] = self::grade( ($return['total_of_marks']/$return['count']), $resultConfig );

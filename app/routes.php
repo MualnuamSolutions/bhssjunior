@@ -32,7 +32,7 @@ Route::get('exams/{id}/print', array('uses' => 'ExamsController@printout', 'as' 
 Route::resource('result-configuration', 'ResultConfigurationController');
 
 Route::resource('results', 'ResultsController');
-Route::get('results/print', function(){dd('ee');});//array('uses' => 'ResultsController@printout', 'as' => 'results.print'));
+Route::get('results/{id}/overview', array('uses' => 'ResultsController@overview', 'as' => 'results.overview'));
 
 Route::resource('tests', 'TestsController');
 

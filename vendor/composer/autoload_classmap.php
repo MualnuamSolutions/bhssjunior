@@ -9,6 +9,7 @@ return array(
     'AcademicSession' => $baseDir . '/app/models/AcademicSession.php',
     'AcademicSessionsController' => $baseDir . '/app/controllers/AcademicSessionsController.php',
     'AddClassMasterColumnToClassRoomTable' => $baseDir . '/app/database/migrations/2014_08_20_104135_add_class_master_column_to_class_room_table.php',
+    'AddClassTeacherColumnsToClassRoomTable' => $baseDir . '/app/database/migrations/2014_08_20_164056_add_class_teacher_columns_to_class_room_table.php',
     'AddFieldsToUsers' => $baseDir . '/app/database/migrations/2014_05_19_061302_add_fields_to_users.php',
     'AddShortNameColumnToAssessmentsTable' => $baseDir . '/app/database/migrations/2014_08_06_180719_add_short_name_column_to_assessments_table.php',
     'AddTypeColumnOnSubjectsTable' => $baseDir . '/app/database/migrations/2014_08_19_235112_add_type_column_on_subjects_table.php',

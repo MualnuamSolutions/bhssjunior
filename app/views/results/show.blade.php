@@ -33,7 +33,7 @@
               <th class="head4 verticalTableHeader"><b>Percentage of Marks</b></th>
               <th class="head5 verticalTableHeader"><b>Grade</b></th>
               <th class="head6 verticalTableHeader"><b>FA1 (25%)</b></th>
-              <th class="head7 verticalTableHeader"><b>Subject Teacher</b></th>
+              <th class="head7 verticalTableHeader"><b>Subject Teachers</b></th>
             </tr>
         </thead>
         <tbody>
@@ -58,7 +58,7 @@
                 <td width="7%">{{ $tests['count'] }}</td>
                 <td width="7%">{{ $tests['total_of_full_marks'] }}</td>
                 <td width="7%">{{ $tests['total_of_marks'] }}</td>
-                <td width="7%">{{ $tests['percentage'] }}</td>
+                <td width="7%">{{ $subject->type == 'Half Paper' ? $tests['percentage']/2 : $tests['percentage'] }}</td>
                 <td width="7%">{{ $tests['grade'] }}</td>
                 <td width="7%">{{ $tests['cumulated'] }}</td>
                 <td width="23%">{{ $tests['teacher_name'] }}</td>
@@ -82,34 +82,60 @@
     <table class="footer">
         <tbody>
             <tr>
-                <th colspan="4">Class At Glance</th>
+                <th colspan="4">Class at Glance</th>
                 <th colspan="4">{{ $student->name }}</th>
             </tr>
             <tr>
-                <td colspan="3">Average %</td>
-                <td>xx%</td>
+                <td colspan="3">Class Average %</td>
+                <td class="class-average"></td>
                 <td colspan="3">Overall %</td>
-                <td>xx%</td>
+                <td>{{ $percentage }}%</td>
             </tr>
             <tr>
                 <td colspan="3">Highest in the Class</td>
-                <td>xx%</td>
+                <td class="class-highest"></td>
                 <td colspan="3">Rank in the class</td>
-                <td>x<sup>th</sup></td>
+                <td class="rank_{{ $student->id }}"></td>
             </tr>
         </tbody>
     </table>
 
     <table class="info">
         <tr>
-            <td width="60%">
-                <span>{{ $assessment->short_name }} result is the product of number of class tests and assignments given throughout the year.
-                For detailed tests reports go to <b>http://bhssjunior.mizobaptist.org/parents</b></span>
+            <td width="50%" align="center">
+                @if($classRoom->classTeacher1)
+
+                <div style="width:100%;height:40px">
+                    @if($classRoom->classTeacher1 && $classRoom->classTeacher1->signature && file_exists(public_path($classRoom->classTeacher1->signature)))
+                    {{ $classRoom->classTeacher1 && $classRoom->classTeacher1->signature ? '<img src="' . asset($classRoom->classTeacher1->signature) . '" height="40px" alt="" />' :null }}
+                    @endif
+                </div>
+
+                <div>({{ $classRoom->classTeacher1 ? strtoupper($classRoom->classTeacher1->name) : null }})</div>
+                <div>Class Teacher</div>
+                @endif
             </td>
-            <td width="40%" align="center">
-            ({{ $classRoom->classMaster ? strtoupper($classRoom->classMaster->name) : null }})<br>
-            <br>
-            Class Master
+            <td width="50%" align="center">
+                @if($classRoom->classTeacher2)
+
+                <div style="width:100%;height:40px">
+                    @if($classRoom->classTeacher2 && $classRoom->classTeacher2->signature && file_exists(public_path($classRoom->classTeacher2->signature)))
+                    {{ $classRoom->classTeacher2 && $classRoom->classTeacher2->signature ? '<img src="' . asset($classRoom->classTeacher2->signature) . '" height="40px" alt="" />' :null }}
+                    @endif
+                </div>
+
+                <div>({{ $classRoom->classTeacher2 ? strtoupper($classRoom->classTeacher2->name) : null }})</div>
+                <div>Class Teacher</div>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top">
+                <p>
+                    {{ $assessment->short_name }} result is the outcome of class tests and assignments given throughout {{ $assessment->short_name }} Period.
+                    For detailed tests reports go to <b>http://bhssjunior.mizobaptist.org/parents</b>.
+                    <span>WEIGHTAGE SCHEME: {{ implode(' + ', $schemes) }} = OVERALL({{ $schemesTotal }})</span>
+                </p>
             </td>
         </tr>
     </table>

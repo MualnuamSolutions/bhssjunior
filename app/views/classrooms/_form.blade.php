@@ -1,5 +1,5 @@
 <div class="row">
-   <div class="medium-6 columns">
+   <div class="medium-4 columns">
       {{ Form::label('name', 'Class Name', ['class' => ($errors->has('name')?'error':'')]) }}
 
       {{ Form::text('name', null, ['class' => $errors->has('name')?'error':'']) }}
@@ -9,13 +9,23 @@
       @endif
    </div>
 
-   <div class="medium-6 columns">
-        {{ Form::label('class_master_id', 'Class Master', ['class' => ($errors->has('class_master_id')?'error':'')]) }}
+   <div class="medium-4 columns">
+        {{ Form::label('class_teacher1_id', 'Class Teacher', ['class' => ($errors->has('class_teacher1_id')?'error':'')]) }}
 
-        {{ Form::select('class_master_id', $staffs, null, ['class' => $errors->has('class_master_id')?'error':'']) }}
+        {{ Form::select('class_teacher1_id', $staffs, null, ['class' => $errors->has('class_teacher1_id')?'error':'']) }}
 
-        @if($errors->has('class_master_id'))
-        <small class="error">{{ $errors->first('class_master_id') }}</small>
+        @if($errors->has('class_teacher1_id'))
+        <small class="error">{{ $errors->first('class_teacher1_id') }}</small>
+        @endif
+   </div>
+
+   <div class="medium-4 columns">
+        {{ Form::label('class_teacher2_id', 'Class Teacher', ['class' => ($errors->has('class_teacher2_id')?'error':'')]) }}
+
+        {{ Form::select('class_teacher2_id', $staffs, null, ['class' => $errors->has('class_teacher2_id')?'error':'']) }}
+
+        @if($errors->has('class_teacher2_id'))
+        <small class="error">{{ $errors->first('class_teacher2_id') }}</small>
         @endif
     </div>
 </div>

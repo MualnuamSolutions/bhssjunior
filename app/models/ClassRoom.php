@@ -10,12 +10,14 @@ class ClassRoom extends Ardent
 
     public static $rules = [
         'name' => 'required',
-        'class_master_id' => 'required',
+        'class_teacher1_id' => 'required',
+        'class_teacher2_id' => 'required',
     ];
 
     protected $fillable = [
         'name',
-        'class_master_id'
+        'class_teacher1_id',
+        'class_teacher2_id',
     ];
 
     protected $guarded = [
@@ -29,6 +31,7 @@ class ClassRoom extends Ardent
     public function afterSave()
     {
         $subjects = Input::get('subjects');
+
         if (!empty($subjects))
             return $this->subjects()->sync($subjects);
         else
@@ -40,9 +43,14 @@ class ClassRoom extends Ardent
         return $this->belongsToMany('Subject');
     }
 
-    public function classMaster()
+    public function classTeacher1()
     {
-        return $this->belongsTo('User', 'class_master_id');
+        return $this->belongsTo('User', 'class_teacher1_id');
+    }
+
+    public function classTeacher2()
+    {
+        return $this->belongsTo('User', 'class_teacher2_id');
     }
 
     public static function getSubjectsJson()

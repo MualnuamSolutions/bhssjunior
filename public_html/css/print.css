@@ -122,7 +122,7 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
     /*margin: 0 auto;*/
 }
 .assessment-result .top-head {
-    margin-bottom: 0.25in;
+    margin-bottom: 0.15in;
     width: 148mm;
 }
 .assessment-result .top-head h2 {
@@ -134,12 +134,12 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
     margin: 8px 0 0;
 }
 .assessment-result .top-head hr {
-    margin:0 0 10px;
+    /*margin:0 0 10px;*/
 }
 .assessment-result .header {
     width: 148mm;
     font-size: 12px;
-    margin: 0 0 15px;
+    margin: 0 0 8px;
 }
 .assessment-result table.data {
     border-collapse: collapse;
@@ -173,7 +173,7 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
 }
 .assessment-result table.data td {
     border:1px solid #000000;
-    padding: 6px 8px;
+    padding: 2px 6px;
 }
 .assessment-result table.footer {
     border-collapse: collapse;
@@ -184,6 +184,7 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
 .assessment-result table.footer th,
 .assessment-result table.footer td{
     border: 1px solid #000000;
+    padding: 2px 6px;
 }
 .verticalTableHeader {
     /*text-align:left;*/
@@ -225,15 +226,23 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
 }
 .assessment-result table.info {
     width: 148mm;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 .assessment-result table.info td {
-    vertical-align: bottom;
 }
-.assessment-result table.info span {
+.assessment-result table.info p {
     display: block;
-    border: 1px dashed #333333;
-    padding: 8px;
+    border-top: 1px dashed #999999;
+    padding: 6px 0 0;
+    font-size: 11px;
+    line-height: 14px;
+}
+.assessment-result table.info p span {
+    display: block;
+    margin: 4px 0 0;
+    color: #f04124;
+    font-weight: bold;
+    text-align: center;
 }
 .lightbox-loader {
     position: fixed;
