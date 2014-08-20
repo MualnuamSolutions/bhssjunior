@@ -75,7 +75,7 @@ class ResultsController extends \BaseController
                 $students = Enrollment::join($studentTable, $studentTable . '.id', '=', $enrollmentTable . '.student_id')
                     ->where('class_room_id', '=', $class->id)
                     ->where('academic_session_id', '=', $academicSession->id)
-                    ->where(function($query) use ($student) {
+                    ->where(function($query) use ($student, $studentTable) {
                         if($student != 0)
                             $query->where($studentTable . '.id', '=', $student);
                     })
