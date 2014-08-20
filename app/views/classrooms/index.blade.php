@@ -12,7 +12,8 @@
       <thead>
       <tr>
          <th>#</th>
-         <th class="small-2 medium-5">Class</th>
+         <th class="small-2 medium-3">Class</th>
+         <th class="small-1 medium-2">Class Teachers</th>
          <th class="small-1 medium-2">Subjects</th>
          <th class="small-1 medium-2">Enrollment</th>
          <th class="small-5 medium-3"></th>
@@ -23,6 +24,10 @@
       <tr>
          <td>{{ $classrooms->getFrom() + $key }}</td>
          <td>{{ $classroom->name }}</td>
+         <td>
+            {{ $classroom->classTeacher1 ? $classroom->classTeacher1->name : '-' }}<br>
+            {{ $classroom->classTeacher2 ? $classroom->classTeacher2->name : '-' }}
+         </td>
          <td>{{ sizeof($classroom->subjects->lists('name')) }}</td>
          <td>{{ $classroom->enrollments->count() }}</td>
          <td class="text-right">
