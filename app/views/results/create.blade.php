@@ -53,8 +53,8 @@ function closeLightbox()
             });
 
             $('.lightbox-loader').hide();
-//            window.print();
-//            setTimeout("window.close()", 1);
+            window.print();
+            setTimeout("window.close()", 1);
         });
     }
 }
