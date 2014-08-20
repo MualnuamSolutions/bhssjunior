@@ -11,6 +11,14 @@
    <div class="row">
       <div class="medium-4 columns">
          <fieldset>
+            <legend>Class Teachers</legend>
+            <ul class="side-nav">
+               {{ $classroom->classTeacher1 ? '<li><i class="fi-star"></i> ' . $classroom->classTeacher1->name . '</li>' : null }}
+               {{ $classroom->classTeacher2 ? '<li><i class="fi-star"></i> ' . $classroom->classTeacher2->name . '</li>' : null }}
+            </ul>
+         </fieldset>
+
+         <fieldset>
             <legend>Subjects</legend>
             <ul class="side-nav">
                @foreach ($classroom->subjects as $key => $subject)

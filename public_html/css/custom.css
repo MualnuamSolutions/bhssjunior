@@ -31,3 +31,6 @@ select.error {
 table .student-photo {
     height: 100px;
 }
+small {
+    font-size: 11px !important;
+}
