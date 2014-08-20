@@ -2,16 +2,10 @@
 
 @section('content')
 
-@if(Input::get('action') == 'view')
 <div style="margin: 0 auto;width:148mm;">
-@endif
-
-<div class="results-container">
+    <div class="results-container">
+    </div>
 </div>
-
-@if(Input::get('action') == 'view')
-</div>
-@endif
 
 <div class="lightbox-loader">
     <span>

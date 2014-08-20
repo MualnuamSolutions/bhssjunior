@@ -42,6 +42,7 @@
             $total_tests = 0;
             $total_full_mark = 0;
             $total_mark = 0;
+            $total_cumulated = 0;
             ?>
 
             @foreach($classRoom->subjects as $subject)
@@ -51,6 +52,7 @@
             $total_tests += $tests['count'];
             $total_full_mark += $tests['total_of_full_marks'];
             $total_mark += $tests['total_of_marks'];
+            $total_cumulated += ($subject->type == 'Half Paper' ? $tests['cumulated']/2 : $tests['cumulated']);
             ?>
 
             <tr>
@@ -58,9 +60,9 @@
                 <td width="7%">{{ $tests['count'] }}</td>
                 <td width="7%">{{ $tests['total_of_full_marks'] }}</td>
                 <td width="7%">{{ $tests['total_of_marks'] }}</td>
-                <td width="7%">{{ $subject->type == 'Half Paper' ? $tests['percentage']/2 : $tests['percentage'] }}</td>
+                <td width="7%">{{ $tests['percentage'] }}</td>
                 <td width="7%">{{ $tests['grade'] }}</td>
-                <td width="7%">{{ $tests['cumulated'] }}</td>
+                <td width="7%">{{ $subject->type == 'Half Paper' ? $tests['cumulated']/2 : $tests['cumulated'] }}</td>
                 <td width="23%">{{ $tests['teacher_name'] }}</td>
             </tr>
 
@@ -73,7 +75,7 @@
                 <td>{{ $total_mark }}</td>
                 <td>{{ $percentage = round(($total_mark / $total_full_mark) * 100, 2) }}</td>
                 <td>{{ \Mualnuam\ResultHelper::grade( ($total_mark/$total_tests), $resultConfig ) }}</td>
-                <td></td>
+                <td>{{ $total_cumulated }}</td>
                 <td></td>
             </tr>
         </tbody>
@@ -133,7 +135,7 @@
             <td colspan="2" valign="top">
                 <p>
                     {{ $assessment->short_name }} result is the outcome of class tests and assignments given throughout {{ $assessment->short_name }} Period.
-                    For detailed tests reports go to <b>http://bhssjunior.mizobaptist.org/parents</b>.
+                    <br>For detailed tests reports go to <b>http://bhssjunior.mizobaptist.org/parents</b>.
                     <span>WEIGHTAGE SCHEME: {{ implode(' + ', $schemes) }} = OVERALL({{ $schemesTotal }})</span>
                 </p>
             </td>
