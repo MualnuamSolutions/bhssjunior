@@ -2,8 +2,16 @@
 
 @section('content')
 
+@if(Input::get('action') == 'view')
+<div style="margin: 0 auto;width:148mm;">
+@endif
+
 <div class="results-container">
 </div>
+
+@if(Input::get('action') == 'view')
+</div>
+@endif
 
 <div class="lightbox-loader">
     <span>
@@ -53,8 +61,11 @@ function closeLightbox()
             });
 
             $('.lightbox-loader').hide();
+
+            @if(Input::get('action') == 'print')
             window.print();
             setTimeout("window.close()", 1);
+            @endif
         });
     }
 }

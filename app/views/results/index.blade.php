@@ -17,7 +17,20 @@
 function prepare()
 {
     var url = '/results/create?';
-    url += 'academic_session=' + $('#academic_session').val();
+    url += 'action=print';
+    url += '&academic_session=' + $('#academic_session').val();
+    url += '&assessment=' + $('#assessment').val();
+    url += '&class=' + $('#class').val();
+    url += '&student=' + $('#student').val();
+
+    window.open(url);
+}
+
+function view()
+{
+    var url = '/results/create?';
+    url += 'action=view';
+    url += '&academic_session=' + $('#academic_session').val();
     url += '&assessment=' + $('#assessment').val();
     url += '&class=' + $('#class').val();
     url += '&student=' + $('#student').val();

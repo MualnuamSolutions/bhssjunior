@@ -32,7 +32,7 @@
               <th class="head3 verticalTableHeader"><b>Total Marks</b></th>
               <th class="head4 verticalTableHeader"><b>Percentage of Marks</b></th>
               <th class="head5 verticalTableHeader"><b>Grade</b></th>
-              <th class="head6 verticalTableHeader"><b>FA1 (25%)</b></th>
+              <th class="head6 verticalTableHeader"><b>{{ $assessment->short_name }} ({{ $resultConfig->weightage }}%)</b></th>
               <th class="head7 verticalTableHeader"><b>Subject Teachers</b></th>
             </tr>
         </thead>
