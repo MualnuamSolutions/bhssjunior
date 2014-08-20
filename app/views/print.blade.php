@@ -10,6 +10,7 @@
 @yield('content')
 
 <script type="text/javascript" src="{{ asset('jquery/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('jquery/jQuery.ajaxQueue.min.js') }}"></script>
 @yield('scripts')
 </body>
 </html>

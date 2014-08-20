@@ -7,7 +7,7 @@
 
 <div class="lightbox-loader">
     <span>
-        <img src="{{ asset('images/loader.gif') }}" /><br>Generating results, please wait.<br>
+        Generating Results, Please Wait.<br>
         <p></p>
     </span>
 </div>
@@ -19,14 +19,14 @@
 var totalStudents = {{ $students->count() }};
 $(function(){
    @foreach($students as $student)
-   $.ajax({
+   jQuery.ajaxQueue({
         url: '{{ route('results.show', $student->id) }}}',
         type: 'get',
         data: 'academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}'
    })
    .done(function(result){
         $('.results-container').append(result);
-        $('.lightbox-loader span p').append("+");
+        $('.lightbox-loader span p').append('<img height="12px" src="{{ asset('images/heart.png') }}" />');
         closeLightbox();
    });
    @endforeach
@@ -37,8 +37,8 @@ function closeLightbox()
     var completed = $('.results-container .assessment-result').size();
     if(totalStudents == completed) {
         $('.lightbox-loader').hide();
-        window.print();
-        setTimeout("window.close()", 1);
+//        window.print();
+//        setTimeout("window.close()", 1);
     }
 }
 </script>
