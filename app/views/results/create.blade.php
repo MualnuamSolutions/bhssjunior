@@ -37,8 +37,8 @@ function closeLightbox()
     var completed = $('.results-container .assessment-result').size();
     if(totalStudents == completed) {
         $('.lightbox-loader').hide();
-//        window.print();
-//        setTimeout("window.close()", 1);
+        window.print();
+        setTimeout("window.close()", 1);
     }
 }
 </script>
