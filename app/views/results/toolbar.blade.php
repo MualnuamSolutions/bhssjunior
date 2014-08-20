@@ -31,7 +31,7 @@
         {{ Form::button('<i class="fi-print"></i> PRINT', ['class' => 'button large success', 'type' => 'button', 'onclick' => 'return prepare()']) }}
         @else
         {{ Form::button('<i class="fi-print"></i> PRINT', ['class' => 'disabled button large success', 'type' => 'button']) }}
-\        @endif
+        @endif
     </div>
 
     <div class="small-2 columns">
