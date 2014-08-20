@@ -51,7 +51,6 @@ class ResultHelper
     public static function grade($point, $resultConfig)
     {
         $point = floor($point);
-        return $point;
 
         if($point >= $resultConfig->grade_o)
             return 'O';
