@@ -225,6 +225,7 @@ class ResultsController extends \BaseController
 
         foreach($marks as $key => $mark) {
             $percentage = round(($mark->mark / $mark->totalmarks) * 100, 2);
+            $totalPercentage += $percentage;
 
             if($i < 10) {
                 $temp = [
@@ -250,7 +251,7 @@ class ResultsController extends \BaseController
             'classAverage' => $classAverage,
             'topTen' => $topTen
         ];
-
+        
         return Response::json($return);
     }
 }

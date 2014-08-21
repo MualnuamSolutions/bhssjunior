@@ -46,7 +46,6 @@ function closeLightbox()
             data: "academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}"
         })
         .done(function(result){
-            console.log(result.classHighest);
             $('.class-highest').text(result.classHighest + '%');
             $('.class-average').text(result.classAverage + '%');
 
