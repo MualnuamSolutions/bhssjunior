@@ -220,22 +220,30 @@ class ResultsController extends \BaseController
 
         $topTen = [];
         $totalPercentage = 0;
+        $topPercentage = 100;
+        $i = 0;
 
         foreach($marks as $key => $mark) {
             $percentage = round(($mark->mark / $mark->totalmarks) * 100, 2);
 
-            if(sizeof($topTen) < 10 ) {
-                $topTen[] = [
+            if($i < 10) {
+                $temp = [
                     'student_id' => $mark->student_id,
                     'percentage' => $percentage
                 ];
-            }
 
-            $totalPercentage += $percentage;
+                if ($topPercentage > $percentage) {
+                    $topPercentage = $percentage;
+                    ++$i;
+                }
+
+
+                $topTen[$i][] = $temp;
+            }
         }
 
         $classAverage = round($totalPercentage / $marks->count(), 2);
-        $classHighest = $topTen[0];
+        $classHighest = $topTen[1][0];
 
         $return = [
             'classHighest' => $classHighest['percentage'],

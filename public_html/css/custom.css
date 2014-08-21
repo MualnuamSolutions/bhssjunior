@@ -34,3 +34,27 @@ table .student-photo {
 small {
     font-size: 11px !important;
 }
+.parent-dashboard .photo {
+    background: ;
+}
+.parent-dashboard .photo img {
+    padding: 1px;
+    border: 1px solid #B6B6B6;
+}
+.parent-dashboard table.profile {
+    width: 100%;
+    border: none;
+    background: transparent;
+}
+.parent-dashboard table.profile tr {
+    background: transparent;
+}
+.parent-dashboard table.profile th {
+    width: 40%;
+    text-align: right;
+    background: transparent;
+}
+.parent-dashboard table.profile th,
+.parent-dashboard table.profile td {
+    background: #ffffff;
+}

@@ -75,7 +75,7 @@
                 <td>{{ $total_mark }}</td>
                 <td>{{ $percentage = round(($total_mark / $total_full_mark) * 100, 2) }}</td>
                 <td>{{ \Mualnuam\ResultHelper::grade( ($total_mark/$total_tests), $resultConfig ) }}</td>
-                <td>{{ $total_cumulated }}</td>
+                <td>{{ ( $resultConfig->weightage / 100 ) * $percentage }}</td>
                 <td></td>
             </tr>
         </tbody>

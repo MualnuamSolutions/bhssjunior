@@ -51,7 +51,9 @@ function closeLightbox()
             $('.class-average').text(result.classAverage + '%');
 
             $.each(result.topTen, function(key, data){
-                $('.rank_' + data['student_id']).html(rank(parseInt(key+1)));
+                $.each(data, function(subkey, item) {
+                    $('.rank_' + item['student_id']).html(rank(parseInt(key+1)));
+                });
             });
 
             $('.lightbox-loader').hide();
