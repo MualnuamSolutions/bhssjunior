@@ -52,7 +52,7 @@ function closeLightbox()
 
             $.each(result.topTen, function(key, data){
                 $.each(data, function(subkey, item) {
-                    $('.rank_' + item['student_id']).html(rank(parseInt(key+1)));
+                    $('.rank_' + item['student_id']).html(rank(parseInt(key)+1)));
                 });
             });
 
