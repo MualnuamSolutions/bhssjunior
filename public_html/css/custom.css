@@ -35,7 +35,8 @@ small {
     font-size: 11px !important;
 }
 .parent-dashboard .photo {
-    background: ;
+    height: auto;
+    width: 100%;
 }
 .parent-dashboard .photo img {
     padding: 1px;
@@ -57,4 +58,64 @@ small {
 .parent-dashboard table.profile th,
 .parent-dashboard table.profile td {
     background: #ffffff;
+}
+.parent-dashboard .session-detail {
+    background: #E48585;
+    padding: 10px 0;
+    margin-top: 30px;
+    color: #ffffff;
+}
+.parent-dashboard .session-detail span {
+    font-size: 12px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    padding: 0 30px;
+}
+.parent-dashboard .session-detail span b {
+    text-transform: uppercase;
+}
+.parent-dashboard .test-subjects {
+    margin-top: 15px;
+}
+.parent-dashboard .test-subjects .test-subject {
+    display: block;
+    background: #fff;
+    padding: 12px 20px;
+    height: 155px;
+    border-radius: 4px;
+    border:1px solid #E7E7E7;
+}
+.parent-dashboard .test-subjects .test-subject:hover {
+    border-color: #D0E4F5;
+}
+.parent-dashboard .test-subjects .test-subject span {
+    display: block;
+    clear: both;
+}
+.parent-dashboard .test-subjects .test-subject span i {
+    padding: 0 8px 0 0;
+}
+.parent-dashboard .test-subjects .test-subject span.subject-name {
+    font-size: 18px;
+    font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
+    color: #111111;
+    margin-bottom: 8px;
+}
+.parent-dashboard .test-subjects .test-subject span.no-of-test {
+    font-size: 13px;
+    color: #111;
+    margin: 0 0 8px;
+}
+.parent-dashboard .test-subjects .test-subject span.teacher-name {}
+.parent-dashboard .test-subjects .test-subject span.teacher-name b {
+    display: block;
+}
+.parent-dashboard .subject-detail {
+    margin-top: 30px;
+}
+.parent-dashboard .subject-detail .sidenav-subject {
+    display: block;
+    width: 100%;
+}
+.parent-dashboard .subject-detail table {
+    width: 100%;
 }

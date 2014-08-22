@@ -251,7 +251,7 @@ class ResultsController extends \BaseController
             'classAverage' => $classAverage,
             'topTen' => $topTen
         ];
-        
+
         return Response::json($return);
     }
 }

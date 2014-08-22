@@ -84,4 +84,5 @@ class Mark extends Eloquent
             ->orderBy('start', 'desc')
             ->orderBy('created_at', 'desc');
     }
+
 }

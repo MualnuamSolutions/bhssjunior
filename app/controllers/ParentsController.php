@@ -9,22 +9,44 @@ class ParentsController extends \BaseController {
 	 */
 	public function index()
 	{
+        $notfound = false;
         $student = null;
         $marks = null;
-        $notfound = false;
+        $classroom = null;
+        $currentSubject = null;
+        $completedAssessments = [];
+
+        $subject = Input::get('subject', null);
+
+        $session = AcademicSession::getRecentSession();
 
         if(Input::get('regno') && Input::get('contact1')) {
             $student = Student::where('regno', '=', Input::get('regno'))
-                ->where('contact1', '=', Input::get('contact1'))
+//                ->where('contact1', '=', Input::get('contact1'))
                 ->first();
             if($student) {
-                $marks = Mark::join('exams', 'exams_marks.exam_id', '=', 'exams.id')
-                    ->join('users', 'exams.user_id', '=', 'users.id')
-                    ->join('tests', 'exams.test_id', '=', 'tests.id')
-                    ->join('subjects', 'tests.subject_id', '=', 'subjects.id')
-                    ->where('exams_marks.student_id', '=', $student->id)
-                    ->select('exams.*', 'exams_marks.*', 'tests.name as test_name', 'users.name as teacher_name', 'subjects.name as subject_name')
-                    ->get();
+                $classroom = ClassRoom::with('subjects')->find($student->currentClass->id);
+                $currentSubject = Subject::find($subject);
+                $completedAssessments = Exam::getCompletedAssessments($classroom->id);
+
+                if($currentSubject) {
+                    $marks = Mark::join('exams', 'exams_marks.exam_id', '=', 'exams.id')
+                        ->join('users', 'exams.user_id', '=', 'users.id')
+                        ->join('tests', 'exams.test_id', '=', 'tests.id')
+                        ->join('subjects', 'tests.subject_id', '=', 'subjects.id')
+                        ->where('tests.subject_id', '=', $currentSubject->id)
+                        ->where('exams_marks.student_id', '=', $student->id)
+                        ->select(
+                            'exams.*',
+                            'exams_marks.*',
+                            'tests.name as test_name',
+                            'users.name as teacher_name',
+                            'subjects.name as subject_name',
+                            'tests.totalmarks'
+                        )
+                        ->orderBy('exams.exam_date', 'desc')
+                        ->get();
+                }
             }
             else {
                 $notfound = true;
@@ -32,7 +54,7 @@ class ParentsController extends \BaseController {
 
         }
 
-        return View::make('parents.index', compact('student', 'marks', 'notfound'));
+        return View::make('parents.index', compact('student', 'marks', 'notfound', 'classroom', 'session', 'currentSubject', 'completedAssessments'));
 	}
 
 	/**

@@ -66,4 +66,64 @@ class Exam extends Eloquent
 
         Mark::store($input);
     }
+
+    public static function getSubjectTeachers($subjectId, $classRoomId, $academicSessionId = null)
+    {
+        $testTable = (new Test)->getTable();
+        $userTable = (new User)->getTable();
+        $table = (new self)->getTable();
+
+        $session = AcademicSession::getRecentSession();
+        $academicSessionId = $session->id;
+
+        return Exam::join($testTable, $testTable . '.id', '=', $table . '.test_id')
+            ->join($userTable, $userTable . '.id', '=', $table . '.user_id')
+            ->where('subject_id', '=', $subjectId)
+            ->where('academic_session_id', '=', $academicSessionId)
+            ->where('class_room_id', '=', $classRoomId)
+            ->select(
+                DB::raw("DISTINCT('user_id')"),
+                $userTable . '.id',
+                $userTable . '.name'
+            )
+            ->get();
+    }
+
+    public static function getTests($subjectId, $classRoomId, $academicSessionId = null)
+    {
+        $testTable = (new Test)->getTable();
+        $userTable = (new User)->getTable();
+        $table = (new self)->getTable();
+
+        $session = AcademicSession::getRecentSession();
+        $academicSessionId = $session->id;
+
+        return Exam::join($testTable, $testTable . '.id', '=', $table . '.test_id')
+            ->join($userTable, $userTable . '.id', '=', $table . '.user_id')
+            ->where('subject_id', '=', $subjectId)
+            ->where('academic_session_id', '=', $academicSessionId)
+            ->where('class_room_id', '=', $classRoomId)
+            ->get();
+    }
+
+    public static function getCompletedAssessments($classRoomId)
+    {
+        $testTable = (new Test)->getTable();
+        $assessmentTable = (new Assessment)->getTable();
+        $table = (new self)->getTable();
+
+        $session = AcademicSession::getRecentSession();
+        $academicSessionId = $session->id;
+
+        return Exam::join($testTable, $testTable . '.id', '=', $table . '.test_id')
+            ->join($assessmentTable, $assessmentTable . '.id', '=', $testTable . '.assessment_id')
+            ->where('academic_session_id', '=', $academicSessionId)
+            ->where('class_room_id', '=', $classRoomId)
+            ->select(
+                DB::raw("DISTINCT('" . $testTable . ".assessment_id')"),
+                $assessmentTable . '.name',
+                $assessmentTable . '.short_name'
+            )
+            ->get();
+    }
 }

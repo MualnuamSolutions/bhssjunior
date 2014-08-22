@@ -40,6 +40,8 @@ class Student extends Ardent
         'photo' => [self::HAS_ONE, 'Photo']
     ];
 
+    public static $genders = ['Male' => 'Male', 'Female' => 'Female'];
+
     public function enrollments()
     {
         return $this->belongsToMany('Enrollment');
@@ -51,7 +53,11 @@ class Student extends Ardent
         return $this->hasOne('Enrollment')->whereAcademicSessionId($session->id);
     }
 
-    public static $genders = ['Male' => 'Male', 'Female' => 'Female'];
+    public function measurement()
+    {
+        $session = AcademicSession::getRecentSession();
+        return $this->hasOne('Measurement')->whereAcademicSessionId($session->id);
+    }
 
     public function afterCreate()
     {

@@ -24,12 +24,12 @@ class Option extends Ardent
         'id'
     ];
 
-    public static function data($key = null)
+    public static function data($key = null, $default = null)
     {
         if ($key == null)
-            return null;
+            return $default ? $default : null;
 
         $option = self::where('option_key', '=', $key)->first();
-        return $option ? $option->option_data : null;
+        return $option ? $option->option_data : $default;
     }
 }
