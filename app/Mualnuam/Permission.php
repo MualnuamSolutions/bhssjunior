@@ -131,6 +131,11 @@ class Permission
                 'exams.destroy' => 1,
                 'exams.print' => 1,
 
+                'results.index' => 1,
+                'results.overview' => 1,
+                'results.create' => 1,
+                'results.show' => 1,
+
                 'users.profile' => 1,
                 'users.updateProfile' => 1,
 
