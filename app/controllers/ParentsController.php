@@ -22,7 +22,7 @@ class ParentsController extends \BaseController {
 
         if(Input::get('regno') && Input::get('contact1')) {
             $student = Student::where('regno', '=', Input::get('regno'))
-//                ->where('contact1', '=', Input::get('contact1'))
+                ->where('contact1', '=', Input::get('contact1'))
                 ->first();
             if($student) {
                 $classroom = ClassRoom::with('subjects')->find($student->currentClass->id);
