@@ -78,7 +78,15 @@
             </div>
 
             <div class="row">
-                <div class="small-6 columns">
+                <div class="small-4 columns">
+                    {{ Form::label('short_name', 'Short Name', ['class' => $errors->has('short_name')?'error':'']) }}
+                    {{ Form::text('short_name', null) }}
+
+                    @if($errors->has('short_name'))
+                    <small class="error">{{ $errors->first('short_name') }}</small>
+                    @endif
+                </div>
+                <div class="small-4 columns">
                     {{ Form::label('phone', 'Contact Number', ['class' => $errors->has('phone')?'error':'']) }}
                     {{ Form::text('phone', null, ['placeholder' => 'Contact number is optional']) }}
 
@@ -86,7 +94,7 @@
                     <small class="error">{{ $errors->first('phone') }}</small>
                     @endif
                 </div>
-                <div class="small-6 columns">
+                <div class="small-4 columns">
                     {{ Form::label('epic_no', 'EPIC No', ['class' => $errors->has('epic_no')?'error':'']) }}
                     {{ Form::text('epic_no', null, ['placeholder' => 'Contact number is optional']) }}
 
@@ -121,7 +129,6 @@
                     @endif
                 </div>
             </div>
-
 
             {{ Form::label('qualification', 'Qualification', ['class' => $errors->has('qualification')?'error':'']) }}
             {{ Form::text('qualification', null) }}

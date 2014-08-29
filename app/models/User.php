@@ -12,6 +12,7 @@ class User extends Eloquent
         'password' => 'required|alpha_num|between:4,8|confirmed',
         'password_confirmation' => 'required|alpha_num|between:4,8',
         'name' => 'required',
+        'short_name' => 'required',
         'phone' => 'numeric',
         'permissions' => [],
     ];
@@ -24,6 +25,7 @@ class User extends Eloquent
     public static $updateRules = [
         'email' => 'required',
         'name' => 'required',
+        'short_name' => 'required',
         'phone' => 'numeric',
         'permissions' => [],
     ];
@@ -33,6 +35,7 @@ class User extends Eloquent
         'password' => 'alpha_num|between:4,8|confirmed',
         'password_confirmation' => 'alpha_num|between:4,8',
         'name' => 'required',
+        'short_name' => 'required',
         'phone' => 'numeric',
         'permissions' => []
     ];

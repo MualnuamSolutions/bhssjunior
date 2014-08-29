@@ -56,6 +56,7 @@ class UsersController extends \BaseController
                 'password' => Input::get('password'),
 
                 'name' => Input::get('name'),
+                'short_name' => Input::get('short_name'),
                 'phone' => Input::get('phone'),
                 'address' => Input::get('address'),
                 'dob' => Input::get('dob'),
@@ -138,6 +139,7 @@ class UsersController extends \BaseController
             }
 
             $user->name = Input::get('name');
+            $user->short_name = Input::get('short_name');
             $user->phone = Input::get('phone');
             $user->address = Input::get('address');
             $user->dob = Input::get('dob');

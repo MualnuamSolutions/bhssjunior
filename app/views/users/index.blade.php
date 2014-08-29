@@ -13,6 +13,7 @@
          <th>#</th>
          <th>Email</th>
          <th>Name</th>
+         <th>Short</th>
          <th>Phone</th>
          <th>Role</th>
          <th></th>
@@ -24,6 +25,7 @@
          <td>{{ $users->getFrom() + $key }}</td>
          <td>{{ $user->email }}</td>
          <td>{{ $user->name }}</td>
+         <td>{{ $user->short_name }}</td>
          <td>{{ $user->phone }}</td>
          <td>{{ implode('', $user->groups->lists('name')) }}</td>
          <td class="text-right">

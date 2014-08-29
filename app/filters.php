@@ -72,7 +72,6 @@ Route::filter('csrf', function () {
    }
 });
 
-
 Route::filter('sentry', function ($route, $request) {
    if (!Sentry::check()) {
       return Redirect::guest(route('login'));

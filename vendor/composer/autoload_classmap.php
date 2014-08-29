@@ -12,6 +12,7 @@ return array(
     'AddClassTeacherColumnsToClassRoomTable' => $baseDir . '/app/database/migrations/2014_08_20_164056_add_class_teacher_columns_to_class_room_table.php',
     'AddFieldsToUsers' => $baseDir . '/app/database/migrations/2014_05_19_061302_add_fields_to_users.php',
     'AddShortNameColumnToAssessmentsTable' => $baseDir . '/app/database/migrations/2014_08_06_180719_add_short_name_column_to_assessments_table.php',
+    'AddShortNameToUsersTable' => $baseDir . '/app/database/migrations/2014_08_29_133031_add_short_name_to_users_table.php',
     'AddTypeColumnOnSubjectsTable' => $baseDir . '/app/database/migrations/2014_08_19_235112_add_type_column_on_subjects_table.php',
     'Assessment' => $baseDir . '/app/models/Assessment.php',
     'AssessmentConfiguration' => $baseDir . '/app/models/AssessmentConfiguration.php',
