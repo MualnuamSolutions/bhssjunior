@@ -5,7 +5,7 @@
    "license": "MIT",
    "require": {
       "laravel/framework": "4.2.*",
-      "cartalyst/sentry": "dev-master",
+      "cartalyst/sentry": "2.1.*",
       "barryvdh/laravel-debugbar": "1.6.1",
       "laravelbook/ardent": "dev-master",
       "edvinaskrucas/notification": "3.*"

@@ -54,10 +54,10 @@ return array(
 
         'mysql' => array(
             'driver' => 'mysql',
-            'host' => 'localhost',
-            'database' => 'mizobapt_bhssjr',
-            'username' => 'mizobapt_bhssjr',
-            'password' => 'TMAPQ;oUIGT}',
+            'host'      => getenv('HOST'),
+            'database'  => getenv('DATABASE'),
+            'username'  => getenv('USERNAME'),
+            'password'  => getenv('PASSWORD'),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',

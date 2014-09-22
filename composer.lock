@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fb1576989a8f7375aad3ecc8ec466c80",
+    "hash": "86105888cd8a99c8d3071c693e4832ac",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -55,16 +55,16 @@
         },
         {
             "name": "cartalyst/sentry",
-            "version": "dev-master",
+            "version": "v2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cartalyst/sentry.git",
-                "reference": "57eb4ec33b342d621d8e7e499492f797443c0428"
+                "reference": "1335033432147772c05a509981563409cb3c3d3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cartalyst/sentry/zipball/57eb4ec33b342d621d8e7e499492f797443c0428",
-                "reference": "57eb4ec33b342d621d8e7e499492f797443c0428",
+                "url": "https://api.github.com/repos/cartalyst/sentry/zipball/1335033432147772c05a509981563409cb3c3d3b",
+                "reference": "1335033432147772c05a509981563409cb3c3d3b",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
                 "laravel",
                 "security"
             ],
-            "time": "2014-08-28 12:03:39"
+            "time": "2014-07-23 20:35:12"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -1940,7 +1940,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "cartalyst/sentry": 20,
         "laravelbook/ardent": 20
     },
     "prefer-stable": false,
