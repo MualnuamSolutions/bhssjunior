@@ -54,10 +54,10 @@ return array(
 
         'mysql' => array(
             'driver' => 'mysql',
-            'host' => 'bhssjunior.db.11797024.hostedresource.com',
-            'database' => 'bhssjunior',
-            'username' => 'bhssjunior',
-            'password' => 'BH##jun!0r',
+            'host' => 'localhost',
+            'database' => 'mizobapt_bhssjr',
+            'username' => 'mizobapt_bhssjr',
+            'password' => 'TMAPQ;oUIGT}',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
