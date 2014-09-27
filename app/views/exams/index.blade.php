@@ -54,6 +54,6 @@
         </tbody>
     </table>
 
-    {{ $exams->links() }}
+    {{ $exams->appends(Input::all())->links() }}
 </div>
 @stop

@@ -27,8 +27,9 @@ class ExamsController extends \BaseController
         $academicSessions = AcademicSession::getDropDownList();
         $assessments = ['' => 'All'] + Assessment::getDropDownList(true);
         $subjects = ['' => 'All'] + Subject::getDropDownList();
+        $teachers = ['' => 'All'] + User::getStaff();
 
-        $search = Input::get('s');
+        $input = Input::all();
         $limit = Input::get('limit', Config::get('view.pagination_limit'));
 
         $limits = [
@@ -44,9 +45,22 @@ class ExamsController extends \BaseController
             ->join($assessmentTable, $assessmentTable . '.id', '=', $testTable . '.assessment_id')
             ->join($classRoomTable, $classRoomTable . '.id', '=', $examTable . '.class_room_id')
             ->join($userTable, $userTable . '.id', '=', $examTable . '.user_id')
-            ->where(function($query) use ($loggedUser, $staffGroup) {
+            ->where(function($query) use ($examTable, $subjectTable, $assessmentTable, $loggedUser, $staffGroup, $input) {
                 if($loggedUser->inGroup($staffGroup))
                     $query->where('user_id', '=', $loggedUser->id);
+
+                if(isset($input['subject']) && $input['subject'] != '')
+                    $query->where($subjectTable . '.id', '=', $input['subject']);
+
+                if(isset($input['assessment']) && $input['assessment'] != '')
+                    $query->where($assessmentTable . '.id', '=', $input['assessment']);
+
+                if(isset($input['teacher']) && $input['teacher'] != '')
+                    $query->where('user_id', '=', $input['teacher']);
+
+                if(isset($input['exam_date']) && $input['exam_date'] != '') {
+                    $query->where($examTable . '.exam_date', '=', date('Y-m-d', strtotime($input['exam_date'])));
+                }
             })
             ->select(
                 $examTable . '.id',
@@ -62,7 +76,7 @@ class ExamsController extends \BaseController
             ->orderBy($examTable . '.created_at', 'desc')
             ->paginate($limit);
 
-        return View::make('exams.index', compact('exams', 'orderOptions', 'limits', 'academicSessions', 'assessments', 'subjects'));
+        return View::make('exams.index', compact('exams', 'orderOptions', 'limits', 'academicSessions', 'assessments', 'subjects', 'teachers'));
     }
 
 
