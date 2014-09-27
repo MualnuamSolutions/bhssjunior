@@ -108,9 +108,18 @@ class ExamsController extends \BaseController
      */
     public function edit($id)
     {
-        $exam = Exam::with('marks')->find($id);
+        $academicSessions = AcademicSession::getDropDownList();
+        $classes = ClassRoom::getDropDownList();
+        $assessments = Assessment::getDropDownList();
+        $subjects = ClassRoom::getSubjectsJson();
 
-        return View::make('exams.edit', compact('exam'));
+        $exam = Exam::with('marks')->find($id);
+        $locked = Result::lockStatus($exam->academic_session_id, $exam->test->assessment_id);
+
+        if($locked && $this->logged_user->inGroup($this->staffGroup))
+            Notification::alertInstant('Editing marks is currently locked for ' . $exam->test->assessment->short_name . ' ' . $exam->academicSession->session);
+
+        return View::make('exams.edit', compact('exam', 'locked', 'academicSessions', 'assessments', 'subjects', 'classes'));
     }
 
 
@@ -128,6 +137,9 @@ class ExamsController extends \BaseController
         if ($validator->passes()) {
             $exam = Exam::find($id);
             $exam->name = $input['name'];
+//            $exam->test_id = $input['test_id'];
+//            $exam->academic_session_id = $input['academic_session_id'];
+//            $exam->class_room_id = $input['class_room_id'];
             $exam->exam_date = $input['exam_date'];
             $exam->note = $input['note'];
             $exam->save();
@@ -157,6 +169,13 @@ class ExamsController extends \BaseController
     {
         $exam = Exam::find($id);
         if ($exam) {
+
+            $locked = Result::lockStatus($exam->academic_session_id, $exam->test->assessment_id);
+            if($locked) {
+                Notification::alert('Cannot be deleted while locked. Records under ' . $exam->test->assessment->short_name . ' ' . $exam->academicSession->session . ' are locked.');
+                return Redirect::route('exams.index');
+            }
+
             Mark::where('exam_id', '=', $id)->delete();
             $exam->delete();
 

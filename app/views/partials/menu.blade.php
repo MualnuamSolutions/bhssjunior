@@ -101,8 +101,10 @@
         <li><a href="{{ route('users.profile') }}"><i class="fi-pencil"></i></a></li>
         @endif
 
+        @if ( $logged_user->hasAccess('settings.index') )
         <li class="divider"></li>
-        <li><a href="#"><i class="fi-wrench"></i></a></li>
+        <li><a href="{{ route('settings.index') }}"><i class="fi-wrench"></i></a></li>
+        @endif
 
         <li class="alert"><a href="{{ route('logout') }}" title="Log Out"><i class="fi-power"></i></a></li>
 

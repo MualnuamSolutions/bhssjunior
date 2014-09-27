@@ -27,13 +27,14 @@
         <thead>
             <tr>
               <th><strong>SUBJECTS</strong></th>
-              <th class="head1 verticalTableHeader"><b>No of Tests</b></th>
-              <th class="head2 verticalTableHeader"><b>Total of Full Marks</b></th>
-              <th class="head3 verticalTableHeader"><b>Total Marks</b></th>
-              <th class="head4 verticalTableHeader"><b>Percentage of Marks</b></th>
-              <th class="head5 verticalTableHeader"><b>Grade</b></th>
-              <th class="head6 verticalTableHeader"><b>{{ $assessment->short_name }} ({{ $resultConfig->weightage }}%)</b></th>
-              <th class="head7 verticalTableHeader"><b>Subject Teachers</b></th>
+              <th class="head1 verticalTableHeader"><b>Subject Teachers</b></th>
+              <th class="head2 verticalTableHeader"><b>No of Tests</b></th>
+              <th class="head3 verticalTableHeader"><b>Total of Full Marks</b></th>
+              <th class="head4 verticalTableHeader"><b>Total Marks</b></th>
+              <th class="head5 verticalTableHeader"><b>Percentage of Marks</b></th>
+              <th class="head6 verticalTableHeader"><b>Grade</b></th>
+              <th class="head7 verticalTableHeader"><b>{{ $assessment->short_name }} ({{ $resultConfig->weightage }}%)</b></th>
+              <th class="head8 verticalTableHeader"><b>Cumulative upto {{ $lastAssessment->short_name }}</b></th>
             </tr>
         </thead>
         <tbody>
@@ -49,6 +50,7 @@
 
             <?php
             $tests = \Mualnuam\ResultHelper::studentSubjectTest($student->id, $subject->id, $classRoom->id, $assessment->id, $academicSession->id, $resultConfig);
+            $allTests = \Mualnuam\ResultHelper::studentSubjectTest($student->id, $subject->id, $classRoom->id, 0, $academicSession->id, $resultConfig);
             $total_tests += $tests['count'];
             $total_full_mark += $tests['total_of_full_marks'];
             $total_mark += $tests['total_of_marks'];
@@ -56,26 +58,31 @@
             ?>
 
             <tr>
-                <td width="35%">{{ strtoupper($subject->name) }}</td>
-                <td width="7%">{{ $tests['count'] }}</td>
-                <td width="7%">{{ $tests['total_of_full_marks'] }}</td>
-                <td width="7%">{{ $tests['total_of_marks'] }}</td>
-                <td width="7%">{{ $tests['percentage'] }}</td>
-                <td width="7%">{{ $tests['grade'] }}</td>
-                <td width="7%">{{ $subject->type == 'Half Paper' ? $tests['cumulated']/2 : $tests['cumulated'] }}</td>
-                <td width="23%">{{ $tests['teacher_name'] }}</td>
+                <td width="33%">{{ strtoupper($subject->name) }}</td>
+                <td width="11%">{{ $tests['teacher_name'] }}</td>
+                <td width="8%">{{ $tests['count'] }}</td>
+                <td width="8%">{{ $tests['total_of_full_marks'] }}</td>
+                <td width="8%">{{ $tests['total_of_marks'] }}</td>
+                <td width="8%">{{ round($tests['percentage'],2) }}</td>
+                <td width="8%">{{ $tests['grade'] }}</td>
+                <td width="8%">{{ $subject->type == 'Half Paper' ? round($tests['cumulated']/2,2) : round($tests['cumulated'],2) }}</td>
+                <td width="8%">{{ $subject->type == 'Half Paper' ? round($allTests['totalCumulated']/2,2) : round($allTests['totalCumulated'],2) }}</td>
             </tr>
 
             @endforeach
 
             <tr>
                 <td align="right">TOTAL</td>
+                <td></td>
                 <td>{{ $total_tests }}</td>
                 <td>{{ $total_full_mark }}</td>
                 <td>{{ $total_mark }}</td>
-                <td>{{ $percentage = round(($total_mark / $total_full_mark) * 100, 2) }}</td>
-                <td>{{ \Mualnuam\ResultHelper::grade( ($total_mark/$total_tests), $resultConfig ) }}</td>
-                <td>{{ ( $resultConfig->weightage / 100 ) * $percentage }}</td>
+                <td>
+                <?php $percentage = $total_full_mark ? round(($total_mark / $total_full_mark) * 100, 2) : 0; ?>
+                {{ round($percentage, 2) }}
+                </td>
+                <td>{{ $total_tests ? \Mualnuam\ResultHelper::grade( ($total_mark/$total_tests), $resultConfig ) : 0 }}</td>
+                <td>{{ round( ($resultConfig->weightage / 100 ) * $percentage, 2) }}</td>
                 <td></td>
             </tr>
         </tbody>
@@ -84,17 +91,17 @@
     <table class="footer">
         <tbody>
             <tr>
-                <th colspan="4">Class at Glance</th>
+                <th colspan="5">Class at Glance</th>
                 <th colspan="4">{{ $student->name }}</th>
             </tr>
             <tr>
-                <td colspan="3">Class Average %</td>
+                <td colspan="4">Class Average %</td>
                 <td class="class-average"></td>
                 <td colspan="3">Overall %</td>
-                <td>{{ $percentage }}%</td>
+                <td>{{ round($percentage,2) }}%</td>
             </tr>
             <tr>
-                <td colspan="3">Highest in the Class</td>
+                <td colspan="4">Highest in the Class</td>
                 <td class="class-highest"></td>
                 <td colspan="3">Rank in the class</td>
                 <td class="rank_{{ $student->id }}"></td>
@@ -135,7 +142,7 @@
             <td colspan="2" valign="top">
                 <p>
                     {{ $assessment->short_name }} result is the outcome of class tests and assignments given throughout {{ $assessment->short_name }} Period.
-                    <br>For detailed tests reports go to <b>http://bhssjunior.mizobaptist.org/parents</b>.
+                    <br>For detailed tests reports go to <b>http://www.bhssjr.org/parents</b>.
                     <span>WEIGHTAGE SCHEME: {{ implode(' + ', $schemes) }} = OVERALL({{ $schemesTotal }})</span>
                 </p>
             </td>

@@ -34,6 +34,7 @@ class MarksController extends \BaseController
         $enrollments = [];
         $tests = [];
         $classroom = null;
+        $locked = false;
 
         if (!empty($input)) {
             $classroom = ClassRoom::with(array('subjects', 'enrollments' => function ($query) use ($input) {
@@ -47,10 +48,17 @@ class MarksController extends \BaseController
             $tests = Test::getDropDownList($input);
             $subject = Subject::find($input['subject_id']);
             $assessment = Assessment::find($input['assessment_id']);
+            $academicSession = AcademicSession::find($input['academic_session_id']);
+
+            $locked = Result::lockStatus($input['academic_session_id'], $assessment->id);
+
+            if($locked)
+                Notification::alertInstant('Mark entry is currently locked for ' . $assessment->short_name . ' ' . $academicSession->session);
+
         }
 
         return View::make('marks.create', compact('assessments',
-            'classes', 'subjects', 'academicSessions', 'input', 'enrollments', 'tests', 'subject', 'assessment'));
+            'classes', 'subjects', 'academicSessions', 'input', 'enrollments', 'tests', 'subject', 'assessment', 'locked'));
     }
 
 

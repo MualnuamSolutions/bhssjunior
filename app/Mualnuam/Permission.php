@@ -52,6 +52,8 @@ class Permission
                 'results.overview' => 1,
                 'results.create' => 1,
                 'results.show' => 1,
+                'results.lock' => 1,
+                'results.unlock' => 1,
 
                 'tests.create' => 1,
                 'tests.store' => 1,
@@ -117,6 +119,9 @@ class Permission
                 'marks.update' => 1,
                 'marks.destroy' => 1,
                 'marks.show' => 1,
+
+                'settings.index' => 1,
+                'settings.store' => 1
             ],
 
             'Staff' => [

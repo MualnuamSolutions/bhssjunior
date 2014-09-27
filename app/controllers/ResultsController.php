@@ -22,12 +22,14 @@ class ResultsController extends \BaseController
         $classes = array('' => 'Select Class') + ClassRoom::getDropDownList();
         $assessments = Assessment::getDropDownList(true);
         $students = [];
+        $locked = false;
 
         $assessment = Input::get('assessment');
         $academicSession = Input::get('academic_session');
         $class = Input::get('class');
 
         if($assessment && $academicSession && $class) {
+            $locked = Result::lockStatus($academicSession, $assessment);
             $assessment = Assessment::find($assessment);
             $academicSession = ClassRoom::find($academicSession);
             $class = ClassRoom::find($class);
@@ -44,9 +46,9 @@ class ResultsController extends \BaseController
                 Notification::alert('Invalid selection, please try again');
                 return Redirect::route('results.index');
             }
-        }
+            }
 
-        return View::make('results.index', compact('academicSessions', 'classes', 'assessments', 'students'));
+        return View::make('results.index', compact('academicSessions', 'classes', 'assessments', 'students', 'locked'));
     }
 
 
@@ -136,6 +138,7 @@ class ResultsController extends \BaseController
                 $assessmentConfigTable . '.weightage',
                 $assessmentTable . '.short_name'
             )
+            ->orderBy($assessmentTable . '.order', 'asc')
             ->get();
 
         $schemes = [];
@@ -144,6 +147,8 @@ class ResultsController extends \BaseController
             $schemes[] = $config->short_name . "({$config->weightage}%)";
             $schemesTotal += $config->weightage;
         }
+
+        $lastAssessment = \Mualnuam\ResultHelper::lastAssessment($academicSession->id, $classRoom->id, $student->id);
 
 
         return View::make('results.show', compact(
@@ -154,7 +159,8 @@ class ResultsController extends \BaseController
             'enrollment',
             'resultConfig',
             'schemes',
-            'schemesTotal'
+            'schemesTotal',
+            'lastAssessment'
         ));
     }
 
@@ -243,8 +249,8 @@ class ResultsController extends \BaseController
             }
         }
 
-        $classAverage = round($totalPercentage / $marks->count(), 2);
-        $classHighest = $topTen[1][0];
+        $classAverage = $marks->count() ? round($totalPercentage / $marks->count(), 2) : 0;
+        $classHighest = isset($topTen[1][0])? $topTen[1][0] : 0;
 
         $return = [
             'classHighest' => $classHighest['percentage'],
@@ -253,5 +259,33 @@ class ResultsController extends \BaseController
         ];
 
         return Response::json($return);
+    }
+
+    public function lock()
+    {
+        $assessment = Input::get('assessment');
+        $academicSession = Input::get('academic_session');
+        $class = Input::get('class');
+
+        Result::lock($academicSession, $assessment);
+
+        return Redirect::route('results.index', [
+            'assessment' => $assessment,
+            'academic_session' => $academicSession,
+            'class' => $class ]);
+    }
+
+    public function unlock()
+    {
+        $assessment = Input::get('assessment');
+        $academicSession = Input::get('academic_session');
+        $class = Input::get('class');
+
+        Result::unlock($academicSession, $assessment);
+
+        return Redirect::route('results.index', [
+            'assessment' => $assessment,
+            'academic_session' => $academicSession,
+            'class' => $class ]);
     }
 }

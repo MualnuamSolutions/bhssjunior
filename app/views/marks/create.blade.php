@@ -13,13 +13,17 @@
          {{ Form::close() }}
       </div>
       <div class="medium-9 columns" id="marks-entry-form">
-         {{ Form::open(['route' => 'marks.store', 'method' => 'post']) }}
-         @if (!empty($tests))
-         @include("marks/_marks_form")
+         @if($locked)
+         @include("marks/_locked_test")
          @else
-         @include("marks/_no_test")
+             {{ Form::open(['route' => 'marks.store', 'method' => 'post']) }}
+             @if (!empty($tests))
+             @include("marks/_marks_form")
+             @else
+             @include("marks/_no_test")
+             @endif
+             {{ Form::close() }}
          @endif
-         {{ Form::close() }}
       </div>
    </div>
 </div>
@@ -27,38 +31,49 @@
 
 @section('scripts')
 <script type="text/javascript">
-   var subject = {{ Input::get('subject_id', 0) }};
+var subject = {{ Input::get('subject_id', 0) }};
 
-   var classSubjects = {{ $subjects }};
+var classSubjects = {{ $subjects }};
 
-   $(function () {
-      loadSubjects();
+$(function () {
+    loadSubjects();
 
-      if (subject) {
-         $("#subject_id").val(subject);
-      }
+    if (subject) {
+        $("#subject_id").val(subject);
+    }
 
-      $("#class_room_id").on('change', function () {
-         loadSubjects();
-      });
+    $("#class_room_id").on('change', function () {
+        loadSubjects();
+    });
 
-      $("table input:first").focus();
-   });
+    $("table input:first").focus();
 
-   function loadSubjects() {
-      var options = '';
+    $("#load_entry_form").on('click', function(evt){
+        if($('#class_room_id').val() == "" || $('#subject_id').val() == "") {
+            $('#class_room_id, #subject_id').css('border-color', '#cccccc');
 
-      if (classSubjects[ parseInt($('#class_room_id').val()) - 1 ].subjects.length) {
+            if($('#class_room_id').val() == "")
+                $('#class_room_id').css('border-color', 'red');
 
-         $.each(classSubjects[ parseInt($('#class_room_id').val()) - 1 ].subjects, function (key, subject) {
+            if($('#subject_id').val() == "")
+                $('#subject_id').css('border-color', 'red');
+
+            evt.preventDefault(true);
+        }
+    });
+});
+
+function loadSubjects() {
+    var options = '<option value="">No Subject</option>';
+
+    if ($('#class_room_id').val() != "" && classSubjects[ parseInt($('#class_room_id').val()) - 1 ].subjects.length) {
+        options = '<option value="">Select Subject</option>';
+        $.each(classSubjects[ parseInt($('#class_room_id').val()) - 1 ].subjects, function (key, subject) {
             options += '<option value="' + subject.id + '">' + subject.name + '</option>';
-         });
-      }
-      else {
-         options = '<option value="">No Subject</option>';
-      }
+        });
+    }
 
-      $("#subject_id").html(options);
-   }
+    $("#subject_id").html(options);
+}
 </script>
 @stop

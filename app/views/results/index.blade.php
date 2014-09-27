@@ -37,5 +37,25 @@ function view()
 
     window.open(url);
 }
+
+function lock()
+{
+    var url = '/results/lock?';
+        url += '&academic_session=' + $('#academic_session').val();
+        url += '&assessment=' + $('#assessment').val();
+        url += '&class=' + $('#class').val();
+
+    window.location.href = url;
+}
+
+function unlock()
+{
+    var url = '/results/unlock?';
+        url += '&academic_session=' + $('#academic_session').val();
+        url += '&assessment=' + $('#assessment').val();
+        url += '&class=' + $('#class').val();
+
+    window.location.href = url;
+}
 </script>
 @stop

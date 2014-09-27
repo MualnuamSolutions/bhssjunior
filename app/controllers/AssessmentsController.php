@@ -15,7 +15,7 @@ class AssessmentsController extends \BaseController
      */
     public function index()
     {
-        $assessments = Assessment::orderBy('name', 'asc')->paginate(Config::get('view.pagination_limit'));
+        $assessments = Assessment::orderBy('order', 'asc')->paginate(Config::get('view.pagination_limit'));
         return View::make('assessments.index', compact('assessments'));
     }
 

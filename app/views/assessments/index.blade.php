@@ -15,6 +15,7 @@
          <th>Short</th>
          <th>Term</th>
          <th>Weightage</th>
+         <th>Order</th>
          <th></th>
       </tr>
       </thead>
@@ -26,6 +27,7 @@
          <td>{{ $assessment->short_name }}</td>
          <td>{{ $assessment->termName }}</td>
          <td>{{ $assessment->displayWeightage }}</td>
+         <td>{{ $assessment->order}}</td>
          <td class="text-right">
             @include('partials.actions', ['actions'=> ['edit', 'delete'], 'route' => 'assessments', 'item' => $assessment])
          </td>

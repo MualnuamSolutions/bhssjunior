@@ -1,6 +1,9 @@
 @extends('layout')
 
 @section('content')
+
+@include('partials.crumbs', ['current' => 'Subject'])
+
 <div class="panel">
    <h5><i class="fi-list"></i> Subjects</h5>
    <hr>

@@ -14,6 +14,7 @@ class Assessment extends Ardent
         'name' => 'required',
         'short_name' => 'required',
         'term' => 'required',
+        'order' => 'required',
         'weightage' => 'required',
     ];
 
@@ -21,6 +22,7 @@ class Assessment extends Ardent
         'name',
         'short_name',
         'term',
+        'order',
         'weightage'
     ];
 
@@ -40,7 +42,7 @@ class Assessment extends Ardent
 
     public static function getDropDownList($short = false)
     {
-        $assessments = self::orderBy('name', 'asc')->get();
+        $assessments = self::orderBy('order', 'asc')->get();
 
         if($short)
             return $assessments->lists('short_name', 'id');

@@ -224,6 +224,9 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
 .assessment-result table.data .verticalTableHeader.head7 {
     width: 30px;
 }
+.assessment-result table.data .verticalTableHeader.head8 {
+    width: 30px;
+}
 .assessment-result table.info {
     width: 148mm;
     margin-top: 10px;
