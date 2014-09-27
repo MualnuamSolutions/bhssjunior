@@ -4,7 +4,7 @@
             <legend>New Enrollment</legend>
 
             <div class="row">
-                <div class="small-4 columns">
+                <div class="large-3 columns">
                     {{ Form::label('academic_session_id', 'Academic Session', ['class' => ($errors->has('academic_session_id') ? 'error' : '')]) }}
                     {{ Form::select('academic_session_id', $academicSessions, null, ['class' => $errors->has('academic_session_id')?'error':'']) }}
                     @if($errors->has('academic_session_id'))
@@ -12,7 +12,7 @@
                     @endif
                 </div>
 
-                <div class="small-4 columns">
+                <div class="large-3 columns">
                     {{ Form::label('class_room_id', 'Class', ['class' => ($errors->has('class_room_id') ? 'error' : '')]) }}
                     {{ Form::select('class_room_id', $classRooms, null, ['class' => $errors->has('class_room_id')?'error':'']) }}
                     @if($errors->has('class_room_id'))
@@ -20,11 +20,19 @@
                     @endif
                 </div>
 
-                <div class="small-4 columns">
+                <div class="large-3 columns">
                     {{ Form::label('roll_no', 'Roll No', ['class' => ($errors->has('roll_no')?'error':'')]) }}
                     {{ Form::text('roll_no', null, ['class' => $errors->has('roll_no')?'error':'']) }}
                     @if($errors->has('roll_no'))
                     <small class="error">{{ $errors->first('roll_no') }}</small>
+                    @endif
+                </div>
+
+                <div class="large-3 columns">
+                    {{ Form::label('house', 'House', ['class' => ($errors->has('house')?'error':'')]) }}
+                    {{ Form::text('house', null, ['class' => $errors->has('house')?'error':'']) }}
+                    @if($errors->has('house'))
+                    <small class="error">{{ $errors->first('house') }}</small>
                     @endif
                 </div>
             </div>

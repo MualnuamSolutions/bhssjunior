@@ -11,6 +11,7 @@ class Enrollment extends Ardent
         'class_room_id' => 'required',
         'academic_session_id' => 'required',
         'roll_no' => 'required|numeric',
+        'house' => 'required',
     ];
 
     protected $fillable = [
@@ -18,6 +19,7 @@ class Enrollment extends Ardent
         'student_id',
         'academic_session_id',
         'roll_no',
+        'house',
     ];
 
     public function academicSession()

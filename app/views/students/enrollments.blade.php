@@ -18,9 +18,10 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th class="small-4">Academic Session</th>
+                        <th class="small-2">Academic Session</th>
                         <th class="small-2">Class</th>
                         <th class="small-2">Roll No</th>
+                        <th class="small-2">House</th>
                         <th class="small-3"></th>
                     </tr>
                     </thead>
@@ -31,6 +32,7 @@
                         <td>{{ $enrollment->academicSession->session }}</td>
                         <td>{{ $enrollment->classRoom->name }}</td>
                         <td>{{ $enrollment->roll_no }}</td>
+                        <td>{{ $enrollment->house }}</td>
                         <td class="text-right">
                             @if( $logged_user->hasAccess('students.removeEnrollment'))
                             {{ Form::open(['route' => ['students.removeEnrollment', $enrollment->id], 'method' => 'delete', 'class' => 'inline']) }}
