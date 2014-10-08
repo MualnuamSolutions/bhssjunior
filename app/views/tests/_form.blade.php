@@ -29,7 +29,7 @@
    <div class="medium-2 columns">
       {{ Form::label('totalmarks', 'Total Marks', ['class' => ($errors->has('totalmarks')?'error':'')]) }}
 
-      {{ Form::text('totalmarks', 10, ['class' => $errors->has('totalmarks')?'error':'']) }}
+      {{ Form::text('totalmarks', null, ['class' => $errors->has('totalmarks')?'error':'']) }}
 
       @if($errors->has('totalmarks'))
       <small class="error">{{ $errors->first('totalmarks') }}</small>
