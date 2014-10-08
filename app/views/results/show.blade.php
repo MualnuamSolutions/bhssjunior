@@ -141,7 +141,7 @@
         <tr>
             <td colspan="2" valign="top">
                 <p>
-                    {{ $assessment->short_name }} result is the outcome of class tests and assignments given throughout {{ $assessment->short_name }} Period.
+                    {{ $assessment->description }}
                     <br>For detailed tests reports go to <b>http://www.bhssjr.org/parents</b>.
                     <span>WEIGHTAGE SCHEME: {{ implode(' + ', $schemes) }} = OVERALL({{ $schemesTotal }})</span>
                 </p>
