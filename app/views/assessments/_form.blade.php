@@ -55,6 +55,16 @@
         <small class="error">{{ $errors->first('order') }}</small>
         @endif
     </div>
+
+    <div class="medium-12 columns">
+        {{ Form::label('description', 'Description', ['class' => ($errors->has('description') ? 'error' : '')]) }}
+
+        {{ Form::text('description', null, ['class' => $errors->has('description') ? 'error' : '']) }}
+
+        @if($errors->has('description'))
+        <small class="error">{{ $errors->first('description') }}</small>
+        @endif
+    </div>
 </div>
 
 
