@@ -81,7 +81,7 @@
                 <?php $percentage = $total_full_mark ? round(($total_mark / $total_full_mark) * 100, 2) : 0; ?>
                 {{ round($percentage, 2) }}
                 </td>
-                <td>{{ $total_tests ? \Mualnuam\ResultHelper::grade( ($total_mark/$total_tests), $resultConfig ) : 0 }}</td>
+                <td>{{ $total_tests ? \Mualnuam\ResultHelper::grade( ($percentage/10), $resultConfig ) : 0 }}</td>
                 <td>{{ round( ($resultConfig->weightage / 100 ) * $percentage, 2) }}</td>
                 <td></td>
             </tr>
@@ -142,7 +142,7 @@
             <td colspan="2" valign="top">
                 <p>
                     {{ $assessment->description }}
-                    <br>For detailed tests reports go to <b>http://www.bhssjr.org/parents</b>.
+                    <br>For detailed tests reports go to <b>http://www.bhssjr.com/parents</b>.
                     <span>WEIGHTAGE SCHEME: {{ implode(' + ', $schemes) }} = OVERALL({{ $schemesTotal }})</span>
                 </p>
             </td>
