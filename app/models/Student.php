@@ -70,6 +70,7 @@ class Student extends Ardent
         $enrollment->class_room_id = Input::get('class_room');
         $enrollment->student_id = $this->id;
         $enrollment->roll_no = Input::get('roll_no');
+        $enrollment->house = Input::get('house');
         $enrollment->save();
 
         $photoPath = Input::get('photo') ? ImageHelper::store(Input::get('photo')) : null;

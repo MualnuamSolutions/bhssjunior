@@ -90,6 +90,12 @@
             <small class="error">{{ $errors->first('roll_no') }}</small>
             @endif
 
+            {{ Form::label('house', 'House', ['class' => ($errors->has('house')?'error':'')]) }}
+            {{ Form::text('house', null, ['class' => $errors->has('house')?'error':'']) }}
+            @if($errors->has('house'))
+            <small class="error">{{ $errors->first('house') }}</small>
+            @endif
+
         </fieldset>
 
         <fieldset>

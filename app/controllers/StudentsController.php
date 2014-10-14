@@ -45,10 +45,7 @@ class StudentsController extends \BaseController
             'regno' => 'asc'
         ];
 
-        $students = Student::leftJoin($enrollmentTable . '',$enrollmentTable . '.student_id','=', $studentTable . '.id')
-            ->leftJoin($academicSessionTable . '',$academicSessionTable . '.id', '=', $enrollmentTable . '.academic_session_id')
-            ->join($classRoomTable . '',$classRoomTable . '.id', '=', $enrollmentTable . '.class_room_id')
-            ->where(function($query) use ($search, $studentTable) {
+        $students = Student::where(function($query) use ($search, $studentTable) {
                 if($search != "") {
                     $query->where($studentTable . '.name', 'LIKE', '%' . $search . '%');
                     $query->orWhere($studentTable . '.father', 'LIKE', '%' . $search . '%');
@@ -57,17 +54,13 @@ class StudentsController extends \BaseController
                 }
             })
             ->groupBy($studentTable . '.id')
-            ->orderBy($academicSessionTable . '.start', 'desc')
             ->orderBy($studentTable . '.' . $order, $orderDirection[$order])
             ->select(
                 $studentTable . '.id',
                 $studentTable . '.regno',
                 $studentTable . '.name',
                 $studentTable . '.father',
-                $studentTable . '.contact1',
-                $classRoomTable . '.name as classRoom',
-                $enrollmentTable . '.academic_session_id',
-                $academicSessionTable . '.start'
+                $studentTable . '.contact1'
             )
             ->paginate($limit);
 

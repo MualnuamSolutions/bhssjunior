@@ -38,7 +38,7 @@
                     <small class="show-for-small-only">{{ \Mualnuam\TextHelper::highlightString(Input::get('s', ''), $student->contact1) }}</small>
                 </div>
             </td>
-            <td class="hide-for-small-only">{{ $student->classRoom }}</td>
+            <td class="hide-for-small-only">{{ $student->class }}</td>
             <td class="hide-for-small-only">{{ \Mualnuam\TextHelper::highlightString(Input::get('s', ''), $student->father) }}</td>
             <td class="hide-for-small-only">{{ \Mualnuam\TextHelper::highlightString(Input::get('s', ''), $student->contact1) }}</td>
             <td class="text-right">

@@ -13,7 +13,7 @@ class AddHouseColumnToStudents extends Migration {
 	public function up()
 	{
 		Schema::table('enrollments', function(Blueprint $table){
-            $table->string('house')->default('')->after('roll_no');
+            $table->string('house')->nullable()->default('')->after('roll_no');
         });
 	}
 
