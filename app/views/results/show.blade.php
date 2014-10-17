@@ -44,13 +44,21 @@
             $total_full_mark = 0;
             $total_mark = 0;
             $total_cumulated = 0;
+            $all_tests_full_marks = 0;
+            $all_tests_marks = 0;
+            $all_tests_weightage = 0;
             ?>
 
             @foreach($classRoom->subjects as $subject)
 
             <?php
             $tests = \Mualnuam\ResultHelper::studentSubjectTest($student->id, $subject->id, $classRoom->id, $assessment->id, $academicSession->id, $resultConfig);
+            
             $allTests = \Mualnuam\ResultHelper::studentSubjectTest($student->id, $subject->id, $classRoom->id, 0, $academicSession->id, $resultConfig);
+            $all_tests_full_marks += $allTests['total_of_full_marks'];
+            $all_tests_marks += $allTests['total_of_marks'];
+            $all_tests_weightage = $allTests['totalWeightage'];
+            
             $total_tests += $tests['count'];
             $total_full_mark += $tests['total_of_full_marks'];
             $total_mark += $tests['total_of_marks'];
@@ -83,7 +91,7 @@
                 </td>
                 <td>{{ $total_tests ? \Mualnuam\ResultHelper::grade( ($percentage/10), $resultConfig ) : 0 }}</td>
                 <td>{{ round( ($resultConfig->weightage / 100 ) * $percentage, 2) }}</td>
-                <td></td>
+                <td>{{ $all_tests_marks ? (round( ($all_tests_marks/$all_tests_full_marks) * $all_tests_weightage, 2) ) : 0 }}</td>
             </tr>
         </tbody>
     </table>

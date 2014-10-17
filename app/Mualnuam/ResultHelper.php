@@ -44,6 +44,7 @@ class ResultHelper
             'total_of_marks' => 0,
             'teacher_name' => '',
             'totalCumulated' => 0,
+            'totalWeightage' => 0,
         ];
 
         $cumulatedData = [];
@@ -70,12 +71,13 @@ class ResultHelper
             $percentage = $data['total'] > 0 ? round(($data['mark'] / $data['total']) * 100, 2) : null;
             $cumulated = round(($percentage / 100) * $config->weightage, 2);
             $return['totalCumulated'] += $cumulated;
+            $return['totalWeightage'] += $resultConfig->weightage; // Weightage percentage completed
         }
 
         $return['teacher_name'] = is_array($return['teacher_name']) ? implode('<br>', array_unique($return['teacher_name'])) : null;
         $return['percentage'] = $return['total_of_full_marks'] > 0 ? round(($return['total_of_marks'] / $return['total_of_full_marks']) * 100, 2) : 0;
         $return['cumulated'] = round(($return['percentage'] / 100) * $resultConfig->weightage, 2);
-        
+
         $point = $return['percentage'] / 10;
         $return['grade'] = self::grade( $point, $resultConfig );
 
