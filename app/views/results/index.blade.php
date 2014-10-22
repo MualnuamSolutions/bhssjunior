@@ -45,7 +45,7 @@ function classwise()
     url += '&academic_session=' + $('#academic_session').val();
     url += '&assessment=' + $('#assessment').val();
     url += '&class=' + $('#class').val();
-    url += '&student=' + $('#student').val();
+    url += '&student=0';
 
     window.open(url);
 }
