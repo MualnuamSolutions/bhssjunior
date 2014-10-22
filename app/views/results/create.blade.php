@@ -10,10 +10,10 @@
 </div>
 
 <div class="lightbox-loader">
-    <span>
-        Generating Results, Please Wait.<br>
-        <p></p>
-    </span>
+    <p class="progress">
+        <span class="meter"></span>
+        <span class="notice">Generating Results. Please Wait.</span>
+    </p>
 </div>
 
 @stop
@@ -21,6 +21,8 @@
 @section('scripts')
 <script>
 var totalStudents = {{ $students->count() }};
+var counter = 0;
+
 $(function(){
    @foreach($students as $student)
    jQuery.ajaxQueue({
@@ -29,8 +31,10 @@ $(function(){
         data: 'academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}'
    })
    .done(function(result){
+        counter++;
         $('.results-container').append(result);
-        $('.lightbox-loader span p').append('<img height="12px" src="{{ asset('images/heart.png') }}" />');
+        meterLength = (counter/totalStudents) * 100;
+        $('.lightbox-loader .progress .meter').css('width', meterLength + '%');
         closeLightbox();
    });
    @endforeach
@@ -58,6 +62,7 @@ function closeLightbox()
             });
 
             $('.lightbox-loader').hide();
+            $('.print-button').show();
 
             @if(Input::get('action') == 'print')
             window.print();
