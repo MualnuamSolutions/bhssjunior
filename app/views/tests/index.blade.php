@@ -24,7 +24,7 @@
          <td>{{ $tests->getFrom() + $key }}</td>
          <td>{{ $test->name }}</td>
          <td>{{ $test->subject->name }}</td>
-         <td>{{ $test->assessment->short_name }}</td>
+         <td>{{ $test->assessment ? $test->assessment->short_name : '-' }}</td>
          <td>{{ $test->totalmarks }}</td>
          <td class="text-right">
             @include('partials.actions', ['actions'=> ['edit', 'delete'], 'route' => 'tests', 'item' => $test])
