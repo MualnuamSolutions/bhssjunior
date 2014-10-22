@@ -15,6 +15,9 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
 .fl {
     float: left;
 }
+.center {
+    text-align: center;
+}
 .test-result table {width:100%; border-spacing: 1px 1px;}
 
 .test-result table.header {margin-bottom: 8px;}
@@ -258,19 +261,46 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
     height: 100%;
     z-index: 10000;
 }
-.lightbox-loader span {
+.lightbox-loader .progress {
     position: absolute;
-    top: 40%;
+    top: 0;
     display: block;
     width: 100%;
-    text-align: center;
-    font-size: 14px;
-    color: #42A335;
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-style: italic;
+    margin: 0;
+    background: #F7F7F7;
+    height: 24px;
 }
-.lightbox-loader span p {
-    background: #fff;
-    padding: 0 20px;
-    color: #42A335;
+.lightbox-loader .progress .notice {
+    position: absolute;
+    z-index: 2;
+    text-align: center;
+    font-size: 12px;
+    color: #7B7979;
+    font-family: Verdana;
+    line-height: 22px;
+    display: block;
+    width: 100%;
+}
+.lightbox-loader .progress .meter {
+    background: #66CD58;
+    height: 24px;
+    display: block;
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    top: 0;
+}
+.print-button {
+    display: none;
+    font-family: Verdana;
+    padding: 8px 18px;
+    background: #368a55;
+    border: 1px solid #297645;
+    font-size: 12px;
+    color: #fff;
+    cursor: pointer;
+}
+.classwise-result.test-result .data-head table,
+.classwise-result.test-result .data-row table {
+    font-size: 10px;
 }

@@ -2,6 +2,8 @@
 
 @section('content')
 
+<p class="center"><button onclick="window.print();" class="print-button">PRINT</button></p>
+
 <div style="margin: 0 auto;width:148mm;">
     <div class="results-container">
     </div>
@@ -63,18 +65,6 @@ function closeLightbox()
             @endif
         });
     }
-}
-
-function rank(rank)
-{
-    if(rank >= 4)
-        return rank + "<sup>th</sup>";
-    else if(rank == 3)
-        return rank + "<sup>rd</sup>";
-    else if(rank == 2)
-        return rank + "<sup>nd</sup>";
-    else if(rank == 1)
-        return rank + "<sup>st</sup>";
 }
 
 </script>

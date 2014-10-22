@@ -61,17 +61,25 @@ class ResultsController extends \BaseController
     {
         $studentTable = (new Student)->getTable();
         $enrollmentTable = (new Enrollment)->getTable();
+        $resultConfigTable = (new ResultConfiguration)->getTable();
+        $assessmentConfigTable = (new AssessmentConfiguration)->getTable();
 
         $assessment = Input::get('assessment');
         $academicSession = Input::get('academic_session');
         $class = Input::get('class');
         $student = Input::get('student');
+        $action = Input::get('action');
         $students = [];
 
         if($assessment && $academicSession && $class) {
             $assessment = Assessment::find($assessment);
-            $academicSession = ClassRoom::find($academicSession);
+            $academicSession = AcademicSession::find($academicSession);
             $class = ClassRoom::find($class);
+            $resultConfig = ResultConfiguration::join($assessmentConfigTable, $assessmentConfigTable . '.result_config_id', '=', $resultConfigTable . '.id')
+                ->where($resultConfigTable . '.academic_session_id', '=', $academicSession->id)
+                ->where($assessmentConfigTable . '.assessment_id', '=', $assessment->id)
+                ->first();
+            $lastAssessment = \Mualnuam\ResultHelper::lastAssessment($academicSession->id, $class->id);
 
             if($assessment && $academicSession && $class) {
                 $students = Enrollment::join($studentTable, $studentTable . '.id', '=', $enrollmentTable . '.student_id')
@@ -91,7 +99,9 @@ class ResultsController extends \BaseController
             }
         }
 
-        return View::make('results.create', compact('students', 'academicSession', 'assessment', 'class'));
+        $view = ($action == 'classwise') ? 'results.classwise' : 'results.create';
+        
+        return View::make($view, compact('students', 'academicSession', 'assessment', 'class', 'resultConfig', 'lastAssessment'));
     }
 
 
@@ -118,6 +128,7 @@ class ResultsController extends \BaseController
         $assessmentConfigTable = (new AssessmentConfiguration)->getTable();
         $assessmentTable = (new Assessment)->getTable();
 
+        $action = Input::get('action');
         $student = Student::find($id);
         $academicSession = AcademicSession::find(Input::get('academic_session'));
         $assessment = Assessment::find(Input::get('assessment'));
@@ -150,8 +161,9 @@ class ResultsController extends \BaseController
 
         $lastAssessment = \Mualnuam\ResultHelper::lastAssessment($academicSession->id, $classRoom->id, $student->id);
 
+        $view = ($action == 'classwise') ? 'results.showOverview' : 'results.show';
 
-        return View::make('results.show', compact(
+        return View::make($view, compact(
             'student',
             'academicSession',
             'assessment',

@@ -38,6 +38,18 @@ function view()
     window.open(url);
 }
 
+function classwise()
+{
+    var url = '/results/create?';
+    url += 'action=classwise';
+    url += '&academic_session=' + $('#academic_session').val();
+    url += '&assessment=' + $('#assessment').val();
+    url += '&class=' + $('#class').val();
+    url += '&student=' + $('#student').val();
+
+    window.open(url);
+}
+
 function lock()
 {
     var url = '/results/lock?';

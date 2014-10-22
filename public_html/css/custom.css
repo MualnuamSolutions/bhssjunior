@@ -119,3 +119,6 @@ small {
 .parent-dashboard .subject-detail table {
     width: 100%;
 }
+.toolbar .button-group {
+    margin-right: 15px;
+}
