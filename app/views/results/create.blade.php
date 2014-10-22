@@ -2,7 +2,10 @@
 
 @section('content')
 
-<p class="center"><button onclick="window.print();" class="print-button">PRINT</button></p>
+<p class="center">
+    <button onclick="window.print();" class="print-button">PRINT</button>
+    <button onclick="window.close();" class="close-button">CLOSE</button>
+</p>
 
 <div style="margin: 0 auto;width:148mm;">
     <div class="results-container">
@@ -62,7 +65,7 @@ function closeLightbox()
             });
 
             $('.lightbox-loader').hide();
-            $('.print-button').show();
+            $('.print-button, .close-button').show();
 
             @if(Input::get('action') == 'print')
             window.print();

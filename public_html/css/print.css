@@ -290,7 +290,8 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
     left: 0;
     top: 0;
 }
-.print-button {
+.print-button,
+.close-button {
     display: none;
     font-family: Verdana;
     padding: 8px 18px;
@@ -299,6 +300,10 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
     font-size: 12px;
     color: #fff;
     cursor: pointer;
+}
+.close-button {
+    background-color: #C23131;
+    border-color: #D73030;
 }
 .classwise-result.test-result .data-head table,
 .classwise-result.test-result .data-row table {
