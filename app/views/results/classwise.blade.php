@@ -68,7 +68,6 @@
 <script>
 var totalStudents = {{ $students->count() }};
 var counter = 0;
-var progressSize = 0;
 $(function(){
     @foreach($students as $student)
     jQuery.ajaxQueue({
@@ -108,6 +107,7 @@ function closeLightbox()
             });
 
             $('.lightbox-loader').hide();
+            $('.print-button').show();
 
             @if(Input::get('action') == 'print')
             window.print();
