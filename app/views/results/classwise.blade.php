@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td><b>Assessment</b>: {{ $assessment->short_name }}</td>
-            <td><b>Percentage</b>: {{ $resultConfig->weightage }}%</td>
+            <td><b>Weightage</b>: {{ $resultConfig->weightage }}%</td>
         </tr>
     </table>
 
