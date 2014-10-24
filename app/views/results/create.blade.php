@@ -3,12 +3,14 @@
 @section('content')
 
 <p class="center">
+    @if($logged_user->hasAccess('printResult'))
     <button onclick="window.print();" class="print-button">PRINT</button>
+    @endif
     <button onclick="window.close();" class="close-button">CLOSE</button>
 </p>
 
 <div style="margin: 0 auto;width:148mm;">
-    <div class="results-container">
+    <div class="results-container {{ !$logged_user->hasAccess('printResult') ? 'print-hide':'' }}">
     </div>
 </div>
 

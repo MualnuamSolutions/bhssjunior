@@ -26,6 +26,8 @@
                 {{ Form::button('<i class="fi-eye"></i><br>VIEW', ['class' => 'disabled button medium primary', 'type' => 'button']) }}
                 @endif
             </li>
+
+            @if($logged_user->hasAccess('printResult'))
             <li>
                 @if($students)
                 {{ Form::button('<i class="fi-print"></i><br>PRINT', ['class' => 'button medium success', 'type' => 'button', 'onclick' => 'return prepare()']) }}
@@ -33,6 +35,7 @@
                 {{ Form::button('<i class="fi-print"></i><br>PRINT', ['class' => 'disabled button medium success', 'type' => 'button']) }}
                 @endif
             </li>
+            @endif
 
             @if($logged_user->hasAccess('results.lock') && $logged_user->hasAccess('results.unlock'))
             <li>

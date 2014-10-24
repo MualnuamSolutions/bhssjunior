@@ -121,7 +121,9 @@ class Permission
                 'marks.show' => 1,
 
                 'settings.index' => 1,
-                'settings.store' => 1
+                'settings.store' => 1,
+
+                'printResult' => 1
             ],
 
             'Staff' => [
@@ -157,6 +159,8 @@ class Permission
                 'students.measurements' => 1,
                 'students.addMeasurement' => 1,
                 'students.storeMeasurement' => 1,
+
+                'printResult' => 0
             ]
         ];
 

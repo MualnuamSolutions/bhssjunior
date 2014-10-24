@@ -31,7 +31,7 @@ class ResultsController extends \BaseController
         if($assessment && $academicSession && $class) {
             $locked = Result::lockStatus($academicSession, $assessment);
             $assessment = Assessment::find($assessment);
-            $academicSession = ClassRoom::find($academicSession);
+            $academicSession = AcademicSession::find($academicSession);
             $class = ClassRoom::find($class);
 
             if($assessment && $academicSession && $class) {
