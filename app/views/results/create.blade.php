@@ -37,7 +37,7 @@ $(function(){
         counter++;
         $('.results-container').append(result);
         meterLength = (counter/totalStudents) * 100;
-        $('.lightbox-loader .progress .meter').css('width', meterLength + '%');
+        $('.lightbox-loader .progress .meter').stop().animate({width: meterLength + '%'}, 1000, 'swing');
         closeLightbox();
    });
    @endforeach
