@@ -46,7 +46,7 @@ class ResultsController extends \BaseController
                 Notification::alert('Invalid selection, please try again');
                 return Redirect::route('results.index');
             }
-            }
+        }
 
         return View::make('results.index', compact('academicSessions', 'classes', 'assessments', 'students', 'locked'));
     }

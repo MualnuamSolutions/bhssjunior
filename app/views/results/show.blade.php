@@ -34,7 +34,7 @@
               <th class="head5 verticalTableHeader"><b>Percentage of Marks</b></th>
               <th class="head6 verticalTableHeader"><b>Grade</b></th>
               <th class="head7 verticalTableHeader"><b>{{ $assessment->short_name }} ({{ $resultConfig->weightage }}%)</b></th>
-              <th class="head8 verticalTableHeader"><b>Cumulative upto {{ $lastAssessment->short_name }}</b></th>
+              <th class="head8 verticalTableHeader"><b>Cumulative upto {{ $assessment->short_name }}</b></th>
             </tr>
         </thead>
         <tbody>

@@ -16,7 +16,7 @@ class ResultHelper
             ->join($testTable, $examTable . '.test_id', '=', $testTable . '.id')
             ->join($userTable, $examTable . '.user_id', '=', $userTable . '.id')
             ->join($assessmentTable, $testTable . '.assessment_id', '=', $assessmentTable . '.id')
-            ->where(function($q) use($testTable, $subjectId, $studentId, $classRoomId, $academicSessionId, $assessmentId) {
+            ->where(function($q) use($testTable, $subjectId, $studentId, $classRoomId, $academicSessionId, $assessmentTable, $assessmentId, $resultConfig) {
                 $q->where($testTable . '.subject_id', '=', $subjectId);
                 $q->where('student_id', '=', $studentId);
                 $q->where('class_room_id', '=', $classRoomId);
@@ -24,6 +24,10 @@ class ResultHelper
                 
                 if($assessmentId != 0)
                     $q->where('assessment_id', '=', $assessmentId);
+                elseif($assessmentId == 0) {
+                    $assessment = Assessment::find($resultConfig->assessment_id);
+                    $q->where($assessmentTable . '.order', '<=', $assessment->order);
+                }
             })
             ->select(
                 $assessmentTable . '.order as assessmentOrder',
