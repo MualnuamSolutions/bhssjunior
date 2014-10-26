@@ -25,9 +25,9 @@ class ExamsController extends \BaseController
         $assessmentTable = (new Assessment)->getTable();
 
         $academicSessions = AcademicSession::getDropDownList();
-        $assessments = ['' => 'All'] + Assessment::getDropDownList(true);
-        $subjects = ['' => 'All'] + Subject::getDropDownList();
-        $teachers = ['' => 'All'] + User::getStaff();
+        $assessments = ['' => 'All Assessment'] + Assessment::getDropDownList(true);
+        $subjects = ['' => 'All Subject'] + Subject::getDropDownList();
+        $teachers = ['' => 'All Staff'] + User::getStaff();
 
         $input = Input::all();
         $limit = Input::get('limit', Config::get('view.pagination_limit'));
