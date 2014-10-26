@@ -1,7 +1,7 @@
 <div class="row">
     <div class="small-12 medium-3 columns">
         <div class="photo">
-            {{ $student->photo ? '<img src="{{ asset($student->photo->path) }}" />' : null }}
+            {{ $student->photo ? '<img src="' . asset($student->photo->path) . '" />' : null }}
         </div>
     </div>
 
