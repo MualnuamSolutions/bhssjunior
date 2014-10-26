@@ -42,7 +42,7 @@ class ExamsController extends \BaseController
 
         $exams = Exam::join($testTable, $testTable . '.id', '=', $examTable . '.test_id')
             ->join($subjectTable, $subjectTable . '.id', '=', $testTable . '.subject_id')
-            ->join($assessmentTable, $assessmentTable . '.id', '=', $testTable . '.assessment_id')
+            ->leftJoin($assessmentTable, $assessmentTable . '.id', '=', $testTable . '.assessment_id')
             ->join($classRoomTable, $classRoomTable . '.id', '=', $examTable . '.class_room_id')
             ->join($userTable, $userTable . '.id', '=', $examTable . '.user_id')
             ->where(function($query) use ($examTable, $subjectTable, $assessmentTable, $loggedUser, $staffGroup, $input) {

@@ -37,7 +37,7 @@
             </td>
             <td>{{ preg_replace('/Class/', '', $exam->classRoom) }}</td>
             <td>{{ date('j/m/Y', strtotime($exam->exam_date)) }}</td>
-            <td>{{ $exam->assessment }}</td>
+            <td>{{ $exam->assessment ? $exam->assessment : '<span class="label alert round">DELETED</span>' }}</td>
 
             @if($logged_user->inGroup($adminGroup) || $logged_user->isSuperUser())
             <td>{{ $exam->teacherName }}</td>
