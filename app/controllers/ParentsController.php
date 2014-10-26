@@ -24,6 +24,7 @@ class ParentsController extends \BaseController {
             $student = Student::where('regno', '=', Input::get('regno'))
                 ->where('contact1', '=', Input::get('contact1'))
                 ->first();
+
             if($student) {
                 $classroom = ClassRoom::with('subjects')->find($student->currentClass->id);
                 $currentSubject = Subject::find($subject);
@@ -33,7 +34,9 @@ class ParentsController extends \BaseController {
                     $marks = Mark::join('exams', 'exams_marks.exam_id', '=', 'exams.id')
                         ->join('users', 'exams.user_id', '=', 'users.id')
                         ->join('tests', 'exams.test_id', '=', 'tests.id')
+                        ->join('users_groups', 'users_groups.user_id', '=', 'users.id')
                         ->join('subjects', 'tests.subject_id', '=', 'subjects.id')
+                        ->where('users_groups.group_id', '!=', $this->externalGroup->id) // Exclude all marks entered by external
                         ->where('tests.subject_id', '=', $currentSubject->id)
                         ->where('exams_marks.student_id', '=', $student->id)
                         ->select(

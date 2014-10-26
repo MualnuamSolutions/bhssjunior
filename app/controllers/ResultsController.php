@@ -79,7 +79,7 @@ class ResultsController extends \BaseController
                 ->where($resultConfigTable . '.academic_session_id', '=', $academicSession->id)
                 ->where($assessmentConfigTable . '.assessment_id', '=', $assessment->id)
                 ->first();
-            $lastAssessment = \Mualnuam\ResultHelper::lastAssessment($academicSession->id, $class->id);
+            $lastAssessment = \Mualnuam\ResultHelper::lastAssessment($academicSession->id, $class->id, 0, 0, $this->externalGroup->id);
 
             if($assessment && $academicSession && $class) {
                 $students = Enrollment::join($studentTable, $studentTable . '.id', '=', $enrollmentTable . '.student_id')

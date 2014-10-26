@@ -3,7 +3,7 @@ use Exam, Test, Mark, User, Subject, AssessmentConfiguration, Assessment;
 
 class ResultHelper
 {
-    public static function studentSubjectTest($studentId, $subjectId, $classRoomId, $assessmentId, $academicSessionId, $resultConfig)
+    public static function studentSubjectTest($studentId, $subjectId, $classRoomId, $assessmentId, $academicSessionId, $resultConfig, $excludeGroup = null)
     {
         $subjectTable = (new Subject)->getTable();
         $assessmentTable = (new Assessment)->getTable();
@@ -15,12 +15,16 @@ class ResultHelper
         $tests = Mark::join($examTable, $markTable . '.exam_id', '=', $examTable . '.id')
             ->join($testTable, $examTable . '.test_id', '=', $testTable . '.id')
             ->join($userTable, $examTable . '.user_id', '=', $userTable . '.id')
+            ->join('users_groups', 'users_groups.user_id', '=', $userTable . '.id')
             ->join($assessmentTable, $testTable . '.assessment_id', '=', $assessmentTable . '.id')
-            ->where(function($q) use($testTable, $subjectId, $studentId, $classRoomId, $academicSessionId, $assessmentTable, $assessmentId, $resultConfig) {
+            ->where(function($q) use($testTable, $subjectId, $studentId, $classRoomId, $academicSessionId, $assessmentTable, $assessmentId, $resultConfig, $excludeGroup) {
                 $q->where($testTable . '.subject_id', '=', $subjectId);
                 $q->where('student_id', '=', $studentId);
                 $q->where('class_room_id', '=', $classRoomId);
                 $q->where('academic_session_id', '=', $academicSessionId);
+
+                if($excludeGroup)
+                    $q->where('users_groups.group_id', '!=', $excludeGroup); // Exclude all marks entered by group
                 
                 if($assessmentId != 0)
                     $q->where('assessment_id', '=', $assessmentId);
@@ -104,17 +108,23 @@ class ResultHelper
             return 'D';
     }
 
-    public static function lastAssessment($academicSessionId, $classRoomId = 0, $studentId = 0, $subjectId = 0)
+    public static function lastAssessment($academicSessionId, $classRoomId = 0, $studentId = 0, $subjectId = 0, $excludeGroup = null)
     {
         $assessmentTable = (new Assessment)->getTable();
         $testTable = (new Test)->getTable();
         $examTable = (new Exam)->getTable();
         $markTable = (new Mark)->getTable();
+        $userTable = (new User)->getTable();
 
         return Mark::join($examTable, $markTable . '.exam_id', '=', $examTable . '.id')
             ->join($testTable, $examTable . '.test_id', '=', $testTable . '.id')
             ->join($assessmentTable, $testTable . '.assessment_id', '=', $assessmentTable . '.id')
-            ->where(function($q) use($testTable, $subjectId, $studentId, $classRoomId, $academicSessionId) {
+            ->join($userTable, $examTable . '.user_id', '=', $userTable . '.id')
+            ->join('users_groups', 'users_groups.user_id', '=', $userTable . '.id')
+            ->where(function($q) use($testTable, $subjectId, $studentId, $classRoomId, $academicSessionId, $excludeGroup) {
+
+                if($excludeGroup)
+                    $q->where('users_groups.group_id', '!=', $excludeGroup); // Exclude all marks entered by group
 
                 if($studentId != 0)
                     $q->where('student_id', '=', $studentId);

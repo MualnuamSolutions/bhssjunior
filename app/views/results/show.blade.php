@@ -52,9 +52,9 @@
             @foreach($classRoom->subjects as $subject)
 
             <?php
-            $tests = \Mualnuam\ResultHelper::studentSubjectTest($student->id, $subject->id, $classRoom->id, $assessment->id, $academicSession->id, $resultConfig);
+            $tests = \Mualnuam\ResultHelper::studentSubjectTest($student->id, $subject->id, $classRoom->id, $assessment->id, $academicSession->id, $resultConfig, $externalGroup->id);
             
-            $allTests = \Mualnuam\ResultHelper::studentSubjectTest($student->id, $subject->id, $classRoom->id, 0, $academicSession->id, $resultConfig);
+            $allTests = \Mualnuam\ResultHelper::studentSubjectTest($student->id, $subject->id, $classRoom->id, 0, $academicSession->id, $resultConfig, $externalGroup->id);
             $all_tests_full_marks += $allTests['total_of_full_marks'];
             $all_tests_marks += $allTests['total_of_marks'];
             $all_tests_weightage = $allTests['totalWeightage'];

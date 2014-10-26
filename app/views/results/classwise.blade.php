@@ -61,7 +61,7 @@
 <div class="lightbox-loader">
     <p class="progress">
         <span class="meter"></span>
-        <span class="notice">Generating Results. Please Wait.</span>
+        <span class="notice">Generating Results. Please Wait - <b></b></span>
     </p>
 </div>
 
@@ -82,7 +82,8 @@ $(function(){
         counter++;
         $('.classwise-data').append(result);
         meterLength = (counter/totalStudents) * 100;
-        $('.lightbox-loader .progress .meter').css('width', meterLength + '%');
+        $('.lightbox-loader .progress .notice b').text(Math.floor(meterLength) + '%');
+        $('.lightbox-loader .progress .meter').stop().animate({width: meterLength + '%'}, 1000, 'swing');
         closeLightbox();
     });
     @endforeach

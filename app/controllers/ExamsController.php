@@ -17,6 +17,7 @@ class ExamsController extends \BaseController
     {
         $loggedUser = $this->logged_user;
         $staffGroup = $this->staffGroup;
+        $adminGroup = $this->adminGroup;
         $testTable = (new Test)->getTable();
         $examTable = (new Exam)->getTable();
         $subjectTable = (new Subject)->getTable();
@@ -45,8 +46,8 @@ class ExamsController extends \BaseController
             ->leftJoin($assessmentTable, $assessmentTable . '.id', '=', $testTable . '.assessment_id')
             ->join($classRoomTable, $classRoomTable . '.id', '=', $examTable . '.class_room_id')
             ->join($userTable, $userTable . '.id', '=', $examTable . '.user_id')
-            ->where(function($query) use ($examTable, $subjectTable, $assessmentTable, $loggedUser, $staffGroup, $input) {
-                if($loggedUser->inGroup($staffGroup))
+            ->where(function($query) use ($examTable, $subjectTable, $assessmentTable, $loggedUser, $adminGroup, $input) {
+                if(!$loggedUser->inGroup($adminGroup))
                     $query->where('user_id', '=', $loggedUser->id);
 
                 if(isset($input['subject']) && $input['subject'] != '')
@@ -133,6 +134,9 @@ class ExamsController extends \BaseController
         if($locked && $this->logged_user->inGroup($this->staffGroup))
             Notification::alertInstant('Editing marks is currently locked for ' . $exam->test->assessment->short_name . ' ' . $exam->academicSession->session);
 
+        if(!$this->logged_user->inGroup($this->adminGroup) && $this->logged_user->id != $exam->user_id)
+            return Redirect::route('denied');
+
         return View::make('exams.edit', compact('exam', 'locked', 'academicSessions', 'assessments', 'subjects', 'classes'));
     }
 
@@ -190,6 +194,9 @@ class ExamsController extends \BaseController
                 return Redirect::route('exams.index');
             }
 
+            if(!$this->logged_user->inGroup($this->adminGroup) && $this->logged_user->id != $exam->user_id)
+                return Redirect::route('denied');
+            
             Mark::where('exam_id', '=', $id)->delete();
             $exam->delete();
 

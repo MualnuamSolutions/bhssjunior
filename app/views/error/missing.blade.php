@@ -1,9 +1,11 @@
-@extends('layout.main')
+@extends('layout')
+
+@section('title')
+<h4><i class="fi-magnifying-glass"></i> {{_('Page Not Found')}}</h4>
+@stop
 
 @section('content')
-<div class="col-md-6 col-md-offset-3">
-   <h2><i class="fa fa-search"></i> {{_('Page Not Found')}}</h2>
-   <hr>
-   <p>{{_('The page you are trying to access was not found.')}}</p>
+<div class="alert-box secondary">
+   <p>{{_('The page you are trying to access was not found. Please contact administrator.')}}</p>
 </div>
 @stop

@@ -22,7 +22,7 @@
                 @if(false && $logged_user->inGroup($adminGroup))
                 {{ Form::select('assessment_id', $assessments, Input::get('assessment_id', Option::data('current_assessment', $exam->test->assessment->id)), ['class' => $errors->has('assessment_id') ? 'error' : '']) }}
                 @else
-                <input type="text" disabled="disabled" value="{{ ($exam->test && $exam->test->assessment) ? $exam->test->assessment->name : null }}"/>
+                <input type="text" disabled="disabled" value="{{ (($exam->test && $exam->test->assessment) ? $exam->test->assessment->name : null) }}"/>
                 @endif
 
                 {{ Form::label('class_room_id', 'Class', ['class' => ($errors->has('class_room_id') ? 'error' : '')]) }}

@@ -42,21 +42,21 @@ small {
     padding: 1px;
     border: 1px solid #B6B6B6;
 }
-.parent-dashboard table.profile {
+table.profile {
     width: 100%;
     border: none;
     background: transparent;
 }
-.parent-dashboard table.profile tr {
+table.profile tr {
     background: transparent;
 }
-.parent-dashboard table.profile th {
+table.profile th {
     width: 40%;
     text-align: right;
     background: transparent;
 }
-.parent-dashboard table.profile th,
-.parent-dashboard table.profile td {
+table.profile th,
+table.profile td {
     background: #ffffff;
 }
 .parent-dashboard .session-detail {

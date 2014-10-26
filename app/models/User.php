@@ -40,7 +40,7 @@ class User extends Eloquent
         'permissions' => []
     ];
 
-    public static $roles = [1 => 'Admin', 2 => 'Staff'];
+    public static $roles = [1 => 'Admin', 2 => 'Staff', 3 => 'External'];
 
     public function groups()
     {
@@ -125,13 +125,15 @@ class User extends Eloquent
     public static function getStaff()
     {
         $staffGroup = Sentry::findGroupByName('Staff');
+        $externalGroup = Sentry::findGroupByName('External');
         $groupTable = (new Group)->getTable();
         $userTable = (new User)->getTable();
 
         $staffs = User::join('users_groups', 'users_groups.user_id', '=', $userTable . '.id')
-            ->where('users_groups.group_id', '=', $staffGroup->id)
+            ->whereIn('users_groups.group_id', [$staffGroup->id, $externalGroup->id])
             ->orderBy('name', 'asc')
-            ->get()->lists('name', 'id');
+            ->get()
+            ->lists('name', 'id');
 
         return $staffs;
     }

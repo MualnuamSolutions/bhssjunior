@@ -107,7 +107,14 @@ class StudentsController extends \BaseController
      */
     public function show($id)
     {
-        //
+        $student = Student::find($id);
+        $enrollments = Enrollment::with('academicSession', 'classRoom')->whereStudentId($student->id)->paginate();
+        $photos = Photo::whereStudentId($student->id)->orderBy('created_at', 'desc')->paginate();
+        $measurements = Measurement::get($student->id, $paginate = false);
+
+        $classRooms = ClassRoom::orderBy('name', 'asc')->lists('name', 'id');
+
+        return View::make('students.show', compact('student', 'classRooms', 'enrollments', 'photos', 'measurements'));
     }
 
 
@@ -208,7 +215,6 @@ class StudentsController extends \BaseController
             Notification::alert('Enrollment record cannot be removed.');
             return Redirect::route('students.enrollments', $student->id);
         }
-
     }
 
     public function photos($id)

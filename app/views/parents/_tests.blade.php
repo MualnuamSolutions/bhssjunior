@@ -9,6 +9,7 @@
                     <th>Total Mark</th>
                     <th>Mark</th>
                     <th>Teacher</th>
+                    <th>Assessment</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +21,7 @@
                     <td>{{ $mark->totalmarks}}</td>
                     <td>{{ $mark->mark}}</td>
                     <td>{{ $mark->teacher_name}}</td>
+                    <td>{{ $mark->test->assessment->short_name}}</td>
                 </tr>
                 @endforeach
             </tbody>

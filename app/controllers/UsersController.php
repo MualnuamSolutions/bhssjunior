@@ -151,6 +151,12 @@ class UsersController extends \BaseController
             $user->email = Input::get('email');
             $user->activated = Input::get('activated');
 
+            // Delete existing group for the user
+            $user_groups = $user->getGroups();
+            // Remove group from user
+            foreach ($user_groups as $user_group)
+                $user->removeGroup($user_group);
+            
             // Assign the group to the user
             $user->addGroup($group);
 

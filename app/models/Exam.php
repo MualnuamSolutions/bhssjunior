@@ -67,7 +67,7 @@ class Exam extends Eloquent
         Mark::store($input);
     }
 
-    public static function getSubjectTeachers($subjectId, $classRoomId, $academicSessionId = null)
+    public static function getSubjectTeachers($subjectId, $classRoomId, $academicSessionId = null, $excludeGroup = null)
     {
         $testTable = (new Test)->getTable();
         $userTable = (new User)->getTable();
@@ -78,9 +78,14 @@ class Exam extends Eloquent
 
         return Exam::join($testTable, $testTable . '.id', '=', $table . '.test_id')
             ->join($userTable, $userTable . '.id', '=', $table . '.user_id')
+            ->join('users_groups', 'users_groups.user_id', '=', 'users.id')
             ->where('subject_id', '=', $subjectId)
             ->where('academic_session_id', '=', $academicSessionId)
             ->where('class_room_id', '=', $classRoomId)
+            ->where(function($q) use ($excludeGroup){
+                if($excludeGroup)
+                    $q->where('users_groups.group_id', '!=', $excludeGroup); // Exclude all marks entered by group
+            })
             ->select(
                 DB::raw("DISTINCT('user_id')"),
                 $userTable . '.id',
@@ -89,7 +94,7 @@ class Exam extends Eloquent
             ->get();
     }
 
-    public static function getTests($subjectId, $classRoomId, $academicSessionId = null)
+    public static function getTests($subjectId, $classRoomId, $academicSessionId = null, $excludeGroup = null)
     {
         $testTable = (new Test)->getTable();
         $userTable = (new User)->getTable();
@@ -100,6 +105,11 @@ class Exam extends Eloquent
 
         return Exam::join($testTable, $testTable . '.id', '=', $table . '.test_id')
             ->join($userTable, $userTable . '.id', '=', $table . '.user_id')
+            ->join('users_groups', 'users_groups.user_id', '=', 'users.id')
+            ->where(function($q) use ($excludeGroup){
+                if($excludeGroup)
+                    $q->where('users_groups.group_id', '!=', $excludeGroup); // Exclude all marks entered by group
+            })
             ->where('subject_id', '=', $subjectId)
             ->where('academic_session_id', '=', $academicSessionId)
             ->where('class_room_id', '=', $classRoomId)

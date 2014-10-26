@@ -72,10 +72,13 @@
             <hr>
             <div class="row">
                <div class="small-12 columns text-right">
-                  <a class="button small success" href="{{ route('classrooms.addstudents', $classroom->id) }}">Add
-                     Students</a>
-                  <a class="button small info" href="{{ route('classrooms.students', $classroom->id) }}">Manage
-                     Students</a>
+                  @if($logged_user->hasAccess('classrooms.addstudents'))
+                  <a class="button small success" href="{{ route('classrooms.addstudents', $classroom->id) }}">Add Students</a>
+                  @endif
+                  
+                  @if($logged_user->hasAccess('classrooms.students'))
+                  <a class="button small info" href="{{ route('classrooms.students', $classroom->id) }}">Manage Students</a>
+                  @endif
                </div>
             </div>
          </fieldset>
