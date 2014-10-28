@@ -7,6 +7,13 @@
       <small class="error">{{ $errors->first('site_title') }}</small>
       @endif
 
+      {{ Form::label('school_name', 'School Name', ['class' => ($errors->has('school_name')?'error':'')]) }}
+      {{ Form::text('school_name', null, ['placeholder' => 'Name of the school', 'class' => $errors->has('school_name')?'error':'']) }}
+
+      @if($errors->has('school_name'))
+      <small class="error">{{ $errors->first('school_name') }}</small>
+      @endif
+
       {{ Form::label('item_per_page', 'Item Per Page', ['class' => ($errors->has('item_per_page')?'error':'')]) }}
       {{ Form::text('item_per_page', null, ['placeholder' => 'No of item per page', 'class' => $errors->has('item_per_page')?'error':'']) }}
 

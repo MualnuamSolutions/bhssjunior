@@ -18,6 +18,9 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
 .center {
     text-align: center;
 }
+.text-right {
+    text-align: right;
+}
 .test-result table {width:100%; border-spacing: 1px 1px;}
 
 .test-result table.header {margin-bottom: 8px;}
@@ -308,4 +311,97 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
 .classwise-result.test-result .data-head table,
 .classwise-result.test-result .data-row table {
     font-size: 10px;
+}
+
+.idcard-container {
+    margin: 0 auto;
+    width:174.2mm;
+}
+.idcard-container .card {
+    border:1px solid #222;
+    float: left;
+    margin: 0 0 10px;
+    page-break-before: auto;
+    page-break-after: auto;
+    page-break-inside: avoid;
+}
+.idcard-container .card .front {
+    width: 85.6mm;
+    height:54.02mm;
+    float: left;
+    border-right:3px double #222;
+}
+.idcard-container .card .back {
+    width: 85.6mm;
+    height:54.02mm;
+    float: right;
+}
+.idcard-container .card .front .header {
+    width: 100%;
+    float: left;
+}
+.idcard-container .card .front .header .school {
+    font-size: 13px;
+    margin: 0;
+    padding: 15px 0 0;
+    text-align: center;
+}
+.idcard-container .card .front .logo {
+    margin: 6px 10px 0 0;
+}
+.idcard-container .card .front .title {
+    float: left;
+    width: 100%;
+    margin: 4px 0 6px;
+    border-top: 2px solid #222222;
+    border-bottom: 2px solid #222222;
+    text-align: center;
+    padding: 3px 0 2px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.idcard-container .card .front .content {
+    float: left;
+    width: 100%;
+}
+.idcard-container .card .front .content img {
+    float: left;
+    margin: 0 6px 0 6px;
+}
+.idcard-container .card .front .content table {
+    font-size: 11px;
+}
+.idcard-container .card .front .content table tr td,
+.idcard-container .card .front .content table tr th {
+    padding: 2px 2px;
+}
+.idcard-container .card .front .content table tr th {
+    text-align: right;
+}
+.idcard-container .card .back {
+    position: relative;
+}
+.idcard-container .card .back .terms {
+    float: left;
+    border-bottom: 1px solid #222;
+    width: 100%;
+    margin: 0 0 10px;
+}
+.idcard-container .card .back .terms ol {
+    padding: 0 15px 0 25px;
+    font-size: 11px;
+}
+.idcard-container .card .back .terms ol li {
+    margin: 0 0 4px;
+}
+.idcard-container .card .back .parents p {
+    font-size: 11px;
+    margin: 0;
+    padding: 0 10px 4px;
+}
+.idcard-container .card .back .signature {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    font-size: 11px;
 }

@@ -28,6 +28,9 @@
 
                 @if ( $logged_user->hasAccess('students.create') || $logged_user->hasAccess('students.index') )
                 <li><label>Student</label></li>
+                @if ( $logged_user->hasAccess('idcards.index'))
+                <li><a href="{{ route('idcards.index') }}">Identity Cards</a></li>
+                @endif
                 @if ( $logged_user->hasAccess('students.index'))
                 <li><a href="{{ route('students.index') }}">View Students</a></li>
                 @endif

@@ -123,7 +123,11 @@ class Permission
                 'settings.index' => 1,
                 'settings.store' => 1,
 
-                'printResult' => 1
+                'printResult' => 1,
+
+                'idcards.index' => 1,
+                'idcards.create' => 1,
+                'idcards.print' => 1,
             ],
 
             'Staff' => [
@@ -242,7 +246,11 @@ class Permission
                 'settings.index' => 0,
                 'settings.store' => 0,
 
-                'printResult' => 0
+                'printResult' => 0,
+
+                'idcards.index' => 1,
+                'idcards.create' => 1,
+                'idcards.print' => 0,
             ],
             'External' => [
                 'home' => 1,
@@ -360,7 +368,11 @@ class Permission
                 'settings.index' => 0,
                 'settings.store' => 0,
 
-                'printResult' => 0
+                'printResult' => 0,
+
+                'idcards.index' => 0,
+                'idcards.create' => 0,
+                'idcards.print' => 0,
             ]
         ];
 

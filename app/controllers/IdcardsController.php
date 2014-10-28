@@ -49,6 +49,7 @@ class IdcardsController extends \BaseController {
 	public function create()
 	{
 		$studentTable = (new Student)->getTable();
+		$photoTable = (new Photo)->getTable();
         $enrollmentTable = (new Enrollment)->getTable();
 		
 		$academicSessions = AcademicSession::getDropDownList();
@@ -57,6 +58,8 @@ class IdcardsController extends \BaseController {
 
         $academicSession = Input::get('academic_session');
         $class = Input::get('class');
+        $action = Input::get('action');
+        $student = Input::get('student');
 
 		if($academicSession && $class) {
             $academicSession = ClassRoom::find($academicSession);
@@ -64,19 +67,23 @@ class IdcardsController extends \BaseController {
 
             if($academicSession && $class) {
                 $students = Enrollment::join($studentTable, $studentTable . '.id', '=', $enrollmentTable . '.student_id')
+					->leftJoin($photoTable, $photoTable . '.student_id', '=', $studentTable . '.id')
+					->where(function($q) use ($student, $studentTable){
+						if($student)
+							$q->where($studentTable . '.id', '=', $student);
+					})
                     ->where('class_room_id', '=', $class->id)
                     ->where('academic_session_id', '=', $academicSession->id)
                     ->orderBy('roll_no', 'asc')
-                    ->select($studentTable.'.id', DB::raw("CONCAT({$enrollmentTable}.roll_no, '. ', {$studentTable}.name) as name") )
-                    ->get()->lists('name', 'id');
+                    ->get();
             }
             else {
                 Notification::alert('Invalid selection, please try again');
-                return Redirect::route('results.index');
+                return Redirect::route('idcards.index');
             }
         }
 
-		return View::make('idcards.create', compact('academicSessions', 'classes', 'students'));
+		return View::make('idcards.create', compact('action', 'academicSessions', 'classes', 'students'));
 	}
 
 
