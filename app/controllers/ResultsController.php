@@ -277,11 +277,15 @@ class ResultsController extends \BaseController
         $topTen = [];
         $totalPercentage = 0;
         $topPercentage = 100;
+        $scores = [];
         $i = 0;
 
         foreach($marks as $key => $mark) {
+
             $percentage = round(($mark->mark / $mark->totalmarks) * 100, 2);
             $totalPercentage += $percentage;
+
+            $scores[$mark->student_id] = $percentage;
 
             if($i < 10) {
                 $temp = [
@@ -301,11 +305,13 @@ class ResultsController extends \BaseController
 
         $classAverage = $marks->count() ? round($totalPercentage / $marks->count(), 2) : 0;
         $classHighest = isset($topTen[1][0])? $topTen[1][0] : 0;
-
+        $percentileRanks = \Mualnuam\ResultHelper::percentileRanks($scores);
+    
         $return = [
             'classHighest' => $classHighest['percentage'],
             'classAverage' => $classAverage,
-            'topTen' => $topTen
+            'topTen' => $topTen,
+            'percentileRanks' => $percentileRanks
         ];
 
         return Response::json($return);

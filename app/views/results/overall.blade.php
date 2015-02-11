@@ -85,11 +85,15 @@ function closeLightbox()
         .done(function(result){
             $('.class-highest').text(result.classHighest + '%');
             $('.class-average').text(result.classAverage + '%');
-
+            
             $.each(result.topTen, function(key, data){
                 $.each(data, function(subkey, item) {
                     $('.rank-' + item['student_id']).html(rank(parseInt(key)));
                 });
+            });
+            
+            $.each(result.percentileRanks, function(key, data){
+                $('.percentile-' + key).html(data);
             });
 
             $('.lightbox-loader').hide();

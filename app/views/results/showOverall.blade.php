@@ -164,7 +164,8 @@
             <tr>
                 <td width="25%">Rank</td>
                 <td width="25%" class="rank-{{ $student->id }}"></td>
-                <td width="50%" colspan="2"></td>
+                <td width="25%">Percentile Rank</td>
+                <td width="25%" class="percentile-{{ $student->id }}"></td>
             </tr>
         </tbody>
     </table>

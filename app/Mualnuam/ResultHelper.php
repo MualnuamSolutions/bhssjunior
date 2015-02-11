@@ -3,6 +3,8 @@ use Exam, Test, Mark, User, Subject, AssessmentConfiguration, Assessment, DB;
 
 class ResultHelper
 {
+    private $scoreTemp;
+
     public static function studentSubjectTest($studentId, $subjectId, $classRoomId, $assessmentId, $academicSessionId, $resultConfig = null, $excludeGroup = null)
     {
         $subjectTable = (new Subject)->getTable();
@@ -178,5 +180,28 @@ class ResultHelper
             })->count();
 
         return $tests ? true : false;
+    }
+
+    public static function percentileRanks($scores)
+    {
+        $N = sizeof($scores);
+
+        $percentileRanks = [];
+        foreach($scores as $studentId => $score) {
+            $self = new self;
+            $self->scoreTemp = $score;
+
+            $similarScore = sizeof(array_keys($scores, $score));
+            $belowScore = sizeof( array_filter($scores, array($self, 'belowScore')));
+
+            $percentileRanks[$studentId] = round ( ( ( $belowScore + round(0.5 * $similarScore) ) / $N) * 100, 2);
+        }
+        
+        return $percentileRanks;
+    }
+
+    public function belowScore($score)
+    {
+        return ($score < $this->scoreTemp);
     }
 }
