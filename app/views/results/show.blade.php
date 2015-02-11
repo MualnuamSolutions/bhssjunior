@@ -151,7 +151,7 @@
                 <p>
                     {{ $assessment->description }}
                     <br>For detailed tests reports go to <b>http://www.bhssjr.com/parents</b>.
-                    <span>WEIGHTAGE SCHEME: {{ implode(' + ', $schemes) }} = OVERALL({{ $schemesTotal }})</span>
+                    <span>WEIGHTAGE SCHEME: {{ implode(' + ', $schemes) }} = OVERALL({{ $schemesTotal }}%)</span>
                 </p>
             </td>
         </tr>

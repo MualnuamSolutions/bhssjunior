@@ -39,6 +39,7 @@ Route::get('results/lock', array('uses' => 'ResultsController@lock', 'as' => 're
 Route::get('results/unlock', array('uses' => 'ResultsController@unlock', 'as' => 'results.unlock', 'before' => 'sentry'));
 Route::resource('results', 'ResultsController');
 Route::get('results/{id}/overview', array('uses' => 'ResultsController@overview', 'as' => 'results.overview'));
+Route::get('results/{id}/overall', array('uses' => 'ResultsController@overall', 'as' => 'results.overall'));
 
 Route::resource('tests', 'TestsController');
 

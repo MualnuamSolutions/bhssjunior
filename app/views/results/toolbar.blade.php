@@ -60,6 +60,15 @@
                 @endif
             </li>
         </ul>
+        <ul class="button-group left">
+            <li>
+                @if($students)
+                {{ Form::button('<i class="fi-eye"></i><br>OVERALL RESULT', ['class' => 'button medium primary', 'type' => 'button', 'onclick' => 'return overall()']) }}
+                @else
+                {{ Form::button('<i class="fi-eye"></i><br>OVERALL RESULT', ['class' => 'disabled button medium primary', 'type' => 'button']) }}
+                @endif
+            </li>
+        </ul>
     </div>
 </div>
 

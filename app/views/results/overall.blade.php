@@ -29,21 +29,25 @@ var totalStudents = {{ $students->count() }};
 var counter = 0;
 
 $(function(){
-   @foreach($students as $student)
-   jQuery.ajaxQueue({
-        url: '{{ route('results.show', $student->id) }}',
+    var numberofStudents = {{ $students->count() }};
+    var counter = 0;
+    @foreach($students as $student)
+    
+    jQuery.ajaxQueue({
+        url: '{{ route('results.overall', $student->id) }}',
         type: 'get',
-        data: 'academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}'
-   })
-   .done(function(result){
+        data: 'action=overall&academic_session={{ $academicSession->id }}'
+    })
+    .done(function(result){
         counter++;
         $('.results-container').append(result);
         meterLength = (counter/totalStudents) * 100;
         $('.lightbox-loader .progress .notice b').text(Math.floor(meterLength) + '%');
         $('.lightbox-loader .progress .meter').stop().animate({width: meterLength + '%'}, 1000, 'swing');
-        closeLightbox();
-   });
-   @endforeach
+        if(counter == numberofStudents)
+            closeLightbox();
+    });
+    @endforeach
 });
 
 function closeLightbox()
@@ -51,11 +55,32 @@ function closeLightbox()
     var completed = $('.results-container .assessment-result').size();
     if(totalStudents == completed) {
 
+        @foreach($resultConfigs as $config)
+        @if(\Mualnuam\ResultHelper::testMarkExists($academicSession->id, $config->assessment_id, $class->id, null, $externalGroup->id))
+            $.ajaxQueue({
+                url: "{{ route('results.overview', $class->id) }}",
+                type: 'get',
+                dataType: 'json',
+                data: "assessment={{ $config->assessment_id }}&academic_session={{ $academicSession->id }}"
+            })
+            .done(function(result){
+                $('.class-highest-{{ $config->assessment_id }}').text(result.classHighest + '%');
+                $('.class-average-{{ $config->assessment_id }}').text(result.classAverage + '%');
+
+                $.each(result.topTen, function(key, data){
+                    $.each(data, function(subkey, item) {
+                        $('.rank-{{ $config->assessment_id }}-' + item['student_id']).html(rank(parseInt(key)));
+                    });
+                });
+            });
+        @endif
+        @endforeach
+
         $.ajaxQueue({
             url: "{{ route('results.overview', $class->id) }}",
             type: 'get',
             dataType: 'json',
-            data: "action=overall&academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}"
+            data: "academic_session={{ $academicSession->id }}"
         })
         .done(function(result){
             $('.class-highest').text(result.classHighest + '%');
@@ -63,7 +88,7 @@ function closeLightbox()
 
             $.each(result.topTen, function(key, data){
                 $.each(data, function(subkey, item) {
-                    $('.rank_' + item['student_id']).html(rank(parseInt(key)));
+                    $('.rank-' + item['student_id']).html(rank(parseInt(key)));
                 });
             });
 

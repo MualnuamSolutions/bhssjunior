@@ -63,6 +63,7 @@ class ResultsController extends \BaseController
         $enrollmentTable = (new Enrollment)->getTable();
         $resultConfigTable = (new ResultConfiguration)->getTable();
         $assessmentConfigTable = (new AssessmentConfiguration)->getTable();
+        $assessmentTable = (new Assessment)->getTable();
 
         $assessment = Input::get('assessment');
         $academicSession = Input::get('academic_session');
@@ -99,9 +100,27 @@ class ResultsController extends \BaseController
             }
         }
 
-        $view = ($action == 'classwise') ? 'results.classwise' : 'results.create';
-        
-        return View::make($view, compact('students', 'academicSession', 'assessment', 'class', 'resultConfig', 'lastAssessment'));
+        switch ($action) {
+            case 'classwise':
+                $view = 'results.classwise';
+                break;
+
+            case 'overall':
+                $view = 'results.overall';
+                break;
+            
+            default:
+                $view = 'results.create';
+                break;
+        }
+
+        $resultConfigs = ResultConfiguration::join($assessmentConfigTable, $assessmentConfigTable . '.result_config_id', '=', $resultConfigTable . '.id')
+            ->join($assessmentTable, $assessmentConfigTable . '.assessment_id', '=', $assessmentTable . '.id')
+            ->where($resultConfigTable . '.academic_session_id', '=', $academicSession->id)
+            ->orderBy($assessmentTable . '.order', 'asc')
+            ->get();
+
+        return View::make($view, compact('students', 'academicSession', 'assessment', 'class', 'resultConfig', 'lastAssessment', 'resultConfigs'));
     }
 
 
@@ -161,7 +180,15 @@ class ResultsController extends \BaseController
 
         $lastAssessment = \Mualnuam\ResultHelper::lastAssessment($academicSession->id, $classRoom->id, $student->id);
 
-        $view = ($action == 'classwise') ? 'results.showOverview' : 'results.show';
+        switch ($action) {
+            case 'classwise':
+                $view = 'results.showOverview';
+                break;
+            
+            default:
+                $view = 'results.show';
+                break;
+        }
 
         return View::make($view, compact(
             'student',
@@ -214,19 +241,30 @@ class ResultsController extends \BaseController
         $classRoom = ClassRoom::find($id);
         $academicSessionId = Input::get('academic_session');
         $assessmentId = Input::get('assessment');
+        $action = Input::get('action');
+        $excludeGroup = $this->externalGroup->id;
 
         $testTable = (new Test)->getTable();
         $examTable = (new Exam)->getTable();
         $markTable = (new Mark)->getTable();
         $studentTable = (new Student)->getTable();
+        $userTable = (new User)->getTable();
 
         $marks = Mark::join($examTable, $markTable . '.exam_id', '=', $examTable . '.id')
             ->join($testTable, $examTable . '.test_id', '=', $testTable . '.id')
+            ->join($userTable, $examTable . '.user_id', '=', $userTable . '.id')
             ->join($studentTable, $markTable . '.student_id', '=', $studentTable . '.id')
+            ->join('users_groups', 'users_groups.user_id', '=', $userTable . '.id')
             ->whereIn($testTable . '.subject_id', $classRoom->subjects()->lists('id'))
             ->where('class_room_id', '=', $classRoom->id)
             ->where('academic_session_id', '=', $academicSessionId)
-            ->where('assessment_id', '=', $assessmentId)
+            ->where(function($q) use ($assessmentId, $excludeGroup) {
+                if($assessmentId)
+                    $q->where('assessment_id', '=', $assessmentId);
+                
+                if($excludeGroup)
+                    $q->where('users_groups.group_id', '!=', $excludeGroup); // Exclude all marks entered by group
+            })
             ->select(
                 $markTable . '.student_id',
                 DB::raw("SUM({$testTable}.totalmarks) as totalmarks"),
@@ -299,5 +337,44 @@ class ResultsController extends \BaseController
             'assessment' => $assessment,
             'academic_session' => $academicSession,
             'class' => $class ]);
+    }
+
+    /**
+     * This function is used to calculate individual student overall year result
+     *
+     * @param  int $id Student ID
+     * @return Response
+     */
+    public function overall($id)
+    {
+        $resultConfigTable = (new ResultConfiguration)->getTable();
+        $assessmentConfigTable = (new AssessmentConfiguration)->getTable();
+        $assessmentTable = (new Assessment)->getTable();
+
+        $action = Input::get('action');
+        $student = Student::find($id);
+        $academicSession = AcademicSession::find(Input::get('academic_session'));
+        $assessments = Assessment::all();
+        $enrollment = Enrollment::where('academic_session_id', '=', $academicSession->id)
+            ->where('student_id', '=', $student->id)
+            ->first();
+        $classRoom = ClassRoom::find($enrollment->class_room_id);
+
+        $resultConfig = ResultConfiguration::where($resultConfigTable . '.academic_session_id', '=', $academicSession->id)
+            ->first();
+        $resultConfigs = ResultConfiguration::join($assessmentConfigTable, $assessmentConfigTable . '.result_config_id', '=', $resultConfigTable . '.id')
+            ->join($assessmentTable, $assessmentConfigTable . '.assessment_id', '=', $assessmentTable . '.id')
+            ->where($resultConfigTable . '.academic_session_id', '=', $academicSession->id)
+            ->orderBy($assessmentTable . '.order', 'asc')
+            ->get();
+
+        return View::make('results.showOverall', compact(
+            'student',
+            'academicSession',
+            'classRoom',
+            'enrollment',
+            'resultConfig',
+            'resultConfigs'
+        ));
     }
 }

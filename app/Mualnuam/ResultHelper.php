@@ -1,9 +1,9 @@
 <?php namespace Mualnuam;
-use Exam, Test, Mark, User, Subject, AssessmentConfiguration, Assessment;
+use Exam, Test, Mark, User, Subject, AssessmentConfiguration, Assessment, DB;
 
 class ResultHelper
 {
-    public static function studentSubjectTest($studentId, $subjectId, $classRoomId, $assessmentId, $academicSessionId, $resultConfig, $excludeGroup = null)
+    public static function studentSubjectTest($studentId, $subjectId, $classRoomId, $assessmentId, $academicSessionId, $resultConfig = null, $excludeGroup = null)
     {
         $subjectTable = (new Subject)->getTable();
         $assessmentTable = (new Assessment)->getTable();
@@ -76,6 +76,7 @@ class ResultHelper
             $config = AssessmentConfiguration::where('assessment_id', '=', $id)
                 ->where('result_config_id', '=', $resultConfig->id)
                 ->first();
+
             $percentage = $data['total'] > 0 ? round(($data['mark'] / $data['total']) * 100, 2) : null;
             $cumulated = round(($percentage / 100) * $config->weightage, 2);
             $return['totalCumulated'] += $cumulated;
@@ -83,7 +84,9 @@ class ResultHelper
         }
 
         $return['teacher_name'] = is_array($return['teacher_name']) ? implode('<br>', array_unique($return['teacher_name'])) : null;
+
         $return['percentage'] = $return['total_of_full_marks'] > 0 ? round(($return['total_of_marks'] / $return['total_of_full_marks']) * 100, 2) : 0;
+        
         $return['cumulated'] = round(($return['percentage'] / 100) * $resultConfig->weightage, 2);
 
         $point = $return['percentage'] / 10;
@@ -145,5 +148,35 @@ class ResultHelper
             )
             ->orderBy($assessmentTable . '.order', 'desc')
             ->first();
+    }
+
+    public static function testMarkExists($academicSessionId, $assessmentId, $classRoomId, $subjectId = null, $excludeGroup = null)
+    {
+        $examTable = (new Exam)->getTable();
+        $markTable = (new Mark)->getTable();
+        $userTable = (new User)->getTable();
+        $testTable = (new Test)->getTable();
+        
+        $tests = Mark::join($examTable, $markTable . '.exam_id', '=', $examTable . '.id')
+            ->join($testTable, $examTable . '.test_id', '=', $testTable . '.id')
+            ->join($userTable, $examTable . '.user_id', '=', $userTable . '.id')
+            ->join('users_groups', 'users_groups.user_id', '=', $userTable . '.id')
+            ->where(function($q) use($testTable, $academicSessionId, $assessmentId, $classRoomId, $subjectId, $excludeGroup) {
+                $q->where('academic_session_id', '=', $academicSessionId);
+                
+                if($classRoomId != 0)
+                    $q->where('class_room_id', '=', $classRoomId);
+                
+                if($excludeGroup)
+                    $q->where('users_groups.group_id', '!=', $excludeGroup); // Exclude all marks entered by group
+                
+                if($assessmentId != 0)
+                    $q->where('assessment_id', '=', $assessmentId);
+
+                if($subjectId != 0)
+                    $q->where($testTable . '.subject_id', '=', $subjectId);
+            })->count();
+
+        return $tests ? true : false;
     }
 }

@@ -17,11 +17,11 @@
 function prepare()
 {
     var url = '/results/create?';
-    url += 'action=print';
-    url += '&academic_session=' + $('#academic_session').val();
-    url += '&assessment=' + $('#assessment').val();
-    url += '&class=' + $('#class').val();
-    url += '&student=' + $('#student').val();
+        url += 'action=print';
+        url += '&academic_session=' + $('#academic_session').val();
+        url += '&assessment=' + $('#assessment').val();
+        url += '&class=' + $('#class').val();
+        url += '&student=' + $('#student').val();
 
     window.open(url);
 }
@@ -29,11 +29,11 @@ function prepare()
 function view()
 {
     var url = '/results/create?';
-    url += 'action=view';
-    url += '&academic_session=' + $('#academic_session').val();
-    url += '&assessment=' + $('#assessment').val();
-    url += '&class=' + $('#class').val();
-    url += '&student=' + $('#student').val();
+        url += 'action=view';
+        url += '&academic_session=' + $('#academic_session').val();
+        url += '&assessment=' + $('#assessment').val();
+        url += '&class=' + $('#class').val();
+        url += '&student=' + $('#student').val();
 
     window.open(url);
 }
@@ -41,11 +41,23 @@ function view()
 function classwise()
 {
     var url = '/results/create?';
-    url += 'action=classwise';
-    url += '&academic_session=' + $('#academic_session').val();
-    url += '&assessment=' + $('#assessment').val();
-    url += '&class=' + $('#class').val();
-    url += '&student=0';
+        url += 'action=classwise';
+        url += '&academic_session=' + $('#academic_session').val();
+        url += '&assessment=' + $('#assessment').val();
+        url += '&class=' + $('#class').val();
+        url += '&student=0';
+
+    window.open(url);
+}
+
+function overall()
+{
+    var url = '/results/create?';
+        url += 'action=overall';
+        url += '&academic_session=' + $('#academic_session').val();
+        url += '&assessment=' + $('#assessment').val();
+        url += '&class=' + $('#class').val();
+        url += '&student=' + $('#student').val();
 
     window.open(url);
 }
@@ -69,5 +81,6 @@ function unlock()
 
     window.location.href = url;
 }
+
 </script>
 @stop
