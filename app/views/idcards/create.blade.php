@@ -40,10 +40,6 @@
                             <th>Address:</th>
                             <td>{{ $student->address}}</td>
                         </tr>
-                        <tr>
-                            <th>Address:</th>
-                            <td>{{ $student->address}}</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
