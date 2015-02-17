@@ -23,7 +23,6 @@ foreach($classRoom->subjects as $subject) {
 $percentage = $total_full_mark ? round(($total_mark / $total_full_mark) * 100, 2) : 0;
 
 ?>
-<div class="data-row">
     <table>
         <tbody>
             <tr id="student_{{ $student->id }}">
@@ -37,4 +36,3 @@ $percentage = $total_full_mark ? round(($total_mark / $total_full_mark) * 100, 2
             </tr>
         </tbody>
     </table>
-</div>

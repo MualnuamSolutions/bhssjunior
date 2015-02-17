@@ -11,6 +11,9 @@
 
 <div style="margin: 0 auto;width:148mm;">
     <div class="results-container {{ !$logged_user->hasAccess('printResult') ? 'print-hide':'' }}">
+        @foreach($students as $student)
+        <div class="assessment-result" id="row-{{ $student->id }}"></div>
+        @endforeach
     </div>
 </div>
 
@@ -37,7 +40,7 @@ $(function(){
    })
    .done(function(result){
         counter++;
-        $('.results-container').append(result);
+        $('.results-container #row-{{ $student->id }}').append(result);
         meterLength = (counter/totalStudents) * 100;
         $('.lightbox-loader .progress .notice b').text(Math.floor(meterLength) + '%');
         $('.lightbox-loader .progress .meter').stop().animate({width: meterLength + '%'}, 1000, 'swing');

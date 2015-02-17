@@ -1,4 +1,3 @@
-<div class="assessment-result overall">
     <table class="top-head">
         <tr>
             <td colspan="2" align="center">
@@ -208,4 +207,3 @@
             </td>
         </tr>
     </table>
-</div>

@@ -51,6 +51,9 @@
     </div>
 
     <div class="row classwise-data">
+        @foreach($students as $student)
+        <div class="data-row" id="row-{{$student->id}}"></div>
+        @endforeach
     </div>
 
     <div class="signature">
@@ -80,7 +83,7 @@ $(function(){
     })
     .done(function(result){
         counter++;
-        $('.classwise-data').append(result);
+        $('.classwise-data #row-{{$student->id}}').append(result);
         meterLength = (counter/totalStudents) * 100;
         $('.lightbox-loader .progress .notice b').text(Math.floor(meterLength) + '%');
         $('.lightbox-loader .progress .meter').stop().animate({width: meterLength + '%'}, 1000, 'swing');
