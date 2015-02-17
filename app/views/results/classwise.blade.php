@@ -73,7 +73,7 @@ var totalStudents = {{ $students->count() }};
 var counter = 0;
 $(function(){
     @foreach($students as $student)
-    jQuery.ajaxQueue({
+    jQuery.ajax({
         url: '{{ route('results.show', $student->id) }}',
         type: 'get',
         data: 'action=classwise&academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}'
