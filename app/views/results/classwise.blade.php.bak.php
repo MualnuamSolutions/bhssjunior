@@ -51,22 +51,8 @@
     </div>
 
     <div class="row classwise-data">
-        @foreach($results as $result)
-        <div class="data-row">
-            <table>
-                <tbody>
-                    <tr id="student_{{ $result->student_id }}">
-                        <td width="10%">{{ $result->roll_no }}</td>
-                        <td width="30%">{{ $result->name }}</td>
-                        <td width="15%">{{ $result->mark }} / {{ $result->totalmarks }}</td>
-                        <td width="15%">{{ $result->percentage }}%</td>
-                        <td width="10%">{{ \Mualnuam\ResultHelper::grade( ($result->percentage/10), $resultConfig ) }}</td>
-                        <td width="10%">{{ $result->cumulated }}</td>
-                        <td width="10%" class="rank">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        @foreach($students as $student)
+        <div class="data-row" id="row-{{$student->id}}"></div>
         @endforeach
     </div>
 
@@ -86,38 +72,56 @@
 
 @section('scripts')
 <script>
-var totalStudents = 0;
+var totalStudents = {{ $students->count() }};
 var counter = 0;
 $(function(){
-    closeLightbox();
+    @foreach($students as $student)
+    jQuery.ajax({
+        url: '{{ route('results.show', $student->id) }}',
+        type: 'get',
+        data: 'action=classwise&academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}'
+    })
+    .done(function(result){
+        counter++;
+        $('.classwise-data #row-{{$student->id}}').append(result);
+        meterLength = (counter/totalStudents) * 100;
+        $('.lightbox-loader .progress .notice b').text(Math.floor(meterLength) + '%');
+        $('.lightbox-loader .progress .meter').stop().animate({width: meterLength + '%'}, 1000, 'swing');
+        closeLightbox();
+    });
+    @endforeach
 });
 
 function closeLightbox()
 {
-    $.ajaxQueue({
-        url: "{{ route('results.overview', $class->id) }}",
-        type: 'get',
-        dataType: 'json',
-        data: "academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}"
-    })
-    .done(function(result){
-        // $('.class-highest').text(result.classHighest + '%');
-        // $('.class-average').text(result.classAverage + '%');
+    var completed = $('.classwise-data .data-row').size();
+    if(totalStudents == completed) {
 
-        $.each(result.topTen, function(key, data){
-            $.each(data, function(subkey, item) {
-                $('#student_' + item['student_id'] + ' .rank').html(rank(parseInt(key)));
+        $.ajaxQueue({
+            url: "{{ route('results.overview', $class->id) }}",
+            type: 'get',
+            dataType: 'json',
+            data: "academic_session={{ $academicSession->id }}&assessment={{ $assessment->id }}"
+        })
+        .done(function(result){
+            // $('.class-highest').text(result.classHighest + '%');
+            // $('.class-average').text(result.classAverage + '%');
+
+            $.each(result.topTen, function(key, data){
+                $.each(data, function(subkey, item) {
+                    $('#student_' + item['student_id'] + ' .rank').html(rank(parseInt(key)));
+                });
             });
+
+            $('.lightbox-loader').hide();
+            $('.print-button, .close-button').show();
+
+            @if(Input::get('action') == 'print')
+            window.print();
+            setTimeout("window.close()", 1);
+            @endif
         });
-
-        $('.lightbox-loader').hide();
-        $('.print-button, .close-button').show();
-
-        @if(Input::get('action') == 'print')
-        window.print();
-        setTimeout("window.close()", 1);
-        @endif
-    });
+    }
 }
 
 function rank(rank)

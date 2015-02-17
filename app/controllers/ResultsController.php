@@ -80,47 +80,46 @@ class ResultsController extends \BaseController
                 ->where($resultConfigTable . '.academic_session_id', '=', $academicSession->id)
                 ->where($assessmentConfigTable . '.assessment_id', '=', $assessment->id)
                 ->first();
-            $lastAssessment = \Mualnuam\ResultHelper::lastAssessment($academicSession->id, $class->id, 0, 0, $this->externalGroup->id);
 
-            if($assessment && $academicSession && $class) {
-                $students = Enrollment::join($studentTable, $studentTable . '.id', '=', $enrollmentTable . '.student_id')
-                    ->where('class_room_id', '=', $class->id)
-                    ->where('academic_session_id', '=', $academicSession->id)
-                    ->where(function($query) use ($student, $studentTable) {
-                        if($student != 0)
-                            $query->where($studentTable . '.id', '=', $student);
-                    })
-                    ->orderBy('roll_no', 'asc')
-                    ->select($studentTable.'.id', $enrollmentTable . '.roll_no', $studentTable . '.name', $studentTable . '.regno')
-                    ->get();
+            if($action == 'classwise') {
+                $results = \Mualnuam\ResultHelper::getAssessmentClassOverview($class->id, $academicSession->id, $assessment->id);
+                return View::make('results.classwise', compact('results', 'academicSession', 'class', 'assessment', 'resultConfig'));
             }
             else {
-                Notification::alert('Invalid selection, please try again');
-                return Redirect::route('results.index');
+                $resultConfigs = ResultConfiguration::join($assessmentConfigTable, $assessmentConfigTable . '.result_config_id', '=', $resultConfigTable . '.id')
+                    ->join($assessmentTable, $assessmentConfigTable . '.assessment_id', '=', $assessmentTable . '.id')
+                    ->where($resultConfigTable . '.academic_session_id', '=', $academicSession->id)
+                    ->orderBy($assessmentTable . '.order', 'asc')
+                    ->get();
+                
+                $lastAssessment = \Mualnuam\ResultHelper::lastAssessment($academicSession->id, $class->id, 0, 0, $this->externalGroup->id);
+
+                if($assessment && $academicSession && $class) {
+                    $students = Enrollment::join($studentTable, $studentTable . '.id', '=', $enrollmentTable . '.student_id')
+                        ->where('class_room_id', '=', $class->id)
+                        ->where('academic_session_id', '=', $academicSession->id)
+                        ->where(function($query) use ($student, $studentTable) {
+                            if($student != 0)
+                                $query->where($studentTable . '.id', '=', $student);
+                        })
+                        ->orderBy('roll_no', 'asc')
+                        ->select($studentTable.'.id', $enrollmentTable . '.roll_no', $studentTable . '.name', $studentTable . '.regno')
+                        ->get();
+                }
+                else {
+                    Notification::alert('Invalid selection, please try again');
+                    return Redirect::route('results.index');
+                }
+
+                if($action == 'overall') {
+                    return View::make('results.overall', compact('students', 'academicSession', 'assessment', 'class', 'resultConfig', 'lastAssessment', 'resultConfigs'));
+                }
+                else {
+                    return View::make('results.create', compact('students', 'academicSession', 'assessment', 'class', 'resultConfig', 'lastAssessment', 'resultConfigs'));
+                }
             }
         }
 
-        switch ($action) {
-            case 'classwise':
-                $view = 'results.classwise';
-                break;
-
-            case 'overall':
-                $view = 'results.overall';
-                break;
-            
-            default:
-                $view = 'results.create';
-                break;
-        }
-
-        $resultConfigs = ResultConfiguration::join($assessmentConfigTable, $assessmentConfigTable . '.result_config_id', '=', $resultConfigTable . '.id')
-            ->join($assessmentTable, $assessmentConfigTable . '.assessment_id', '=', $assessmentTable . '.id')
-            ->where($resultConfigTable . '.academic_session_id', '=', $academicSession->id)
-            ->orderBy($assessmentTable . '.order', 'asc')
-            ->get();
-
-        return View::make($view, compact('students', 'academicSession', 'assessment', 'class', 'resultConfig', 'lastAssessment', 'resultConfigs'));
     }
 
 

@@ -1,5 +1,5 @@
 <?php namespace Mualnuam;
-use Exam, Test, Mark, User, Subject, AssessmentConfiguration, Assessment, DB;
+use Exam, Test, Mark, User, Subject, AssessmentConfiguration, Assessment, DB, Enrollment, Student;
 
 class ResultHelper
 {
@@ -203,5 +203,41 @@ class ResultHelper
     public function belowScore($score)
     {
         return ($score < $this->scoreTemp);
+    }
+
+    public static function getAssessmentClassOverview($classRoomId, $academicSessionId, $assessmentId)
+    {
+        $en = (new Enrollment)->getTable();
+        $t = (new Test)->getTable();
+        $e = (new Exam)->getTable();
+        $m = (new Mark)->getTable();
+        $ac = (new AssessmentConfiguration)->getTable();
+        $s = (new Student)->getTable();
+        
+        $results = Mark::join($e, "$e.id", "=", "$m.exam_id")
+            ->join($t, "$t.id", "=", "$e.test_id")
+            ->join($ac, "$ac.assessment_id", "=", "$t.assessment_id")
+            ->join($en, "$en.student_id", "=", "$m.student_id")
+            ->join($s, "$s.id", "=", "$m.student_id")
+            ->select(
+                    "$m.student_id",
+                    "$s.name",
+                    "$en.roll_no",
+                    DB::raw("SUM($m.mark) as mark"),
+                    DB::raw("round(SUM($t.totalmarks)) as totalmarks"),
+                    DB::raw("COUNT($e.test_id)"),
+                    DB::raw("round((SUM($m.mark)/SUM($t.totalmarks))*100, 2) as percentage"),
+                    DB::raw("round((($ac.weightage / 100) * round((SUM($m.mark)/SUM($t.totalmarks))*100, 2)),2) as cumulated"),
+                    "$e.academic_session_id",
+                    "$e.class_room_id"
+                )
+            ->where("$e.class_room_id", "=", $classRoomId)
+            ->where("$t.assessment_id", "=", $assessmentId)
+            ->where("$e.academic_session_id", "=", $academicSessionId)
+            ->groupBy("$m.student_id")
+            ->orderBy("roll_no", "asc")
+            ->get();
+
+        return $results;
     }
 }

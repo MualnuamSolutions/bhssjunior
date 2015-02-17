@@ -158,7 +158,7 @@ class StudentsController extends \BaseController
      */
     public function destroy($id)
     {
-        //
+        
     }
 
     public function enrollments($id)
