@@ -3,6 +3,8 @@
 
         @if(Sentry::check())
 
+        <li>@include('partials.sessionSwitcher')</li>
+
         @if ( $logged_user->hasAnyAccess(['classrooms.index', 'subjects.index', 'students.index']) )
         <li class="divider"></li>
         <li class="has-dropdown">

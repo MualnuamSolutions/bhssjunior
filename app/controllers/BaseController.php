@@ -35,6 +35,7 @@ class BaseController extends Controller
         View::share('adminGroup', $this->adminGroup);
         View::share('staffGroup', $this->staffGroup);
         View::share('externalGroup', $this->externalGroup);
+        View::share('currentSession', AcademicSession::currentSession());
     }
 
 }

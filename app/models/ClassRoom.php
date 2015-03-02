@@ -67,4 +67,32 @@ class ClassRoom extends Ardent
     {
         return self::orderBy('id', 'asc')->get()->lists('name', 'id');
     }
+
+    public static function data($academicSessionId = null, $limit = 20)
+    {
+        $enroll = (new Enrollment)->getTable();
+        $class = (new ClassRoom)->getTable();
+        $classSubj = (new ClassRoomSubject)->getTable();
+        $user = (new User)->getTable();
+
+        return self::leftJoin($classSubj, $class . ".id", "=", $classSubj . ".class_room_id")
+            ->leftJoin($user . " as t1", $class . ".class_teacher1_id", "=", "t1.id")
+            ->leftJoin($user . " as t2", $class . ".class_teacher2_id", "=", "t2.id")
+            ->leftJoin($enroll, $class . ".id", "=", $enroll . ".class_room_id")
+            ->groupBy($class . ".id")
+            ->where(function($q) use($academicSessionId, $enroll) {
+                if($academicSessionId)
+                    $q->where($enroll . ".academic_session_id", "=", $academicSessionId);
+            })
+            ->select(
+                $class . '.id',
+                $class . '.name',
+                DB::raw('t1.name as classTeacher1'),
+                DB::raw('t2.name as classTeacher2'),
+                DB::raw('COUNT(DISTINCT(' . $classSubj . '.subject_id)) as subjectCount'),
+                DB::raw('COUNT(DISTINCT(' . $enroll . '.student_id)) as studentCount')
+                )
+            ->orderBy($class . ".id")
+            ->paginate($limit);
+    }
 }

@@ -7,7 +7,6 @@
 <div class="panel">
    <h5><i class="fi-list"></i> Class Rooms</h5>
    <hr>
-
    <table class="small-12">
       <thead>
       <tr>
@@ -25,11 +24,11 @@
          <td>{{ $classrooms->getFrom() + $key }}</td>
          <td>{{ $classroom->name }}</td>
          <td>
-            {{ $classroom->classTeacher1 ? $classroom->classTeacher1->name : '-' }}<br>
-            {{ $classroom->classTeacher2 ? $classroom->classTeacher2->name : '-' }}
+            {{ $classroom->classTeacher1 }}<br>
+            {{ $classroom->classTeacher2 }}
          </td>
-         <td>{{ sizeof($classroom->subjects->lists('name')) }}</td>
-         <td>{{ $classroom->enrollments->count() }}</td>
+         <td>{{ $classroom->subjectCount }}</td>
+         <td>{{ $classroom->studentCount }}</td>
          <td class="text-right">
             @include('partials.actions', ['actions'=> ['view', 'edit', 'delete'], 'route' => 'classrooms', 'item' => $classroom])
          </td>

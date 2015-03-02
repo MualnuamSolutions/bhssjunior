@@ -18,6 +18,12 @@ Route::post('login', array('uses' => 'UsersController@doLogin', 'as' => 'doLogin
 Route::get('refresh', array('uses' => 'HomeController@refresh', 'as' => 'refresh'));
 Route::get('missing', array('uses' => 'HomeController@missing', 'as' => 'missing'));
 Route::get('denied', array('uses' => 'HomeController@denied', 'as' => 'denied'));
+Route::post('switcher', function(){
+	$redirect = Input::get('redirect_url', '/');
+	$session = Input::get('session', 0);
+	AcademicSession::setCurrentSession($session);
+	return Redirect::to($redirect);
+});
 
 Route::get('users/{id}/password', array('uses' => 'UsersController@password', 'as' => 'users.password'));
 Route::post('users/{id}/password', array('uses' => 'UsersController@updatePassword', 'as' => 'users.updatePassword'));

@@ -29,7 +29,7 @@
       </div>
       <div class="medium-8 columns">
          <fieldset>
-            <legend>Students ({{ $recentAcademicSession->session }})</legend>
+            <legend>Students ({{ $currentAcademicSession->session }})</legend>
             <table class="small-12">
                <thead>
                <tr>

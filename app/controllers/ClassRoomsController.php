@@ -15,10 +15,12 @@ class ClassRoomsController extends \BaseController
      */
     public function index()
     {
-        $classrooms = ClassRoom::with('subjects', 'enrollments')
-            ->orderBy('id', 'asc')->paginate(Config::get('view.pagination_limit'));
+        $currentAcademicSession = $academicSession = Input::get('academic_session', AcademicSession::currentSession()->id);
+        $academicSessions = AcademicSession::getDropDownList();
+        
+        $classrooms = ClassRoom::data($academicSession, $limit = Config::get('view.pagination_limit'));
 
-        return View::make('classrooms.index', compact('classrooms'));
+        return View::make('classrooms.index', compact('classrooms', 'academicSessions', 'currentAcademicSession'));
     }
 
 
@@ -63,17 +65,17 @@ class ClassRoomsController extends \BaseController
      */
     public function show($id)
     {
-        $recentAcademicSession = AcademicSession::getRecentSession();
+        $currentAcademicSession = AcademicSession::currentSession();
 
-        $classroom = ClassRoom::with(array('subjects', 'enrollments' => function ($query) use ($recentAcademicSession) {
+        $classroom = ClassRoom::with(array('subjects', 'enrollments' => function ($query) use ($currentAcademicSession) {
             $query->with('student');
-            $query->whereAcademicSessionId($recentAcademicSession->id);
+            $query->whereAcademicSessionId($currentAcademicSession->id);
             $query->orderBy('roll_no', 'asc');
         }))->find($id);
 
         $enrollments = $classroom->enrollments;
 
-        return View::make('classrooms.show', compact('classroom', 'enrollments', 'recentAcademicSession'));
+        return View::make('classrooms.show', compact('classroom', 'enrollments', 'currentAcademicSession'));
     }
 
 

@@ -122,3 +122,9 @@ table.profile td {
 .toolbar .button-group {
     margin-right: 15px;
 }
+.top-bar form {
+    margin: 6px 10px 0 0;
+}
+.top-bar form select {
+    margin:0;
+}

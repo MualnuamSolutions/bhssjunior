@@ -49,6 +49,19 @@ class AcademicSession extends Ardent
 
     public static function currentSession()
     {
-        return self::find(Option::data('current_session', 0));
+        $currentSession = Option::data('current_session', 0);
+
+        if( Session::has('currentSession') ) 
+            $currentSession = Session::get('currentSession');
+
+        return self::find($currentSession);
+    }
+
+    public static function setCurrentSession($session)
+    {
+        if($session == 0)
+            $session = Option::data('current_session', 0);
+
+        return Session::put('currentSession', $session);
     }
 }
