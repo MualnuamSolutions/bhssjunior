@@ -131,7 +131,7 @@ class ClassRoomsController extends \BaseController
 
     public function students($id)
     {
-        $academicSession = AcademicSession::getRecentSession();
+        $academicSession = AcademicSession::currentSession();
 
         $classroom = ClassRoom::with(array('subjects', 'enrollments' => function ($query) use ($academicSession) {
             $query->with('student');

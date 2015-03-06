@@ -7,6 +7,7 @@ class BaseController extends Controller
     public $staffGroup;
     public $externalGroup;
     public $adminGroup;
+    public $currentSession;
 
     /**
      * Setup the layout used by the controller.
@@ -29,13 +30,14 @@ class BaseController extends Controller
         $this->staffGroup = Sentry::findGroupByName('Staff');
         $this->externalGroup = Sentry::findGroupByName('External');
         $this->adminGroup = Sentry::findGroupByName('Admin');
+        $this->currentSession = AcademicSession::currentSession();
 
         View::share('logged_user', $this->logged_user);
         View::share('current_route', $this->current_route);
         View::share('adminGroup', $this->adminGroup);
         View::share('staffGroup', $this->staffGroup);
         View::share('externalGroup', $this->externalGroup);
-        View::share('currentSession', AcademicSession::currentSession());
+        View::share('currentSession', $this->currentSession);
     }
 
 }

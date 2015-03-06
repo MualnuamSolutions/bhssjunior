@@ -25,7 +25,7 @@
                <tbody>
                @if (0 == $enrollments->count())
                <tr>
-                  <td colspan="3" class="text-center">No students</td>
+                  <td colspan="5" class="text-center">No students</td>
                </tr>
                @endif
 

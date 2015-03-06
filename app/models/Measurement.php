@@ -35,12 +35,16 @@ class Measurement extends Ardent
         $academicSession = (new AcademicSession)->getTable();
         $measurement = (new Measurement)->getTable();
 
-        $measurements = Measurement::with('academicSession')
-            ->join($academicSession, $academicSession . '.id', '=', 'academic_session_id')
+        $measurements = Measurement::join($academicSession, $academicSession . '.id', '=', 'academic_session_id')
             ->where(function($q) use ($studentId) {
                 if($studentId)
                     $q->where('student_id', '=', $studentId);
             })
+            ->select(
+                $measurement . ".*",
+                $academicSession . ".start",
+                $academicSession . ".end"
+                )
             ->orderBy($academicSession . '.start', 'desc')
             ->orderBy($measurement . '.created_at', 'desc');
 

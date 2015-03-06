@@ -100,7 +100,7 @@ class Exam extends Eloquent
         $userTable = (new User)->getTable();
         $table = (new self)->getTable();
 
-        $session = AcademicSession::getRecentSession();
+        $session = AcademicSession::currentSession();
         $academicSessionId = $session->id;
 
         return Exam::join($testTable, $testTable . '.id', '=', $table . '.test_id')

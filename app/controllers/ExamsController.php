@@ -62,6 +62,8 @@ class ExamsController extends \BaseController
                 if(isset($input['exam_date']) && $input['exam_date'] != '') {
                     $query->where($examTable . '.exam_date', '=', date('Y-m-d', strtotime($input['exam_date'])));
                 }
+                
+                $query->where($examTable . '.academic_session_id', '=', AcademicSession::currentSession()->id);
             })
             ->select(
                 $examTable . '.id',

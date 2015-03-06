@@ -162,7 +162,32 @@ class StudentsController extends \BaseController
      */
     public function destroy($id)
     {
-        
+        if($id) {
+            $student = Student::find($id);
+
+            if($student) {
+                // Delete student enrollment
+                Enrollment::where("student_id", "=", $student->id)->delete();
+
+                // Delete student marks
+                Mark::where("student_id", "=", $student->id)->delete();
+   
+                // Delete student measurement if any
+                Measurement::where("student_id", "=", $student->id)->delete();
+
+                // Delete student photos if any
+                Photo::where("student_id", "=", $student->id)->delete();
+
+                // Delete student
+                Student::destroy($student->id);
+
+                Notification::success('Student successfully removed.');
+                return Redirect::route('students.index');
+            }
+
+            Notification::error('Student not found');
+            return Redirect::route('students.index');
+        }
     }
 
     public function enrollments($id)
@@ -322,6 +347,7 @@ class StudentsController extends \BaseController
         $student = Student::find($id);
         $measurement = new Measurement;
         $measurement->student_id = $student->id;
+        $measurement->created_at = Input::get('created_at');
 
         if ($measurement->save()) {
             Notification::success('New measurement added for ' . $student->name);

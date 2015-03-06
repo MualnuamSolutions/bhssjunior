@@ -49,13 +49,13 @@ class Student extends Ardent
 
     public function enrollment()
     {
-        $session = AcademicSession::getRecentSession();
+        $session = AcademicSession::currentSession();
         return $this->hasOne('Enrollment')->whereAcademicSessionId($session->id);
     }
 
     public function measurement()
     {
-        $session = AcademicSession::getRecentSession();
+        $session = AcademicSession::currentSession();
         return $this->hasOne('Measurement')->whereAcademicSessionId($session->id);
     }
 
