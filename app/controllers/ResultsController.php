@@ -114,6 +114,9 @@ class ResultsController extends \BaseController
                 if($action == 'overall') {
                     return View::make('results.overall', compact('students', 'academicSession', 'assessment', 'class', 'resultConfig', 'lastAssessment', 'resultConfigs'));
                 }
+                elseif($action == 'profile') {
+                    return View::make('results._profile', compact('students', 'academicSession', 'assessment', 'class', 'resultConfig', 'lastAssessment', 'resultConfigs'));
+                }
                 else {
                     return View::make('results.create', compact('students', 'academicSession', 'assessment', 'class', 'resultConfig', 'lastAssessment', 'resultConfigs'));
                 }
@@ -202,6 +205,30 @@ class ResultsController extends \BaseController
         ));
     }
 
+    
+    /**
+     * This function is used to generate individual student profile
+     *
+     * @param  int $id Student ID
+     * @return Response
+     */
+    public function profile($id)
+    {
+        $resultConfigTable = (new ResultConfiguration)->getTable();
+        $assessmentConfigTable = (new AssessmentConfiguration)->getTable();
+        $assessmentTable = (new Assessment)->getTable();
+
+        $student = Student::profile($id, Input::get('academic_session'));
+        $measurements = Measurement::where('student_id', '=', $id)
+                            ->where('academic_session_id', '=', Input::get('academic_session'))
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+        
+        return View::make('results.profile', compact(
+            'student',
+            'measurements'
+        ));
+    }
 
     /**
      * Show the form for editing the specified resource.

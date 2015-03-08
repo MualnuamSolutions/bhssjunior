@@ -62,6 +62,18 @@ function overall()
     window.open(url);
 }
 
+function profile()
+{
+    var url = '/results/create?';
+        url += 'action=profile';
+        url += '&academic_session=' + $('#academic_session').val();
+        url += '&assessment=' + $('#assessment').val();
+        url += '&class=' + $('#class').val();
+        url += '&student=' + $('#student').val();
+
+    window.open(url);
+}
+
 function lock()
 {
     var url = '/results/lock?';

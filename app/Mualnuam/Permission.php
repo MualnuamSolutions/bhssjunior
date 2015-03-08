@@ -52,6 +52,7 @@ class Permission
                 'results.overview' => 1,
                 'results.create' => 1,
                 'results.show' => 1,
+                'results.profile' => 1,
                 'results.lock' => 1,
                 'results.unlock' => 1,
 
@@ -175,6 +176,7 @@ class Permission
                 'results.overview' => 1,
                 'results.create' => 1,
                 'results.show' => 1,
+                'results.profile' => 1,
                 'results.lock' => 0,
                 'results.unlock' => 0,
 
@@ -297,6 +299,7 @@ class Permission
                 'results.overview' => 0,
                 'results.create' => 0,
                 'results.show' => 0,
+                'results.profile' => 1,
                 'results.lock' => 0,
                 'results.unlock' => 0,
 

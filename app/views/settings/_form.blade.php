@@ -74,6 +74,32 @@
 </div>
 
 <div class="row">
+   <div class="medium-12 columns">
+      <hr>
+
+      <div class="row">
+         <div class="medium-6 columns">
+            {{ Form::label('school_head_name', 'Name of School Head', ['class' => ($errors->has('school_head_name')?'error':'')]) }}
+            {{ Form::text('school_head_name', null, ['placeholder' => 'Name of the school head', 'class' => $errors->has('school_head_name')?'error':'']) }}
+
+            @if($errors->has('school_head_name'))
+            <small class="error">{{ $errors->first('school_head_name') }}</small>
+            @endif
+         </div>
+         <div class="medium-6 columns">
+            {{ Form::label('school_head_designation', 'School Head Designation', ['class' => ($errors->has('school_head_designation')?'error':'')]) }}
+            {{ Form::text('school_head_designation', null, ['placeholder' => 'Principal/Vice Principal/Headmaster', 'class' => $errors->has('school_head_designation')?'error':'']) }}
+
+            @if($errors->has('school_head_designation'))
+            <small class="error">{{ $errors->first('school_head_designation') }}</small>
+            @endif
+         </div>
+      </div>
+
+   </div>
+</div>
+
+<div class="row">
    <div class="small-12 columns text-right">
       <hr>
       {{ Form::button('Submit', ['class' => 'button large success', 'type' => 'submit']) }}

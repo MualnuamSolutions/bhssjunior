@@ -21,18 +21,18 @@
         <ul class="button-group left">
             <li>
                 @if($students)
-                {{ Form::button('<i class="fi-eye"></i><br>VIEW', ['class' => 'button medium primary', 'type' => 'button', 'onclick' => 'return view()']) }}
+                {{ Form::button('<i class="fi-eye"></i><br>VIEW', ['class' => 'button small primary', 'type' => 'button', 'onclick' => 'return view()']) }}
                 @else
-                {{ Form::button('<i class="fi-eye"></i><br>VIEW', ['class' => 'disabled button medium primary', 'type' => 'button']) }}
+                {{ Form::button('<i class="fi-eye"></i><br>VIEW', ['class' => 'disabled button small primary', 'type' => 'button']) }}
                 @endif
             </li>
 
             @if($logged_user->hasAccess('printResult'))
             <li>
                 @if($students)
-                {{ Form::button('<i class="fi-print"></i><br>PRINT', ['class' => 'button medium success', 'type' => 'button', 'onclick' => 'return prepare()']) }}
+                {{ Form::button('<i class="fi-print"></i><br>PRINT', ['class' => 'button small success', 'type' => 'button', 'onclick' => 'return prepare()']) }}
                 @else
-                {{ Form::button('<i class="fi-print"></i><br>PRINT', ['class' => 'disabled button medium success', 'type' => 'button']) }}
+                {{ Form::button('<i class="fi-print"></i><br>PRINT', ['class' => 'disabled button small success', 'type' => 'button']) }}
                 @endif
             </li>
             @endif
@@ -41,12 +41,12 @@
             <li>
                 @if($students)
                     @if($locked)
-                    {{ Form::button('<i class="fi-lock"></i><br>UNLOCK', ['class' => 'button medium alert', 'type' => 'button', 'onclick' => 'return unlock()']) }}
+                    {{ Form::button('<i class="fi-lock"></i><br>UNLOCK', ['class' => 'button small alert', 'type' => 'button', 'onclick' => 'return unlock()']) }}
                     @else
-                    {{ Form::button('<i class="fi-lock"></i><br>LOCK', ['class' => 'button medium secondary', 'type' => 'button', 'onclick' => 'return lock()']) }}
+                    {{ Form::button('<i class="fi-lock"></i><br>LOCK', ['class' => 'button small secondary', 'type' => 'button', 'onclick' => 'return lock()']) }}
                     @endif
                 @else
-                {{ Form::button('<i class="fi-lock"></i><br>LOCK', ['class' => 'disabled button medium secondary', 'type' => 'button']) }}
+                {{ Form::button('<i class="fi-lock"></i><br>LOCK', ['class' => 'disabled button small secondary', 'type' => 'button']) }}
                 @endif
             </li>
             @endif
@@ -54,18 +54,27 @@
         <ul class="button-group left">
             <li>
                 @if($students)
-                {{ Form::button('<i class="fi-eye"></i><br>CLASS OVERVIEW', ['class' => 'button medium primary', 'type' => 'button', 'onclick' => 'return classwise()']) }}
+                {{ Form::button('<i class="fi-eye"></i><br>CLASS OVERVIEW', ['class' => 'button small primary', 'type' => 'button', 'onclick' => 'return classwise()']) }}
                 @else
-                {{ Form::button('<i class="fi-eye"></i><br>CLASS OVERVIEW', ['class' => 'disabled button medium primary', 'type' => 'button']) }}
+                {{ Form::button('<i class="fi-eye"></i><br>CLASS OVERVIEW', ['class' => 'disabled button small primary', 'type' => 'button']) }}
                 @endif
             </li>
         </ul>
         <ul class="button-group left">
             <li>
                 @if($students)
-                {{ Form::button('<i class="fi-eye"></i><br>OVERALL RESULT', ['class' => 'button medium primary', 'type' => 'button', 'onclick' => 'return overall()']) }}
+                {{ Form::button('<i class="fi-eye"></i><br>OVERALL RESULT', ['class' => 'button small primary', 'type' => 'button', 'onclick' => 'return overall()']) }}
                 @else
-                {{ Form::button('<i class="fi-eye"></i><br>OVERALL RESULT', ['class' => 'disabled button medium primary', 'type' => 'button']) }}
+                {{ Form::button('<i class="fi-eye"></i><br>OVERALL RESULT', ['class' => 'disabled button small primary', 'type' => 'button']) }}
+                @endif
+            </li>
+        </ul>
+        <ul class="button-group left">
+            <li>
+                @if($students)
+                {{ Form::button('<i class="fi-eye"></i><br>PERSONAL INFO', ['class' => 'button small primary', 'type' => 'button', 'onclick' => 'return profile()']) }}
+                @else
+                {{ Form::button('<i class="fi-eye"></i><br>PERSONAL INFO', ['class' => 'disabled button small primary', 'type' => 'button']) }}
                 @endif
             </li>
         </ul>

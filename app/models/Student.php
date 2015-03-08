@@ -115,4 +115,33 @@ class Student extends Ardent
         return $lastClass ? $lastClass->name : null;
     }
 
+    public static function profile($id, $academicSessionId)
+    {
+        $academicSessionTable = (new AcademicSession)->getTable();
+        $enrollmentTable = (new Enrollment)->getTable();
+        $studentTable = (new Student)->getTable();
+        $classTable = (new ClassRoom)->getTable();
+        $photoTable = (new Photo)->getTable();
+
+        $student = Student::leftJoin($enrollmentTable, $enrollmentTable . '.student_id', '=', $studentTable . '.id')
+                    ->leftJoin($academicSessionTable, $enrollmentTable . '.academic_session_id', '=', $academicSessionTable . '.id')
+                    ->leftJoin($photoTable, $photoTable . '.student_id', '=', $studentTable . '.id')
+                    ->leftJoin($classTable, $enrollmentTable . '.class_room_id', '=', $classTable . '.id')
+                    ->where($studentTable . '.id', '=', $id)
+                    ->where($photoTable . '.default', '=', 1)
+                    ->where($academicSessionTable . '.id', '=', $academicSessionId)
+                    ->select(
+                        $studentTable . '.*',
+                        $classTable . '.name as class_room_name',
+                        $enrollmentTable . '.roll_no',
+                        $enrollmentTable . '.house',
+                        $photoTable . '.path',
+                        $academicSessionTable . '.start',
+                        $academicSessionTable . '.end'
+                        )
+                    ->first();
+
+        return $student;
+    }
+
 }

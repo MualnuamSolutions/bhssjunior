@@ -181,6 +181,24 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
     border:1px solid #000000;
     padding: 2px 6px;
 }
+.assessment-result table.data.profile th,
+.assessment-result table.data.profile td {
+    height: auto;
+    padding: 5px 8px;
+    text-align: left;
+    vertical-align: top;
+}
+.assessment-result table.data.profile table {
+    width: 100%;
+}
+.assessment-result table.data.profile table th,
+.assessment-result table.data.profile table td {
+    border: none;
+    /*border-bottom: 1px solid #000000;*/
+    padding: 3px 0;
+    width: 33%;
+    text-align: center;
+}
 .assessment-result table.footer {
     border-collapse: collapse;
     border: 1px solid #000000;
