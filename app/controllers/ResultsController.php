@@ -221,7 +221,7 @@ class ResultsController extends \BaseController
         $student = Student::profile($id, Input::get('academic_session'));
         $measurements = Measurement::where('student_id', '=', $id)
                             ->where('academic_session_id', '=', Input::get('academic_session'))
-                            ->orderBy('created_at', 'desc')
+                            ->orderBy('created_at', 'asc')
                             ->get();
         $schoolHeadDesignation = Option::data('school_head_designation');
         $schoolHead = User::find(Option::data('school_head'));
