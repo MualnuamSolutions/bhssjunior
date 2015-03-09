@@ -47,8 +47,8 @@ class StudentsController extends \BaseController
 
         $currentSession = AcademicSession::currentSession();
 
-        $students = Student::join($enrollmentTable, $enrollmentTable . '.student_id', '=', $studentTable . '.id')
-            ->where(function($query) use ($search, $studentTable) {
+        $students = Student::leftJoin($enrollmentTable, $enrollmentTable . '.student_id', '=', $studentTable . '.id')
+            ->where(function($query) use ($search, $studentTable, $currentSession) {
                 if($search != "") {
                     $query->where($studentTable . '.name', 'LIKE', '%' . $search . '%');
                     $query->orWhere($studentTable . '.father', 'LIKE', '%' . $search . '%');
@@ -56,7 +56,6 @@ class StudentsController extends \BaseController
                     $query->orWhere($studentTable . '.contact1', 'LIKE', $search . '%');
                 }
             })
-            ->where($enrollmentTable . '.academic_session_id', '=', $currentSession->id)
             ->groupBy($studentTable . '.id')
             ->orderBy($studentTable . '.' . $order, $orderDirection[$order])
             ->select(
