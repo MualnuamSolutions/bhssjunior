@@ -4,7 +4,7 @@
                 <h2>PERSONAL INFORMATION</h2>
                 <p>
                     @if($student->path)
-                    <img src="http://www.bhssjr.com/{{ $student->path }}" height="150px" width="auto" alt="{{ $student->name }}" />
+                    <img src="http://www.bhssjr.com/{{ $student->path }}" height="100px" width="auto" alt="{{ $student->name }}" />
                     @endif
                 </p>
             </td>
@@ -86,9 +86,12 @@
     <table class="info">
         <tr>
            <td width="50%"></td>
-           <td width="50%">
-               <div class="center" style="margin-top:10mm">{{ strtoupper(Option::data('school_head_name')) }}</div>
-               <div class="center">({{ Option::data('school_head_designation') }})</div>
+            <td width="50%">
+                <div class="center" style="margin-top:5mm">
+                    <img height="40px" src="{{ asset($schoolHead->signature) }}">
+                </div>
+                <div class="center">{{ strtoupper($schoolHead->name) }}</div>
+                <div class="center">({{ $schoolHeadDesignation }})</div>
            </td>
         </tr>
     </table>

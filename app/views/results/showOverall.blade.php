@@ -188,13 +188,13 @@
                 @if($classRoom->classTeacher2)
 
                 <div style="width:100%;height:40px">
-                    @if($classRoom->classTeacher2 && $classRoom->classTeacher2->signature && file_exists(public_path($classRoom->classTeacher2->signature)))
-                    {{ $classRoom->classTeacher2 && $classRoom->classTeacher2->signature ? '<img src="' . asset($classRoom->classTeacher2->signature) . '" height="40px" alt="" />' :null }}
+                    @if($schoolHead && $schoolHead->signature && file_exists(public_path($schoolHead->signature)))
+                    {{ $schoolHead && $schoolHead->signature ? '<img src="' . asset($schoolHead->signature) . '" height="40px" alt="" />' :null }}
                     @endif
                 </div>
 
-                <div>({{ $classRoom->classTeacher2 ? strtoupper($classRoom->classTeacher2->name) : null }})</div>
-                <div>Class Teacher</div>
+                <div>({{ $schoolHead ? strtoupper($schoolHead->name) : null }})</div>
+                <div>{{ $schoolHeadDesignation }}</div>
                 @endif
             </td>
         </tr>

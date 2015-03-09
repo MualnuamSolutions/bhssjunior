@@ -1,7 +1,7 @@
 {{ Form::open(['route' => 'results.index', 'method' => 'get', 'class' => 'toolbar']) }}
 <div class="row">
     <div class="medium-3 columns">
-        {{ Form::select('academic_session', $academicSessions, Input::get('academic_session'), ['id' => 'academic_session']) }}
+        {{ Form::select('academic_session', $academicSessions, Input::get('academic_session', AcademicSession::currentSession()->id), ['id' => 'academic_session']) }}
     </div>
     <div class="medium-2 columns">
         {{ Form::select('assessment', $assessments, Input::get('assessment'), ['id' => 'assessment']) }}

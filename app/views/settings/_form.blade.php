@@ -79,11 +79,11 @@
 
       <div class="row">
          <div class="medium-6 columns">
-            {{ Form::label('school_head_name', 'Name of School Head', ['class' => ($errors->has('school_head_name')?'error':'')]) }}
-            {{ Form::text('school_head_name', null, ['placeholder' => 'Name of the school head', 'class' => $errors->has('school_head_name')?'error':'']) }}
+            {{ Form::label('school_head', 'School Head', ['class' => ($errors->has('school_head')?'error':'')]) }}
+            {{ Form::select('school_head', $users, null, ['placeholder' => 'Select school head', 'class' => $errors->has('school_head')?'error':'']) }}
 
-            @if($errors->has('school_head_name'))
-            <small class="error">{{ $errors->first('school_head_name') }}</small>
+            @if($errors->has('school_head'))
+            <small class="error">{{ $errors->first('school_head') }}</small>
             @endif
          </div>
          <div class="medium-6 columns">

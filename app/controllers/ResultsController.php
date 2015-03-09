@@ -223,10 +223,14 @@ class ResultsController extends \BaseController
                             ->where('academic_session_id', '=', Input::get('academic_session'))
                             ->orderBy('created_at', 'desc')
                             ->get();
+        $schoolHeadDesignation = Option::data('school_head_designation');
+        $schoolHead = User::find(Option::data('school_head'));
         
         return View::make('results.profile', compact(
             'student',
-            'measurements'
+            'measurements',
+            'schoolHead',
+            'schoolHeadDesignation'
         ));
     }
 
@@ -399,6 +403,8 @@ class ResultsController extends \BaseController
             ->where($resultConfigTable . '.academic_session_id', '=', $academicSession->id)
             ->orderBy($assessmentTable . '.order', 'asc')
             ->get();
+        $schoolHead = User::find(Option::data('school_head'));
+        $schoolHeadDesignation = Option::data('school_head_designation');
 
         return View::make('results.showOverall', compact(
             'student',
@@ -406,7 +412,9 @@ class ResultsController extends \BaseController
             'classRoom',
             'enrollment',
             'resultConfig',
-            'resultConfigs'
+            'resultConfigs',
+            'schoolHead',
+            'schoolHeadDesignation'
         ));
     }
 }

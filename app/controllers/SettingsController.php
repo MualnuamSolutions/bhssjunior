@@ -17,8 +17,9 @@ class SettingsController extends \BaseController {
         $settings = Option::get()->lists('option_data', 'option_key');
         $assessments = Assessment::getDropDownList();
         $academicSessions = AcademicSession::getDropDownList();
+        $users = User::getDropDownList();
 
-		return View::make('settings.index', compact('settings', 'assessments', 'academicSessions'));
+		return View::make('settings.index', compact('settings', 'assessments', 'academicSessions', 'users'));
 	}
 
 

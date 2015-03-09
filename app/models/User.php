@@ -137,4 +137,9 @@ class User extends Eloquent
 
         return $staffs;
     }
+
+    public static function getDropDownList()
+    {
+        return self::orderBy('name', 'asc')->lists('name', 'id');
+    }
 }
