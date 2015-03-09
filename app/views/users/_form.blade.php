@@ -122,7 +122,7 @@
                 </div>
                 <div class="small-4 columns">
                     {{ Form::label('epic_no', 'EPIC No', ['class' => $errors->has('epic_no')?'error':'']) }}
-                    {{ Form::text('epic_no', null, ['placeholder' => 'Contact number is optional']) }}
+                    {{ Form::text('epic_no', null, ['placeholder' => 'EPIC No is optional']) }}
 
                     @if($errors->has('epic_no'))
                     <small class="error">{{ $errors->first('epic_no') }}</small>
