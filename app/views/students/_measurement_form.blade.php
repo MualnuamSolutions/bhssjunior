@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="small-3 columns">
                     {{ Form::label('academic_session_id', 'Academic Session', ['class' => ($errors->has('academic_session_id') ? 'error' : '')]) }}
-                    {{ Form::select('academic_session_id', $academicSessions, null, ['class' => $errors->has('academic_session_id')?'error':'']) }}
+                    {{ Form::select('academic_session_id', $academicSessions, AcademicSession::currentSession()->id, ['class' => $errors->has('academic_session_id')?'error':'']) }}
                     @if($errors->has('academic_session_id'))
                     <small class="error">{{ $errors->first('academic_session_id') }}</small>
                     @endif
