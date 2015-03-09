@@ -1,7 +1,7 @@
     <table class="top-head">
         <tr>
             <td colspan="2" align="center">
-                <h2>PERSONAL INFORMATION</h2>
+                <h2>PERSONAL PROFILE</h2>
                 <p>
                     @if($student->path)
                     <img src="http://www.bhssjr.com/{{ $student->path }}" height="100px" width="auto" alt="{{ $student->name }}" />
@@ -24,6 +24,10 @@
             <tr>
                 <th>GENDER</th>
                 <td>{{ $student->gender }}</td>
+            </tr>
+            <tr>
+                <th>DATE OF BIRTH</th>
+                <td>{{ date('d M Y', strtotime($student->dob)) }}</td>
             </tr>
             <tr>
                 <th>CLASS</th>

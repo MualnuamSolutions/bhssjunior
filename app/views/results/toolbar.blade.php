@@ -72,9 +72,9 @@
         <ul class="button-group left">
             <li>
                 @if($students)
-                {{ Form::button('<i class="fi-eye"></i><br>PERSONAL INFO', ['class' => 'button small primary', 'type' => 'button', 'onclick' => 'return profile()']) }}
+                {{ Form::button('<i class="fi-eye"></i><br>PERSONAL PROFILE', ['class' => 'button small primary', 'type' => 'button', 'onclick' => 'return profile()']) }}
                 @else
-                {{ Form::button('<i class="fi-eye"></i><br>PERSONAL INFO', ['class' => 'disabled button small primary', 'type' => 'button']) }}
+                {{ Form::button('<i class="fi-eye"></i><br>PERSONAL PROFILE', ['class' => 'disabled button small primary', 'type' => 'button']) }}
                 @endif
             </li>
         </ul>
