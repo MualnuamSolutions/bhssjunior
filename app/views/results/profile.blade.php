@@ -47,7 +47,7 @@
             </tr>
             <tr>
                 <th>ADDRESS</th>
-                <td>{{ $student->contact1 }}</td>
+                <td>{{ $student->address }}</td>
             </tr>
             <tr>
                 <th>PHYSICAL MEASUREMENTS</th>
@@ -74,7 +74,7 @@
             </tr>
             <tr>
                 <th>HOUSE</th>
-                <td>{{ $student->contact1 }}</td>
+                <td>{{ $student->house }}</td>
             </tr>
             <tr>
                 <th>SESSION</th>
