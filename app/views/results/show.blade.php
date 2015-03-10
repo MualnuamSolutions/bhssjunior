@@ -141,7 +141,7 @@
                 </div>
 
                 <div>({{ $classRoom->classTeacher2 ? strtoupper($classRoom->classTeacher2->name) : null }})</div>
-                <div>Class Teacher</div>
+                <div>Assistant Class Teacher</div>
                 @endif
             </td>
         </tr>
