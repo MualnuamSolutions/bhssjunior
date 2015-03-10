@@ -14,7 +14,7 @@
             <legend>Class Teachers</legend>
             <ul class="side-nav">
                {{ $classroom->classTeacher1 ? '<li><i class="fi-star"></i> ' . $classroom->classTeacher1->name . '</li>' : null }}
-               {{ $classroom->classTeacher2 ? '<li><i class="fi-star"></i> ' . $classroom->classTeacher2->name . '</li>' : null }}
+               {{ $classroom->classTeacher2 ? '<li><i class="fi-star"></i> <i>Assistant -</i> ' . $classroom->classTeacher2->name . '</li>' : null }}
             </ul>
          </fieldset>
 

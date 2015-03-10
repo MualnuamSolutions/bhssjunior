@@ -11,11 +11,11 @@
       <thead>
       <tr>
          <th>#</th>
-         <th class="small-2 medium-3">Class</th>
-         <th class="small-1 medium-2">Class Teachers</th>
+         <th class="small-2 medium-2">Class</th>
+         <th class="small-1 medium-4">Class Teachers</th>
          <th class="small-1 medium-2">Subjects</th>
          <th class="small-1 medium-2">Enrollment</th>
-         <th class="small-5 medium-3"></th>
+         <th class="small-5 medium-2"></th>
       </tr>
       </thead>
       <tbody>
@@ -25,7 +25,7 @@
          <td>{{ $classroom->name }}</td>
          <td>
             {{ $classroom->classTeacher1 }}<br>
-            {{ $classroom->classTeacher2 }}
+            <i>Assistant -</i> {{ $classroom->classTeacher2 }}
          </td>
          <td>{{ $classroom->subjectCount }}</td>
          <td>{{ $classroom->studentCount }}</td>

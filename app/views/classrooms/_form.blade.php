@@ -20,7 +20,7 @@
    </div>
 
    <div class="medium-4 columns">
-        {{ Form::label('class_teacher2_id', 'Class Teacher', ['class' => ($errors->has('class_teacher2_id')?'error':'')]) }}
+        {{ Form::label('class_teacher2_id', 'Assistant Class Teacher', ['class' => ($errors->has('class_teacher2_id')?'error':'')]) }}
 
         {{ Form::select('class_teacher2_id', $staffs, null, ['class' => $errors->has('class_teacher2_id')?'error':'']) }}
 
