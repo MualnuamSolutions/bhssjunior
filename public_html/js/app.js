@@ -12,7 +12,6 @@ $(function () {
         $(this).closest('form').submit();
     });
 
-    $('.select-all option').prop('selected', true);
     $('#select_all').click(function() {
 	    if(!$('.select-all option').prop('selected'))
 	    	$('.select-all option').prop('selected', true);
