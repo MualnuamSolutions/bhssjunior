@@ -34,17 +34,25 @@ class MarksController extends \BaseController
         $enrollments = [];
         $tests = [];
         $classroom = null;
+        $students = [];
         $locked = false;
 
         if (!empty($input)) {
             $classroom = ClassRoom::with(array('subjects', 'enrollments' => function ($query) use ($input) {
                 $query->with('student');
+                
+                if(isset($input['student_id']) && $input['student_id'] != 0)
+                    $query->where('student_id', '=', $input['student_id']);
+
                 $query->whereAcademicSessionId($input['academic_session_id']);
                 $query->orderBy('roll_no', 'asc');
-            }))->find($input['class_room_id']);
+            }))
+            ->find($input['class_room_id']);
 
             $enrollments = $classroom->enrollments;
-
+            foreach ($enrollments as $key => $enrollment) {
+                $students[$enrollment->student_id] = $enrollment->roll_no . '. ' . $enrollment->student->name;
+            }
             $tests = Test::getDropDownList($input);
             $subject = Subject::find($input['subject_id']);
             $assessment = Assessment::find($input['assessment_id']);
@@ -58,7 +66,7 @@ class MarksController extends \BaseController
         }
 
         return View::make('marks.create', compact('assessments',
-            'classes', 'subjects', 'academicSessions', 'input', 'enrollments', 'tests', 'subject', 'assessment', 'locked'));
+            'classes', 'subjects', 'academicSessions', 'input', 'enrollments', 'tests', 'subject', 'assessment', 'locked', 'students'));
     }
 
 

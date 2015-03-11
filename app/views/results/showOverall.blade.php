@@ -26,7 +26,6 @@
         <thead>
             <tr>
                 <th><strong>Subjects</strong></th>
-                <th class="head1 verticalTableHeader"><b>Subject Teachers</b></th>
                 <?php
                 $schemesTotal = 0;
                 $schemesDisplayFooter = [];
@@ -49,7 +48,7 @@
 
                 @endforeach
                 <th><b>Overall<br>{{ $schemesTotal }}%</b></th>
-                <th><b>Grade</b></th>
+                <th><b>Total</b></th>
             </tr>
         </thead>
         <tbody>
@@ -62,6 +61,7 @@
             $total_overall_full_mark = 0;
             $subjectOverall = 0;
             $subjectOverallTotal = 0;
+            $subjectTotalTotal = 0;
             $colWidth =  52 / ($colSize+1) . "%";
             ?>
 
@@ -72,7 +72,6 @@
             ?>
             <tr>
                 <td width="33%">{{ strtoupper($subject->name) }}</td>
-                <td width="7%"></td>
                 @foreach($resultConfigs as $config)
                 <?php
                 $tests = \Mualnuam\ResultHelper::studentSubjectTest($student->id, $subject->id, $classRoom->id, $config->assessment_id, $academicSession->id, $config, $externalGroup->id);
@@ -82,7 +81,7 @@
 
                 if($classTestMarkExists[$config->id]) :
 
-                    $mark = ($subject->type == 'Half Paper' ? $tests['cumulated']/2 : $tests['cumulated']);
+                    $mark = ($subject->type == 'Half Paper' ? round($tests['cumulated']/2, 2) : $tests['cumulated']);
 
                     if( isset($total_full_mark[$config->id]) )
                         $total_full_mark[$config->id] += $tests['total_of_full_marks'];
@@ -105,15 +104,32 @@
                 <?php endif; ?>
                 
                 @endforeach
-
+                <?php
+                    $subjectTotal = $subject->type == 'Half Paper' ? 50 : 100;
+                    $subjectTotalTotal += $subjectTotal;
+                ?>
                 <td width="{{ $colWidth }}">{{ round($subjectOverall, 2) }}</td>
-                <td width="8%">{{ \Mualnuam\ResultHelper::grade( (round($subjectOverall, 2)/10), $resultConfig ) }}</td>
+                <td width="8%">{{ $subjectTotal }}</td>
             </tr>
             @endforeach
 
             <tr>
                 <td align="right">Total</td>
-                <td></td>
+                @foreach($resultConfigs as $config)
+                <?php if($classTestMarkExists[$config->id]) :
+                    $subjectOverallTotal += $total_cumulated[$config->id];
+                ?>
+                <td>{{ $total_cumulated[$config->id] }}</td>
+                <?php endif; ?>
+                @endforeach
+                
+                <td>{{ $subjectOverallTotal }}</td>
+                <td>{{ $subjectTotalTotal }}</td>
+            </tr>
+            <?php $overallTotal = $subjectOverallTotal; ?>
+            <?php $subjectOverallTotal = 0; ?>
+            <tr>
+                <td align="right">Percentage</td>
                 @foreach($resultConfigs as $config)
                 <?php
                 if($classTestMarkExists[$config->id]) :
@@ -126,11 +142,10 @@
                 @endforeach
                 
                 <td>{{ round($subjectOverallTotal, 2) }}</td>
-                <td>{{ \Mualnuam\ResultHelper::grade( (round($subjectOverallTotal, 2)/10), $resultConfig ) }}</td>
+                <td></td>
             </tr>
             <tr>
                 <td align="right">Rank</td>
-                <td></td>
                 @foreach($resultConfigs as $config)
                 @if($classTestMarkExists[$config->id])
                 <td class="rank-{{ $config->id }}-{{ $student->id }}"></td>
@@ -150,7 +165,7 @@
             <tr>
                 <td width="25%">Percentage</td>
                 <?php $percentage = round(($total_overall_mark / $total_overall_full_mark ) * 100, 2); ?>
-                <td width="25%">{{ round($percentage, 2) }}</td>
+                <td width="25%">{{ round($subjectOverallTotal, 2) }}</td>
                 <td width="25%">Class Average</td>
                 <td width="25%" class="class-average"></td>                
             </tr>

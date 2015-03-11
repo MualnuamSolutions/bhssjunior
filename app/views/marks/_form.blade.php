@@ -30,6 +30,14 @@
 <small class="error">{{ $errors->first('subject_id') }}</small>
 @endif
 
+{{ Form::label('student_id', 'Student', ['class' => ($errors->has('student_id') ? 'error' : '')]) }}
+
+{{ Form::select('student_id', [0 => 'All Students'] + $students, Input::get('student_id', null), ['class' => $errors->has('student_id') ? 'error' : '']) }}
+
+@if($errors->has('student_id'))
+<small class="error">{{ $errors->first('student_id') }}</small>
+@endif
+
 {{ Form::button('Load Entry Form', ['id' => 'load_entry_form', 'class' => 'medium button success', 'type' => 'submit']) }}
 
 <hr>

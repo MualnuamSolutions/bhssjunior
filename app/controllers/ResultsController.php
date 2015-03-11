@@ -99,8 +99,9 @@ class ResultsController extends \BaseController
                         ->where('class_room_id', '=', $class->id)
                         ->where('academic_session_id', '=', $academicSession->id)
                         ->where(function($query) use ($student, $studentTable) {
-                            if($student != 0)
-                                $query->where($studentTable . '.id', '=', $student);
+                            $student = explode(",", $student);
+                            if(!empty($student))
+                                $query->whereIn($studentTable . '.id', $student);
                         })
                         ->orderBy('roll_no', 'asc')
                         ->select($studentTable.'.id', $enrollmentTable . '.roll_no', $studentTable . '.name', $studentTable . '.regno')
