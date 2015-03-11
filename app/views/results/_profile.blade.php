@@ -33,7 +33,7 @@ var counter = 0;
 
 $(function(){
    @foreach($students as $student)
-   jQuery.ajax({
+   jQuery.ajaxQueue({
         url: '{{ route('results.profile', $student->id) }}',
         type: 'get',
         data: 'academic_session={{ $academicSession->id }}'
