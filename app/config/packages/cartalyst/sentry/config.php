@@ -70,7 +70,7 @@ return array(
       |
       */
 
-      'key' => 'results_software',
+      'key' => 'cartalyst_sentry',
 
    ),
 
