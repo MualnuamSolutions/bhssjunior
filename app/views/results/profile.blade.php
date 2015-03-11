@@ -4,7 +4,7 @@
                 <h2>PERSONAL PROFILE</h2>
                 <p>
                     @if($student->path)
-                    <img src="http://www.bhssjr.com/{{ $student->path }}" height="100px" width="auto" alt="{{ $student->name }}" />
+                    <img src="http://www.bhssjr.com/{{ $student->path }}" height="100px" width="auto" alt="{{ $student->name }}" style="height:130px;" />
                     @endif
                 </p>
             </td>
@@ -92,7 +92,7 @@
            <td width="50%"></td>
             <td width="50%">
                 <div class="center" style="margin-top:5mm">
-                    <img height="40px" src="{{ asset($schoolHead->signature) }}">
+                    <img height="40px" src="http://www.bhssjr.com/{{ $schoolHead->signature }}">
                 </div>
                 <div class="center">{{ strtoupper($schoolHead->name) }}</div>
                 <div class="center">({{ $schoolHeadDesignation }})</div>
