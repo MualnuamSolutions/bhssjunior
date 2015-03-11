@@ -81,7 +81,7 @@
 
                 if($classTestMarkExists[$config->id]) :
 
-                    $mark = ($subject->type == 'Half Paper' ? round($tests['cumulated']/2, 2) : $tests['cumulated']);
+                    $mark = ($subject->type == 'Half Paper' ? $tests['cumulated']/2 : $tests['cumulated']);
 
                     if( isset($total_full_mark[$config->id]) )
                         $total_full_mark[$config->id] += $tests['total_of_full_marks'];
@@ -100,7 +100,7 @@
 
                     $subjectOverall += $mark;
                 ?>
-                <td width="{{ $colWidth }}">{{ $mark }}</td>
+                <td width="{{ $colWidth }}">{{ round($mark, 2) }}</td>
                 <?php endif; ?>
                 
                 @endforeach
@@ -119,11 +119,11 @@
                 <?php if($classTestMarkExists[$config->id]) :
                     $subjectOverallTotal += $total_cumulated[$config->id];
                 ?>
-                <td>{{ $total_cumulated[$config->id] }}</td>
+                <td>{{ round($total_cumulated[$config->id], 2) }}</td>
                 <?php endif; ?>
                 @endforeach
                 
-                <td>{{ $subjectOverallTotal }}</td>
+                <td>{{ round($subjectOverallTotal, 2) }}</td>
                 <td>{{ $subjectTotalTotal }}</td>
             </tr>
             <?php $overallTotal = $subjectOverallTotal; ?>
@@ -134,14 +134,14 @@
                 <?php
                 if($classTestMarkExists[$config->id]) :
                     $percentage = $total_full_mark[$config->id] ? round(($total_mark[$config->id] / $total_full_mark[$config->id]) * 100, 2) : 0;
-                    $total = round( ($config->weightage / 100 ) * $percentage, 2);
+                    $total = ($config->weightage / 100 ) * $percentage;
                     $subjectOverallTotal += $total;
                 ?>
                 <td>{{ $total }}</td>
                 <?php endif; ?>
                 @endforeach
-                
-                <td>{{ round($subjectOverallTotal, 2) }}</td>
+                <?php $percentage = ($overallTotal / $subjectTotalTotal ) * 100; ?>
+                <td>{{ round($percentage, 2) }}</td>
                 <td></td>
             </tr>
             <tr>
@@ -164,8 +164,7 @@
             </tr>
             <tr>
                 <td width="25%">Percentage</td>
-                <?php $percentage = round(($total_overall_mark / $total_overall_full_mark ) * 100, 2); ?>
-                <td width="25%">{{ round($subjectOverallTotal, 2) }}</td>
+                <td width="25%" class="summary-percentage">{{ round($percentage, 2) }}</td>
                 <td width="25%">Class Average</td>
                 <td width="25%" class="class-average"></td>                
             </tr>

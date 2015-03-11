@@ -86,7 +86,13 @@ function closeLightbox()
             data: "academic_session={{ $academicSession->id }}"
         })
         .done(function(result){
-            $('.class-highest').text(result.classHighest + '%');
+            var highest = '';
+            $('.summary-percentage').each(function(){
+                var percent = $(this).text();
+                if(percent > highest)
+                    highest = percent;
+            });
+            $('.class-highest').text(highest + '%');
             $('.class-average').text(result.classAverage + '%');
             
             $.each(result.topTen, function(key, data){
