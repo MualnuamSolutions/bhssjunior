@@ -5,6 +5,8 @@
                 <p>
                     @if(isset($student->path) && $student->path)
                     <img src="http://www.bhssjr.com/{{ $student->path }}" height="100px" width="auto" alt="{{ $student->name }}" style="height:130px;" />
+                    @else
+                    <i class="fa fa-user default-picture"></i>
                     @endif
                 </p>
             </td>
