@@ -3,7 +3,7 @@
             <td colspan="2" align="center">
                 <h2>PERSONAL PROFILE</h2>
                 <p>
-                    @if($student->path)
+                    @if(isset($student->path) && $student->path)
                     <img src="http://www.bhssjr.com/{{ $student->path }}" height="100px" width="auto" alt="{{ $student->name }}" style="height:130px;" />
                     @endif
                 </p>
