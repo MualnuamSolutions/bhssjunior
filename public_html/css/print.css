@@ -311,6 +311,16 @@ body {margin:0;font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-
     left: 0;
     top: 0;
 }
+.print-button-wrapper {
+    height: 34px;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    margin: 0;
+    background: #FFFFFF;
+    z-index: 1000;
+    padding: 8px 0px;
+}
 .print-button,
 .close-button {
     display: none;

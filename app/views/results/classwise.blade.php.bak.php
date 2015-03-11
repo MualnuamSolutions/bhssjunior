@@ -2,7 +2,7 @@
 
 @section('content')
 
-<p class="center">
+<p class="center print-button-wrapper">
     <button onclick="window.print();" class="print-button">PRINT</button>
     <button onclick="window.close();" class="close-button">CLOSE</button>
 </p>

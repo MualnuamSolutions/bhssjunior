@@ -2,7 +2,7 @@
 
 @section('content')
 
-<p class="center">
+<p class="center print-button-wrapper">
     @if($logged_user->hasAccess('printResult'))
     <button onclick="window.print();" class="print-button">PRINT</button>
     @endif
