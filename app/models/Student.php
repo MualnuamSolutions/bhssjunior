@@ -128,7 +128,10 @@ class Student extends Ardent
                     ->leftJoin($photoTable, $photoTable . '.student_id', '=', $studentTable . '.id')
                     ->leftJoin($classTable, $enrollmentTable . '.class_room_id', '=', $classTable . '.id')
                     ->where($studentTable . '.id', '=', $id)
-                    ->where($photoTable . '.default', '=', 1)
+                    ->where(function($q) use ($photoTable){
+                        $q->whereRaw($photoTable . '.default IS NULL');
+                        $q->orWhere($photoTable . '.default', '=', 1);
+                    })
                     ->where($academicSessionTable . '.id', '=', $academicSessionId)
                     ->select(
                         $studentTable . '.*',
